@@ -1,8 +1,50 @@
-import { queryType, objectType, enumType } from 'nexus'
+import { Photon } from '@generated/photon'
+import { enumType, mutationType, objectType, queryType, stringArg } from 'nexus'
+import { IItem } from './interfaces'
+import { inferNewItemFromUrl } from './parsers'
+
+const photon = new Photon()
+
+export const Mutation = mutationType({
+    definition(t) {
+        t.crud.createOneSection()
+        t.crud.createOneCollection()
+        t.field('createItem', {
+            type: 'Item',
+            args: {
+                url: stringArg({ required: true }),
+                collectionId: stringArg({ required: true }),
+                overridedTitle: stringArg(),
+            },
+            async resolve(_, { url, overridedTitle, collectionId }, ctx) {
+                return inferNewItemFromUrl(url).then((item: IItem) => {
+                    return photon.items.create({
+                        data: {
+                            title: overridedTitle || item.title,
+                            author: item.author,
+                            type: item.type,
+                            meta: {},
+                            productUrl: item.productUrl,
+                            imageUrl: item.imageUrl,
+                            collection: {
+                                connect: {
+                                    id: collectionId,
+                                },
+                            },
+                        },
+                    })
+                })
+            },
+        })
+    },
+})
 
 export const Query = queryType({
     definition(t) {
         t.crud.user()
+        t.crud.collection()
+        t.crud.section()
+        t.crud.sections({filtering: { owner: true }})
         t.crud.collections({
             ordering: { date: true },
             filtering: { owner: true, section: true },
@@ -66,12 +108,23 @@ export const Item = objectType({
         t.model.title()
         t.model.imageUrl()
         t.model.productUrl()
+        t.model.description()
         t.model.comment()
         t.model.type()
+        t.model.meta()
     },
 })
 
 const ItemType = enumType({
     name: 'ItemType',
-    members: ['book', 'album', 'movie', 'people', 'video', 'paper', 'podcast'],
+    members: [
+        'book',
+        'album',
+        'movie',
+        'people',
+        'video',
+        'article',
+        'podcast',
+        'repository',
+    ],
 })
