@@ -23,7 +23,7 @@ export const Mutation = mutationType({
                             title: overridedTitle || item.title,
                             author: item.author,
                             type: item.type,
-                            meta: {},
+                            meta: item.meta && JSON.stringify(item.meta),
                             productUrl: item.productUrl,
                             imageUrl: item.imageUrl,
                             collection: {
@@ -81,6 +81,7 @@ export const Section = objectType({
     name: 'Section',
     definition(t) {
         t.model.id()
+        t.model.slug()
         t.model.index()
         t.model.name()
         t.model.collections()
@@ -91,6 +92,7 @@ export const Collection = objectType({
     name: 'Collection',
     definition(t) {
         t.model.id()
+        t.model.slug()
         t.model.name()
         t.model.date()
         t.model.detail()

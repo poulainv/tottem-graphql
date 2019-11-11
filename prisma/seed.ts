@@ -43,7 +43,7 @@ async function main() {
       console.log(`Create : ${profile.slug}' collection ${section.name} items`);
       await photon.sections.create({
         data: {
-          //   id: section.id,
+          slug: section.id,
           name: section.name,
           index: section.index,
           owner: {
@@ -54,7 +54,7 @@ async function main() {
           collections: {
             create: section.collections.map((collection: ICollection) => {
               return {
-                // id: collection.id,
+                slug: collection.id,
                 name: collection.name,
                 detail: collection.detail,
                 date: collection.date.toString(),
@@ -69,12 +69,12 @@ async function main() {
                     collection.items.map(x => {
                       return {
                         title: x.title,
-                        author: x.author || "",
+                        author: x.author,
                         type: x.type,
-                        productUrl: x.productUrl || "",
-                        imageUrl: x.imageUrl || "",
+                        productUrl: x.productUrl,
+                        imageUrl: x.imageUrl,
                         description: x.note,
-                        meta: x.meta !== undefined ? x.meta.toString() : ""
+                        meta: x.meta !== undefined ? JSON.stringify(x.meta) : undefined
                       };
                     })
                 }

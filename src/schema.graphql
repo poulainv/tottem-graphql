@@ -10,6 +10,7 @@ type Collection {
   name: String!
   owner: User!
   section: Section!
+  slug: String!
 }
 
 input CollectionCreateInput {
@@ -21,6 +22,7 @@ input CollectionCreateInput {
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
   section: SectionCreateOneWithoutSectionInput!
+  slug: String!
 }
 
 input CollectionCreateManyWithoutCollectionsInput {
@@ -36,6 +38,7 @@ input CollectionCreateWithoutSectionInput {
   items: ItemCreateManyWithoutItemsInput
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
+  slug: String!
 }
 
 input CollectionFilter {
@@ -56,10 +59,12 @@ input CollectionWhereInput {
   OR: [CollectionWhereInput!]
   owner: UserWhereInput
   section: SectionWhereInput
+  slug: StringFilter
 }
 
 input CollectionWhereUniqueInput {
   id: ID
+  slug: String
 }
 
 scalar DateTime
@@ -87,13 +92,13 @@ input IntFilter {
 }
 
 type Item {
-  author: String!
+  author: String
   comment: String
   description: String
   id: ID!
   imageUrl: String
-  meta: String!
-  productUrl: String!
+  meta: String
+  productUrl: String
   title: String!
   type: ItemType!
 }
@@ -104,14 +109,14 @@ input ItemCreateManyWithoutItemsInput {
 }
 
 input ItemCreateWithoutCollectionInput {
-  author: String!
+  author: String
   comment: String
   createdAt: DateTime
   description: String
   id: ID
   imageUrl: String
-  meta: String!
-  productUrl: String!
+  meta: String
+  productUrl: String
   title: String!
   type: ItemType!
   updatedAt: DateTime
@@ -137,17 +142,17 @@ enum ItemType {
 
 input ItemWhereInput {
   AND: [ItemWhereInput!]
-  author: StringFilter
+  author: NullableStringFilter
   collection: CollectionWhereInput
   comment: NullableStringFilter
   createdAt: DateTimeFilter
   description: NullableStringFilter
   id: StringFilter
   imageUrl: NullableStringFilter
-  meta: StringFilter
+  meta: NullableStringFilter
   NOT: [ItemWhereInput!]
   OR: [ItemWhereInput!]
-  productUrl: StringFilter
+  productUrl: NullableStringFilter
   title: StringFilter
   type: ItemType
   updatedAt: DateTimeFilter
@@ -246,6 +251,7 @@ type Section {
   id: ID!
   index: Int!
   name: String!
+  slug: String!
 }
 
 input SectionCreateInput {
@@ -255,6 +261,7 @@ input SectionCreateInput {
   index: Int
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
+  slug: String!
 }
 
 input SectionCreateManyWithoutSectionsInput {
@@ -273,6 +280,7 @@ input SectionCreateWithoutCollectionsInput {
   index: Int
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
+  slug: String!
 }
 
 input SectionCreateWithoutOwnerInput {
@@ -281,6 +289,7 @@ input SectionCreateWithoutOwnerInput {
   id: ID
   index: Int
   name: String!
+  slug: String!
 }
 
 input SectionFilter {
@@ -299,6 +308,7 @@ input SectionWhereInput {
   NOT: [SectionWhereInput!]
   OR: [SectionWhereInput!]
   owner: UserWhereInput
+  slug: StringFilter
 }
 
 input SectionWhereUniqueInput {

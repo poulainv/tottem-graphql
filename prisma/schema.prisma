@@ -23,6 +23,7 @@ model User {
 model Section {
   id          String       @default(cuid()) @id
   createdAt   DateTime     @default(now())
+  slug        String       
   name        String
   index       Int          @default(0)
   collections Collection[]
@@ -32,6 +33,7 @@ model Section {
 model Collection {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+  slug      String   @unique
   name      String
   detail    String?
   items     Item[]
@@ -51,18 +53,18 @@ model Profile {
 
 
 model Item {
-  id         String      @default(cuid()) @id
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  title      String
-  author     String
-  type       ItemType
-  productUrl String
-  imageUrl   String?
+  id          String      @default(cuid()) @id
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  title       String
+  author      String?
+  type        ItemType
+  productUrl  String?
+  imageUrl    String?
   description String?
-  comment    String?
-  collection Collection?
-  meta      String
+  comment     String?
+  collection  Collection?
+  meta        String?     @default("{}")
 }
 
 

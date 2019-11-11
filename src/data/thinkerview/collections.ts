@@ -137,7 +137,7 @@ const collections: ICollection[] = [
         items: itemsByCollection['13'],
     },
     {
-        id: '14',
+        id: '14a',
         slug: 'alain-damasio',
         date: new Date('2019-04-11T12:00:00'),
         sectionId: '12',
@@ -157,7 +157,7 @@ const collections: ICollection[] = [
         items: itemsByCollection['15'],
     },
     {
-        id: '',
+        id: '1d',
         slug: 'edgar-morin',
         date: new Date('2018-09-19T12:00:00'),
         sectionId: '12',
@@ -217,7 +217,7 @@ const collections: ICollection[] = [
         items: itemsByCollection['21'],
     },
     {
-        id: '1',
+        id: '1a',
         slug: '22',
         date: new Date('2019-02-18T12:00:00'),
         sectionId: '12',
@@ -227,7 +227,7 @@ const collections: ICollection[] = [
         items: itemsByCollection['22'],
     },
     {
-        id: '1',
+        id: '1b',
         slug: '23',
         date: new Date('2019-02-12T12:00:00'),
         sectionId: '14',

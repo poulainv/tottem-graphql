@@ -1,4 +1,4 @@
-import { UserProfile } from '../../types'
+import { UserProfile } from '../types'
 
 const profile: UserProfile = {
     firstname: 'François B.',

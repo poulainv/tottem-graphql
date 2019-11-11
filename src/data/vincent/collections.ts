@@ -6,7 +6,7 @@ const itemsByCollection = keyBy(items, (x: Item) => x.collectionId);
 
 export const collections: ICollection[] = [
   {
-    id: "11",
+    id: "11a",
     sectionId: "1",
     date: new Date("2019-10-01T12:00:00"),
     name:
@@ -30,7 +30,7 @@ export const collections: ICollection[] = [
   //     items: itemsByCollection['15'],
   // },
   {
-    id: "14",
+    id: "14a",
     sectionId: "1",
     date: new Date("2019-10-01T12:00:00"),
     name: "**Influenceurs** (et gouroux) ! 🙏",
@@ -58,14 +58,14 @@ export const collections: ICollection[] = [
     items: itemsByCollection["10"]
   },
   {
-    id: "18",
+    id: "18a",
     sectionId: "3",
     date: new Date("2019-10-01T12:00:00"),
     name: "Albums **Instrumentaux** 💎",
     items: itemsByCollection["18"]
   },
   {
-    id: "19",
+    id: "19a",
     sectionId: "3",
     date: new Date("2019-10-01T12:00:00"),
     name: "Old school & **indémodables** 🎸",

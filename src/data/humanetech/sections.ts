@@ -374,7 +374,7 @@ const sections: ISection[] = [
                 ],
             },
             {
-                id: '204',
+                id: '2041',
                 name:
                     'Critical Understanding of Media, Representations, Situations of Choice',
                 date: new Date('2019-10-01T12:00:00'),
@@ -413,7 +413,7 @@ const sections: ISection[] = [
                 ],
             },
             {
-                id: '204',
+                id: '2042',
                 name:
                     'But Don’t People Make Free Choices? How much do environments control what people choose?',
                 date: new Date('2019-10-01T12:00:00'),
@@ -441,7 +441,7 @@ const sections: ISection[] = [
                 ],
             },
             {
-                id: '204',
+                id: '2043',
                 name:
                     'Invisible Distortions from Media, Metaphors, Social Constructs, Urban Design that Govern Our Lives',
                 date: new Date('2019-10-01T12:00:00'),
@@ -556,7 +556,7 @@ const sections: ISection[] = [
                 ],
             },
             {
-                id: '204',
+                id: '2044',
                 name:
                     'Deconstructing The Invisible “Inner Mediums” that Govern Our Lives',
                 date: new Date('2019-10-01T12:00:00'),
@@ -615,7 +615,7 @@ const sections: ISection[] = [
                 ],
             },
             {
-                id: '204',
+                id: '2045',
                 name:
                     'Systems Thinking: Seeing Forces That Select & Replicate Certain Constructs Over Others',
                 date: new Date('2019-10-01T12:00:00'),
@@ -662,7 +662,7 @@ const sections: ISection[] = [
                 ],
             },
             {
-                id: '204',
+                id: '2046',
                 name: 'The Importance of Coordination: Resources, Attention:',
                 date: new Date('2019-10-01T12:00:00'),
                 sectionId: '',
