@@ -13,6 +13,6 @@ const server = new ApolloServer({
   }
 });
 
-server.listen({ port: 4000, graphqlPath: "/graphql" }, () =>
+server.listen({ port: process.env.PORT || 4000 , graphqlPath: "/graphql" }, () =>
   console.log(`🚀 Server ready at http://localhost:4000/graphql`)
 );
