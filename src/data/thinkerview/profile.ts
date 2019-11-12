@@ -1,4 +1,4 @@
-import { UserProfile } from '../../types'
+import { UserProfile } from '../types'
 import sections from './sections'
 
 const profile: UserProfile = {
