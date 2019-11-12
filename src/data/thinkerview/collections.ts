@@ -137,7 +137,7 @@ const collections: ICollection[] = [
         items: itemsByCollection['13'],
     },
     {
-        id: '14a',
+        id: '14',
         slug: 'alain-damasio',
         date: new Date('2019-04-11T12:00:00'),
         sectionId: '12',

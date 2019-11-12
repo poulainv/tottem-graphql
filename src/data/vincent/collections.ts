@@ -51,7 +51,7 @@ export const collections: ICollection[] = [
     items: itemsByCollection["17"]
   },
   {
-    id: "10",
+    id: "10c",
     sectionId: "3",
     date: new Date("2019-10-01T12:00:00"),
     name: "**Albums électroniques** sur _repeat_ 👌",

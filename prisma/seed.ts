@@ -20,7 +20,7 @@ async function main() {
   for (const profileName of profiles) {
     const profile = require(`../src/data/${profileName}/profile`).default;
     const sections = getSections(profileName);
-    console.log(`Create : ${profile.firstname} profile`);
+    console.log(`Create : ${profile.slug} profile`);
     const user = await photon.users.create({
       data: {
         firstname: profile.firstname,
