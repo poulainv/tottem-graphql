@@ -3,6 +3,7 @@ import { enumType, mutationType, objectType, queryType, stringArg } from 'nexus'
 import { IItem } from './interfaces'
 import { inferNewItemFromUrl } from './parsers'
 
+// FIXME get photon in context
 const photon = new Photon()
 
 export const Mutation = mutationType({

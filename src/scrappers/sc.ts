@@ -35,7 +35,7 @@ const main = async () => {
     const items = await getSCList(
         'https://www.senscritique.com/liste/Lectures_2019/2389404'
     )
-    console.log(util.inspect(items))
+    logger.info(util.inspect(items))
 }
 
 main()
