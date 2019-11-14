@@ -32,9 +32,12 @@ export const verifyIdentity: (token?: string) => Promise<string> = async (
     return new Promise((resolve, reject) => {
         try {
             jwt.verify(token, getKey, options, (err, decoded) => {
-                if (err || typeof decoded === 'string') {
-                    logger.debug('Authorization headers not found')
-                    return resolve(undefined)
+                if (err) {
+                    return reject(`Authorization headers not decoded ${err}`)
+                } else if (typeof decoded === 'string') {
+                    return reject(
+                        `Authorization headers decoded as string ${decoded}`
+                    )
                 }
                 const access = decoded as Auth0AccessToken
                 const userId = access.sub
