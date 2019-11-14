@@ -20,6 +20,7 @@ export const schema = makeSchema({
         ],
     },
     outputs: {
+        typegen: join(__dirname, '/nexus.ts'),
         schema: join(__dirname, '/schema.graphql'),
     },
 })
