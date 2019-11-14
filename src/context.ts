@@ -1,17 +1,17 @@
 import { Photon } from '@generated/photon'
-import { verifyIdentity } from './lib/auth0'
+import { verifyIdentity, UserAuth0 } from './lib/auth0'
 import express from 'express'
 import logger from './logging'
 const photon = new Photon()
 
 interface Context {
     photon: Photon
-    user: Promise<string | void>
+    user: Promise<UserAuth0 | undefined>
 }
 
 const createContext: (req: express.Request) => Context = req => {
     // The request is authenticated or not
-    let user: Promise<string | undefined>
+    let user: Promise<UserAuth0 | undefined>
     if (req.headers !== undefined && req.headers.authorization) {
         const token = req.headers.authorization
         logger.info(

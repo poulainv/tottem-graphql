@@ -19,11 +19,12 @@ const options = {
     algorithms: ['RS256'],
 }
 
-interface Auth0AccessToken {
-    sub: string
+export interface UserAuth0 {
+    sub: string // auth0 userId
+    permissions: string[]
 }
 
-export const verifyIdentity: (token?: string) => Promise<string> = async (
+export const verifyIdentity: (token?: string) => Promise<UserAuth0> = async (
     token?: string
 ) => {
     if (token === undefined) {
@@ -39,10 +40,9 @@ export const verifyIdentity: (token?: string) => Promise<string> = async (
                         `Authorization headers decoded as string ${decoded}`
                     )
                 }
-                const access = decoded as Auth0AccessToken
-                const userId = access.sub
-                logger.info(`User authenticated: ${userId}`)
-                resolve(userId)
+                const userAuth0 = decoded as UserAuth0
+                logger.info(`User authenticated: ${userAuth0.sub}`)
+                resolve(userAuth0)
             })
         } catch (err) {
             reject(err)
