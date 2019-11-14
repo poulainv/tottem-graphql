@@ -2,9 +2,7 @@ import { Photon } from '@generated/photon'
 import { enumType, mutationType, objectType, queryType, stringArg } from 'nexus'
 import { IItem } from './interfaces'
 import { inferNewItemFromUrl } from './parsers'
-
-// FIXME get photon in context
-const photon = new Photon()
+import { Context } from './context'
 
 export const Mutation = mutationType({
     definition(t) {
@@ -17,9 +15,9 @@ export const Mutation = mutationType({
                 collectionId: stringArg({ required: true }),
                 overridedTitle: stringArg(),
             },
-            async resolve(_, { url, overridedTitle, collectionId }, ctx) {
+            async resolve(_, { url, overridedTitle, collectionId }, ctx: Context) {
                 return inferNewItemFromUrl(url).then((item: IItem) => {
-                    return photon.items.create({
+                    return ctx.photon.items.create({
                         data: {
                             title: overridedTitle || item.title,
                             author: item.author,
