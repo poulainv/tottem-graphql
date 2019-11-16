@@ -57,6 +57,7 @@ export const User = objectType({
     definition(t) {
         t.model.id()
         t.model.slug()
+        t.model.auth0Id()
         t.model.biography()
         t.model.profile()
         t.model.pictureUrl()

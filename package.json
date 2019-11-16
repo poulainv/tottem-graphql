@@ -23,6 +23,8 @@
         "postinstall": "yarn -s generate",
         "generate": "yarn -s generate:prisma && yarn -s generate:nexus",
         "generate:prisma": "prisma2 generate",
+        "lift:up": "prisma2 lift up",
+        "lift:save": "prisma2 lift save",
         "generate:nexus": "ts-node --transpile-only src/schema.ts",
         "seed": "ts-node --transpile-only prisma/seed.ts",
         "awesome": "ts-node src/scrappers/awesome.ts"

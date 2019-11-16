@@ -1,0 +1,18 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "auth0Id",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "auth0Id",
+      "directive": "unique"
+    }
+  ]
+}

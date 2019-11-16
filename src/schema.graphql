@@ -330,6 +330,7 @@ input StringFilter {
 }
 
 type User {
+  auth0Id: String
   biography: String!
   firstname: String!
   id: ID!
@@ -346,6 +347,7 @@ input UserCreateOneWithoutOwnerInput {
 }
 
 input UserCreateWithoutCollectionsInput {
+  auth0Id: String
   biography: String!
   createdAt: DateTime
   firstname: String!
@@ -365,6 +367,7 @@ input UserFilter {
 
 input UserWhereInput {
   AND: [UserWhereInput!]
+  auth0Id: NullableStringFilter
   biography: StringFilter
   collections: CollectionFilter
   createdAt: DateTimeFilter
@@ -380,6 +383,7 @@ input UserWhereInput {
 }
 
 input UserWhereUniqueInput {
+  auth0Id: String
   id: ID
   slug: String
 }

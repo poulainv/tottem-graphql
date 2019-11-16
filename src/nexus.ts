@@ -251,6 +251,7 @@ export interface NexusGenInputs {
     create?: NexusGenInputs['UserCreateWithoutCollectionsInput'] | null; // UserCreateWithoutCollectionsInput
   }
   UserCreateWithoutCollectionsInput: { // input type
+    auth0Id?: string | null; // String
     biography: string; // String!
     createdAt?: any | null; // DateTime
     firstname: string; // String!
@@ -268,6 +269,7 @@ export interface NexusGenInputs {
   }
   UserWhereInput: { // input type
     AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    auth0Id?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     biography?: NexusGenInputs['StringFilter'] | null; // StringFilter
     collections?: NexusGenInputs['CollectionFilter'] | null; // CollectionFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -282,6 +284,7 @@ export interface NexusGenInputs {
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
   }
   UserWhereUniqueInput: { // input type
+    auth0Id?: string | null; // String
     id?: string | null; // ID
     slug?: string | null; // String
   }
@@ -396,6 +399,7 @@ export interface NexusGenFieldTypes {
     slug: string; // String!
   }
   User: { // field return type
+    auth0Id: string | null; // String
     biography: string; // String!
     firstname: string; // String!
     id: string; // ID!
