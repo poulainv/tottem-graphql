@@ -2,6 +2,7 @@ import { UserProfile } from '../types'
 
 const profile: UserProfile = {
     firstname: 'Vincent P.',
+    authUserId: 'auth0|5dc8800986c8ba0e74d73654',
     pictureUrl: '/images/profiles/vincent.png',
     biography: `Hi ! My primary job is software engineer. 
     As soon as I am building things, I can't count hours anymore !   

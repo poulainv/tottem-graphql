@@ -9,12 +9,17 @@ datasource db {
 
 model User {
   id          String       @default(cuid()) @id
+  authUserId  String?       @unique
   slug        String       @unique
   createdAt   DateTime     @default(now())
   firstname   String
   pictureUrl  String
   biography   String
-  profile     Profile?
+  linkedin    String?
+  github      String?
+  mail        String?
+  youtube     String?
+  website     String?
   label       String?
   sections    Section[]
   collections Collection[]
@@ -23,7 +28,7 @@ model User {
 model Section {
   id          String       @default(cuid()) @id
   createdAt   DateTime     @default(now())
-  slug        String       
+  slug        String
   name        String
   index       Int          @default(0)
   collections Collection[]
@@ -37,20 +42,9 @@ model Collection {
   name      String
   detail    String?
   items     Item[]
-  date      String?
   section   Section
   owner     User
 }
-
-model Profile {
-  id       String  @default(cuid()) @id
-  linkedin String?
-  github   String?
-  mail     String?
-  youtube  String?
-  website  String?
-}
-
 
 model Item {
   id          String      @default(cuid()) @id

@@ -26,17 +26,14 @@ async function main() {
             data: {
                 firstname: profile.firstname,
                 slug: profile.slug,
+                authUserId: profile.authUserId,
                 biography: profile.biography,
                 pictureUrl: profile.pictureUrl,
                 label: profile.label,
-                profile: {
-                    create: {
-                        linkedin: profile.social && profile.social.linkedin,
-                        youtube: profile.social && profile.social.youtube,
-                        mail: profile.social && profile.social.mail,
-                        website: profile.social && profile.social.website,
-                    },
-                },
+                linkedin: profile.social && profile.social.linkedin,
+                youtube: profile.social && profile.social.youtube,
+                mail: profile.social && profile.social.mail,
+                website: profile.social && profile.social.website,
             },
         })
 
@@ -61,7 +58,7 @@ async function main() {
                                     slug: collection.id,
                                     name: collection.name,
                                     detail: collection.detail,
-                                    date: collection.date.toString(),
+                                    createdAt: collection.date, // FIXME override does work
                                     owner: {
                                         connect: {
                                             id: user.id,

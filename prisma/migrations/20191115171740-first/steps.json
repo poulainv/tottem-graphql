@@ -50,6 +50,19 @@
     {
       "stepType": "CreateField",
       "model": "User",
+      "field": "authUserId",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "authUserId",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
       "field": "slug",
       "type": "String",
       "arity": "required"
@@ -105,8 +118,36 @@
     {
       "stepType": "CreateField",
       "model": "User",
-      "field": "profile",
-      "type": "Profile",
+      "field": "linkedin",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "github",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "mail",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "youtube",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "website",
+      "type": "String",
       "arity": "optional"
     },
     {
@@ -188,12 +229,6 @@
       "field": "slug",
       "type": "String",
       "arity": "required"
-    },
-    {
-      "stepType": "CreateDirective",
-      "model": "Section",
-      "field": "slug",
-      "directive": "unique"
     },
     {
       "stepType": "CreateField",
@@ -326,13 +361,6 @@
     {
       "stepType": "CreateField",
       "model": "Collection",
-      "field": "date",
-      "type": "String",
-      "arity": "optional"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Collection",
       "field": "section",
       "type": "Section",
       "arity": "required"
@@ -343,72 +371,6 @@
       "field": "owner",
       "type": "User",
       "arity": "required"
-    },
-    {
-      "stepType": "CreateModel",
-      "model": "Profile"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Profile",
-      "field": "id",
-      "type": "String",
-      "arity": "required"
-    },
-    {
-      "stepType": "CreateDirective",
-      "model": "Profile",
-      "field": "id",
-      "directive": "default"
-    },
-    {
-      "stepType": "CreateDirectiveArgument",
-      "model": "Profile",
-      "field": "id",
-      "directive": "default",
-      "argument": "",
-      "value": "cuid()"
-    },
-    {
-      "stepType": "CreateDirective",
-      "model": "Profile",
-      "field": "id",
-      "directive": "id"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Profile",
-      "field": "linkedin",
-      "type": "String",
-      "arity": "optional"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Profile",
-      "field": "github",
-      "type": "String",
-      "arity": "optional"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Profile",
-      "field": "mail",
-      "type": "String",
-      "arity": "optional"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Profile",
-      "field": "youtube",
-      "type": "String",
-      "arity": "optional"
-    },
-    {
-      "stepType": "CreateField",
-      "model": "Profile",
-      "field": "website",
-      "type": "String",
-      "arity": "optional"
     },
     {
       "stepType": "CreateModel",

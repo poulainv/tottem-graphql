@@ -56,6 +56,7 @@ export interface ISocial {
 export interface UserProfile {
     slug: string
     firstname: string
+    authUserId?: string
     pictureUrl: string
     biography: string
     social?: ISocial
