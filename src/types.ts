@@ -111,6 +111,7 @@ export const Item = objectType({
         t.model.comment()
         t.model.type()
         t.model.meta()
+        t.model.createdAt()
     },
 })
 

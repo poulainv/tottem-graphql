@@ -670,6 +670,7 @@ export interface NexusGenFieldTypes {
   Item: { // field return type
     author: string | null; // String
     comment: string | null; // String
+    createdAt: any; // DateTime!
     description: string | null; // String
     id: string; // ID!
     imageUrl: string | null; // String

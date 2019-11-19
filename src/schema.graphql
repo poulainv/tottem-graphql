@@ -203,6 +203,7 @@ input IntFilter {
 type Item {
   author: String
   comment: String
+  createdAt: DateTime!
   description: String
   id: ID!
   imageUrl: String
