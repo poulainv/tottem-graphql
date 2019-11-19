@@ -197,6 +197,7 @@ export interface NexusGenInputs {
     imageUrl?: string | null; // String
     meta?: string | null; // String
     productUrl?: string | null; // String
+    provider?: string | null; // String
     title: string; // String!
     type: NexusGenEnums['ItemType']; // ItemType!
     updatedAt?: any | null; // DateTime
@@ -218,6 +219,7 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
     OR?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
     productUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    provider?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
     type?: NexusGenEnums['ItemType'] | null; // ItemType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -231,6 +233,7 @@ export interface NexusGenInputs {
     imageUrl?: string | null; // String
     meta?: string | null; // String
     productUrl?: string | null; // String
+    provider?: string | null; // String
     title?: string | null; // String
     type?: NexusGenEnums['ItemType'] | null; // ItemType
     updatedAt?: any | null; // DateTime
@@ -263,6 +266,7 @@ export interface NexusGenInputs {
     imageUrl?: string | null; // String
     meta?: string | null; // String
     productUrl?: string | null; // String
+    provider?: string | null; // String
     title?: string | null; // String
     type?: NexusGenEnums['ItemType'] | null; // ItemType
     updatedAt?: any | null; // DateTime
@@ -285,6 +289,7 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
     OR?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
     productUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    provider?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
     type?: NexusGenEnums['ItemType'] | null; // ItemType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -676,6 +681,7 @@ export interface NexusGenFieldTypes {
     imageUrl: string | null; // String
     meta: string | null; // String
     productUrl: string | null; // String
+    provider: string | null; // String
     title: string; // String!
     type: NexusGenEnums['ItemType']; // ItemType!
   }

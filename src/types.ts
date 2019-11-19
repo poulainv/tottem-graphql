@@ -28,6 +28,7 @@ export const Mutation = mutationType({
                             author: item.author,
                             type: item.type,
                             meta: item.meta && JSON.stringify(item.meta),
+                            provider: item.provider,
                             productUrl: item.productUrl,
                             imageUrl: item.imageUrl,
                             collection: {
@@ -108,6 +109,7 @@ export const Item = objectType({
         t.model.imageUrl()
         t.model.productUrl()
         t.model.description()
+        t.model.provider()
         t.model.comment()
         t.model.type()
         t.model.meta()

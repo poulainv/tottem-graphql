@@ -209,6 +209,7 @@ type Item {
   imageUrl: String
   meta: String
   productUrl: String
+  provider: String
   title: String!
   type: ItemType!
 }
@@ -227,6 +228,7 @@ input ItemCreateWithoutCollectionInput {
   imageUrl: String
   meta: String
   productUrl: String
+  provider: String
   title: String!
   type: ItemType!
   updatedAt: DateTime
@@ -250,6 +252,7 @@ input ItemScalarWhereInput {
   NOT: [ItemScalarWhereInput!]
   OR: [ItemScalarWhereInput!]
   productUrl: NullableStringFilter
+  provider: NullableStringFilter
   title: StringFilter
   type: ItemType
   updatedAt: DateTimeFilter
@@ -276,6 +279,7 @@ input ItemUpdateManyDataInput {
   imageUrl: String
   meta: String
   productUrl: String
+  provider: String
   title: String
   type: ItemType
   updatedAt: DateTime
@@ -307,6 +311,7 @@ input ItemUpdateWithoutCollectionDataInput {
   imageUrl: String
   meta: String
   productUrl: String
+  provider: String
   title: String
   type: ItemType
   updatedAt: DateTime
@@ -336,6 +341,7 @@ input ItemWhereInput {
   NOT: [ItemWhereInput!]
   OR: [ItemWhereInput!]
   productUrl: NullableStringFilter
+  provider: NullableStringFilter
   title: StringFilter
   type: ItemType
   updatedAt: DateTimeFilter

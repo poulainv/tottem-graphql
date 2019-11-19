@@ -72,6 +72,7 @@ async function main() {
                                                     title: x.title,
                                                     author: x.author,
                                                     type: x.type,
+                                                    provider: x.provider,
                                                     productUrl: x.productUrl,
                                                     imageUrl: x.imageUrl,
                                                     description: x.note,
