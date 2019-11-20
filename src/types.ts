@@ -1,8 +1,10 @@
-import { Photon } from '@generated/photon'
 import { enumType, mutationType, objectType, queryType, stringArg } from 'nexus'
+import { Context } from './context'
 import { IItem } from './interfaces'
 import { inferNewItemFromUrl } from './parsers'
-import { Context } from './context'
+import logger from './logging'
+import { ForbiddenError, AuthenticationError } from 'apollo-server'
+import { isUserAuthAllowed } from './services/authorization'
 
 export const Mutation = mutationType({
     definition(t) {
@@ -14,31 +16,28 @@ export const Mutation = mutationType({
             args: {
                 url: stringArg({ required: true }),
                 collectionId: stringArg({ required: true }),
-                overridedTitle: stringArg(),
             },
-            async resolve(
-                _,
-                { url, overridedTitle, collectionId },
-                ctx: Context
-            ) {
-                return inferNewItemFromUrl(url).then((item: IItem) => {
-                    return ctx.photon.items.create({
-                        data: {
-                            title: overridedTitle || item.title,
-                            author: item.author,
-                            type: item.type,
-                            meta: item.meta && JSON.stringify(item.meta),
-                            provider: item.provider,
-                            productUrl: item.productUrl,
-                            imageUrl: item.imageUrl,
-                            collection: {
-                                connect: {
-                                    id: collectionId,
+            async resolve(_, { url, collectionId }, ctx: Context) {
+                return isUserAuthAllowed(ctx, 'collection', collectionId)
+                    .then(() => inferNewItemFromUrl(url))
+                    .then((item: IItem) => {
+                        return ctx.photon.items.create({
+                            data: {
+                                title: item.title,
+                                author: item.author,
+                                type: item.type,
+                                meta: item.meta && JSON.stringify(item.meta),
+                                provider: item.provider,
+                                productUrl: item.productUrl,
+                                imageUrl: item.imageUrl,
+                                collection: {
+                                    connect: {
+                                        id: collectionId,
+                                    },
                                 },
                             },
-                        },
+                        })
                     })
-                })
             },
         })
     },

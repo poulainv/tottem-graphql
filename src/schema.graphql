@@ -352,7 +352,7 @@ input ItemWhereUniqueInput {
 }
 
 type Mutation {
-  createItem(collectionId: String!, overridedTitle: String, url: String!): Item!
+  createItem(collectionId: String!, url: String!): Item!
   createOneCollection(data: CollectionCreateInput!): Collection!
   createOneSection(data: SectionCreateInput!): Section!
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
