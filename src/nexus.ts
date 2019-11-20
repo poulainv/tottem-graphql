@@ -733,7 +733,6 @@ export interface NexusGenArgTypes {
   Mutation: {
     createItem: { // args
       collectionId: string; // String!
-      overridedTitle?: string | null; // String
       url: string; // String!
     }
     createOneCollection: { // args
