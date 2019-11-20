@@ -377,6 +377,7 @@ export interface NexusGenFieldTypes {
     createItem: NexusGenRootTypes['Item']; // Item!
     createOneCollection: NexusGenRootTypes['Collection']; // Collection!
     createOneSection: NexusGenRootTypes['Section']; // Section!
+    createUser: NexusGenRootTypes['User']; // User!
   }
   Profile: { // field return type
     linkedin: string | null; // String
@@ -432,6 +433,11 @@ export interface NexusGenArgTypes {
     }
     createOneSection: { // args
       data: NexusGenInputs['SectionCreateInput']; // SectionCreateInput!
+    }
+    createUser: { // args
+      auth0Id: string; // String!
+      pictureUrl?: string | null; // String
+      slug: string; // String!
     }
   }
   Query: {

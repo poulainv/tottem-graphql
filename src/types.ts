@@ -1,8 +1,7 @@
-import { Photon } from '@generated/photon'
-import { enumType, mutationType, objectType, queryType, stringArg } from 'nexus'
-import { IItem } from './interfaces'
-import { inferNewItemFromUrl } from './parsers'
-import { Context } from './context'
+import {enumType, mutationType, objectType, queryType, stringArg} from 'nexus'
+import {IItem} from './interfaces'
+import {inferNewItemFromUrl} from './parsers'
+import {Context} from './context'
 
 export const Mutation = mutationType({
     definition(t) {
@@ -34,7 +33,52 @@ export const Mutation = mutationType({
                     })
                 })
             },
-        })
+        }),
+            t.field('createUser', {
+                type: 'User',
+                args: {
+                    slug: stringArg({ required: true }),
+                    auth0Id: stringArg({ required: true }),
+                    pictureUrl: stringArg(),
+                },
+                async resolve(_, { slug, auth0Id, pictureUrl }, ctx: Context) {
+                    const user = await ctx.photon.users.create({
+                        data: {
+                            firstname: '',
+                            slug,
+                            auth0Id,
+                            biography: '',
+                            pictureUrl: pictureUrl || '',
+                            label: '',
+                            profile: {
+                                create: {
+                                    linkedin: null,
+                                    youtube: null,
+                                    mail: null,
+                                    website: null,
+                                },
+                            },
+                        },
+                    });
+                    // we need an empty section as well
+                    await ctx.photon.sections.create({
+                        data: {
+                            slug: 'first-section',
+                            name: 'Your first section',
+                            index: 0,
+                            owner: {
+                                connect: {
+                                    id: user.id,
+                                },
+                            },
+                            collections: {
+                                create: [],
+                            },
+                        },
+                    });
+                    return user
+                },
+            })
     },
 })
 
@@ -43,7 +87,7 @@ export const Query = queryType({
         t.crud.user()
         t.crud.collection()
         t.crud.section()
-        t.crud.sections({filtering: { owner: true }})
+        t.crud.sections({ filtering: { owner: true } })
         t.crud.collections({
             ordering: { date: true },
             filtering: { owner: true, section: true },
