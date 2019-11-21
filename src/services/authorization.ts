@@ -3,8 +3,6 @@ import util from 'util'
 import { Context } from '../context'
 import logger from '../logging'
 
-type Model = 'collection' | 'section'
-
 // Rules
 const isAuthenticated = rule({ cache: 'contextual' })(
     async (parent, args, ctx: Context, info) => {
@@ -50,6 +48,8 @@ const permissions = shield({
         ),
     },
 })
+
+type Model = 'collection' | 'section'
 
 const getOwnerAuth0id: (
     ctx: Context,
