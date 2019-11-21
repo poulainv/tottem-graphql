@@ -15,7 +15,7 @@ const createContext: (req: express.Request) => Context = req => {
     let user: Promise<AuthenticatedUser | undefined>
     if (req.headers !== undefined && req.headers.authorization) {
         const token = req.headers.authorization
-        logger.info(
+        logger.debug(
             `Request with bearer token found for ${req.method} ${req.path}`
         )
         user = verifyIdentity(token)

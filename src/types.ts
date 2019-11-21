@@ -1,10 +1,13 @@
-import { enumType, mutationType, objectType, queryType, stringArg } from 'nexus'
+import {
+    arg,
+    enumType,
+    mutationType,
+    objectType,
+    queryType,
+    stringArg,
+} from 'nexus'
 import { Context } from './context'
-import { IItem } from './interfaces'
 import { inferNewItemFromUrl } from './parsers'
-import logger from './logging'
-import { ForbiddenError, AuthenticationError } from 'apollo-server'
-import { isUserAuthAllowed } from './services/authorization'
 
 export const Mutation = mutationType({
     definition(t) {
@@ -18,26 +21,24 @@ export const Mutation = mutationType({
                 collectionId: stringArg({ required: true }),
             },
             async resolve(_, { url, collectionId }, ctx: Context) {
-                return isUserAuthAllowed(ctx, 'collection', collectionId)
-                    .then(() => inferNewItemFromUrl(url))
-                    .then((item: IItem) => {
-                        return ctx.photon.items.create({
-                            data: {
-                                title: item.title,
-                                author: item.author,
-                                type: item.type,
-                                meta: item.meta && JSON.stringify(item.meta),
-                                provider: item.provider,
-                                productUrl: item.productUrl,
-                                imageUrl: item.imageUrl,
-                                collection: {
-                                    connect: {
-                                        id: collectionId,
-                                    },
+                return inferNewItemFromUrl(url).then(item => {
+                    return ctx.photon.items.create({
+                        data: {
+                            title: item.title,
+                            author: item.author,
+                            type: item.type,
+                            meta: item.meta && JSON.stringify(item.meta),
+                            provider: item.provider,
+                            productUrl: item.productUrl,
+                            imageUrl: item.imageUrl,
+                            collection: {
+                                connect: {
+                                    id: collectionId,
                                 },
                             },
-                        })
+                        },
                     })
+                })
             },
         })
     },
@@ -116,7 +117,7 @@ export const Item = objectType({
     },
 })
 
-const ItemType = enumType({
+export const ItemType = enumType({
     name: 'ItemType',
     members: [
         'book',
@@ -127,5 +128,6 @@ const ItemType = enumType({
         'article',
         'podcast',
         'repository',
+        'website',
     ],
 })
