@@ -1,12 +1,12 @@
+import { and, or, rule, shield } from 'graphql-shield'
 import util from 'util'
 import { Context } from '../context'
 import logger from '../logging'
-import { rule, shield, or, and } from 'graphql-shield'
 
 type Model = 'collection' | 'section'
 
 // Rules
-const isAuthenticated = rule({ cache: 'no_cache' })(
+const isAuthenticated = rule({ cache: 'contextual' })(
     async (parent, args, ctx: Context, info) => {
         const userAuth = await ctx.user
         logger.debug(`Authenticated user:${util.inspect(userAuth)}`)
@@ -14,26 +14,26 @@ const isAuthenticated = rule({ cache: 'no_cache' })(
     }
 )
 
-const isAdmin = rule({ cache: 'no_cache' })(
+const isAdmin = rule({ cache: 'contextual' })(
     async (parent, args, ctx: Context, info) => {
         const userAuth = await ctx.user
         return userAuth?.roles.includes('admin') ?? false
     }
 )
 
-const isCollectionOwner = rule({ cache: 'no_cache' })(
+const isCollectionOwner = rule({ cache: 'strict' })(
     async (parent, args, ctx, info) => {
         return isUserOwner(ctx, 'collection', args.where.id)
     }
 )
 
-const canCreateInCollection = rule({ cache: 'no_cache' })(
+const canCreateInCollection = rule({ cache: 'strict' })(
     async (parent, args, ctx, info) => {
         return isUserOwner(ctx, 'collection', args.collectionId)
     }
 )
 
-const isSectionOwner = rule({ cache: 'no_cache' })(
+const isSectionOwner = rule({ cache: 'strict' })(
     async (parent, args, ctx, info) => {
         return isUserOwner(ctx, 'section', args.data.section.connect.id)
     }
@@ -100,3 +100,4 @@ const isUserOwner: (
 }
 
 export { permissions, isUserOwner }
+
