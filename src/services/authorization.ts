@@ -40,6 +40,7 @@ const isSectionOwner = rule({ cache: 'strict' })(
 // Permissions
 const permissions = shield({
     Mutation: {
+        createOneUser: isAuthenticated,
         createItem: and(isAuthenticated, or(isAdmin, canCreateInCollection)),
         createOneCollection: and(isAuthenticated, or(isAdmin, isSectionOwner)),
         updateOneCollection: and(

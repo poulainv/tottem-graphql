@@ -355,6 +355,7 @@ type Mutation {
   createItem(collectionId: String!, url: String!): Item!
   createOneCollection(data: CollectionCreateInput!): Collection!
   createOneSection(data: SectionCreateInput!): Section!
+  createOneUser(data: UserCreateInput!): User!
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
 }
 
@@ -574,6 +575,24 @@ type User {
   mail: String
   pictureUrl: String!
   sections(after: ID, before: ID, first: Int, last: Int, skip: Int): [Section!]!
+  slug: String!
+  website: String
+  youtube: String
+}
+
+input UserCreateInput {
+  authUserId: String
+  biography: String!
+  collections: CollectionCreateManyWithoutCollectionsInput
+  createdAt: DateTime
+  firstname: String!
+  github: String
+  id: ID
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String!
+  sections: SectionCreateManyWithoutSectionsInput
   slug: String!
   website: String
   youtube: String

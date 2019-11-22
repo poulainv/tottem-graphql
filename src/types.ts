@@ -12,6 +12,7 @@ import { inferNewItemFromUrl } from './parsers'
 export const Mutation = mutationType({
     definition(t) {
         t.crud.createOneSection()
+        t.crud.createOneUser()
         t.crud.createOneCollection()
         t.crud.updateOneCollection()
         t.field('createItem', {
