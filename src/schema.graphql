@@ -380,6 +380,7 @@ enum OrderByArg {
 type Query {
   collection(where: CollectionWhereUniqueInput!): Collection
   collections(after: ID, before: ID, first: Int, last: Int, orderBy: QueryCollectionsOrderByInput, skip: Int, where: QueryCollectionsWhereInput): [Collection!]!
+  items(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QueryItemsWhereInput): [Item!]!
   section(where: SectionWhereUniqueInput!): Section
   sections(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QuerySectionsWhereInput): [Section!]!
   user(where: UserWhereUniqueInput!): User
@@ -392,6 +393,10 @@ input QueryCollectionsOrderByInput {
 input QueryCollectionsWhereInput {
   owner: UserWhereInput
   section: SectionWhereInput
+}
+
+input QueryItemsWhereInput {
+  collection: CollectionWhereInput
 }
 
 input QuerySectionsWhereInput {
@@ -562,6 +567,7 @@ input StringFilter {
 type User {
   biography: String!
   firstname: String!
+  github: String
   id: ID!
   label: String
   linkedin: String

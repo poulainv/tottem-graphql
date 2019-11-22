@@ -49,6 +49,7 @@ export const Query = queryType({
         t.crud.user()
         t.crud.collection()
         t.crud.section()
+        t.crud.items({ filtering: { collection: true } })
         t.crud.sections({ filtering: { owner: true } })
         t.crud.collections({
             ordering: { createdAt: true },
@@ -72,6 +73,7 @@ export const User = objectType({
         t.model.linkedin()
         t.model.youtube()
         t.model.mail()
+        t.model.github()
     },
 })
 
