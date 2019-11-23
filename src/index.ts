@@ -1,13 +1,17 @@
 import { ApolloServer } from 'apollo-server'
-import { createContext } from './context'
+import { applyMiddleware } from 'graphql-middleware'
+import { createContext, Context } from './context'
 import { schema } from './schema'
 import dotenv from 'dotenv'
 import logger from './logging'
+import { permissions } from './services/authorization'
 
 dotenv.config()
 
+const schemaMiddleware = applyMiddleware(schema, permissions)
+
 const server = new ApolloServer({
-    schema,
+    schema: schemaMiddleware,
     context: ({ req }) => createContext(req),
     engine: {
         apiKey: process.env.ENGINE_API_KEY,

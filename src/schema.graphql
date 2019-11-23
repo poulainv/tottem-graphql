@@ -3,7 +3,7 @@
 
 
 type Collection {
-  date: String
+  createdAt: DateTime!
   detail: String
   id: ID!
   items(after: ID, before: ID, first: Int, last: Int, skip: Int): [Item!]!
@@ -15,7 +15,6 @@ type Collection {
 
 input CollectionCreateInput {
   createdAt: DateTime
-  date: String
   detail: String
   id: ID
   items: ItemCreateManyWithoutItemsInput
@@ -30,9 +29,18 @@ input CollectionCreateManyWithoutCollectionsInput {
   create: [CollectionCreateWithoutSectionInput!]
 }
 
+input CollectionCreateWithoutOwnerInput {
+  createdAt: DateTime
+  detail: String
+  id: ID
+  items: ItemCreateManyWithoutItemsInput
+  name: String!
+  section: SectionCreateOneWithoutSectionInput!
+  slug: String!
+}
+
 input CollectionCreateWithoutSectionInput {
   createdAt: DateTime
-  date: String
   detail: String
   id: ID
   items: ItemCreateManyWithoutItemsInput
@@ -47,10 +55,111 @@ input CollectionFilter {
   some: CollectionWhereInput
 }
 
+input CollectionScalarWhereInput {
+  AND: [CollectionScalarWhereInput!]
+  createdAt: DateTimeFilter
+  detail: NullableStringFilter
+  id: StringFilter
+  items: ItemFilter
+  name: StringFilter
+  NOT: [CollectionScalarWhereInput!]
+  OR: [CollectionScalarWhereInput!]
+  slug: StringFilter
+}
+
+input CollectionUpdateInput {
+  createdAt: DateTime
+  detail: String
+  id: ID
+  items: ItemUpdateManyWithoutCollectionInput
+  name: String
+  owner: UserUpdateOneRequiredWithoutCollectionsInput
+  section: SectionUpdateOneRequiredWithoutCollectionsInput
+  slug: String
+}
+
+input CollectionUpdateManyDataInput {
+  createdAt: DateTime
+  detail: String
+  id: ID
+  name: String
+  slug: String
+}
+
+input CollectionUpdateManyWithoutOwnerInput {
+  connect: [CollectionWhereUniqueInput!]
+  create: [CollectionCreateWithoutOwnerInput!]
+  delete: [CollectionWhereUniqueInput!]
+  deleteMany: [CollectionScalarWhereInput!]
+  disconnect: [CollectionWhereUniqueInput!]
+  set: [CollectionWhereUniqueInput!]
+  update: [CollectionUpdateWithWhereUniqueWithoutOwnerInput!]
+  updateMany: [CollectionUpdateManyWithWhereNestedInput!]
+  upsert: [CollectionUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input CollectionUpdateManyWithoutSectionInput {
+  connect: [CollectionWhereUniqueInput!]
+  create: [CollectionCreateWithoutSectionInput!]
+  delete: [CollectionWhereUniqueInput!]
+  deleteMany: [CollectionScalarWhereInput!]
+  disconnect: [CollectionWhereUniqueInput!]
+  set: [CollectionWhereUniqueInput!]
+  update: [CollectionUpdateWithWhereUniqueWithoutSectionInput!]
+  updateMany: [CollectionUpdateManyWithWhereNestedInput!]
+  upsert: [CollectionUpsertWithWhereUniqueWithoutSectionInput!]
+}
+
+input CollectionUpdateManyWithWhereNestedInput {
+  data: CollectionUpdateManyDataInput!
+  where: CollectionScalarWhereInput!
+}
+
+input CollectionUpdateWithoutOwnerDataInput {
+  createdAt: DateTime
+  detail: String
+  id: ID
+  items: ItemUpdateManyWithoutCollectionInput
+  name: String
+  section: SectionUpdateOneRequiredWithoutCollectionsInput
+  slug: String
+}
+
+input CollectionUpdateWithoutSectionDataInput {
+  createdAt: DateTime
+  detail: String
+  id: ID
+  items: ItemUpdateManyWithoutCollectionInput
+  name: String
+  owner: UserUpdateOneRequiredWithoutCollectionsInput
+  slug: String
+}
+
+input CollectionUpdateWithWhereUniqueWithoutOwnerInput {
+  data: CollectionUpdateWithoutOwnerDataInput!
+  where: CollectionWhereUniqueInput!
+}
+
+input CollectionUpdateWithWhereUniqueWithoutSectionInput {
+  data: CollectionUpdateWithoutSectionDataInput!
+  where: CollectionWhereUniqueInput!
+}
+
+input CollectionUpsertWithWhereUniqueWithoutOwnerInput {
+  create: CollectionCreateWithoutOwnerInput!
+  update: CollectionUpdateWithoutOwnerDataInput!
+  where: CollectionWhereUniqueInput!
+}
+
+input CollectionUpsertWithWhereUniqueWithoutSectionInput {
+  create: CollectionCreateWithoutSectionInput!
+  update: CollectionUpdateWithoutSectionDataInput!
+  where: CollectionWhereUniqueInput!
+}
+
 input CollectionWhereInput {
   AND: [CollectionWhereInput!]
   createdAt: DateTimeFilter
-  date: NullableStringFilter
   detail: NullableStringFilter
   id: StringFilter
   items: ItemFilter
@@ -94,11 +203,13 @@ input IntFilter {
 type Item {
   author: String
   comment: String
+  createdAt: DateTime!
   description: String
   id: ID!
   imageUrl: String
   meta: String
   productUrl: String
+  provider: String
   title: String!
   type: ItemType!
 }
@@ -117,6 +228,7 @@ input ItemCreateWithoutCollectionInput {
   imageUrl: String
   meta: String
   productUrl: String
+  provider: String
   title: String!
   type: ItemType!
   updatedAt: DateTime
@@ -126,6 +238,24 @@ input ItemFilter {
   every: ItemWhereInput
   none: ItemWhereInput
   some: ItemWhereInput
+}
+
+input ItemScalarWhereInput {
+  AND: [ItemScalarWhereInput!]
+  author: NullableStringFilter
+  comment: NullableStringFilter
+  createdAt: DateTimeFilter
+  description: NullableStringFilter
+  id: StringFilter
+  imageUrl: NullableStringFilter
+  meta: NullableStringFilter
+  NOT: [ItemScalarWhereInput!]
+  OR: [ItemScalarWhereInput!]
+  productUrl: NullableStringFilter
+  provider: NullableStringFilter
+  title: StringFilter
+  type: ItemType
+  updatedAt: DateTimeFilter
 }
 
 enum ItemType {
@@ -138,6 +268,64 @@ enum ItemType {
   repository
   video
   website
+}
+
+input ItemUpdateManyDataInput {
+  author: String
+  comment: String
+  createdAt: DateTime
+  description: String
+  id: ID
+  imageUrl: String
+  meta: String
+  productUrl: String
+  provider: String
+  title: String
+  type: ItemType
+  updatedAt: DateTime
+}
+
+input ItemUpdateManyWithoutCollectionInput {
+  connect: [ItemWhereUniqueInput!]
+  create: [ItemCreateWithoutCollectionInput!]
+  delete: [ItemWhereUniqueInput!]
+  deleteMany: [ItemScalarWhereInput!]
+  disconnect: [ItemWhereUniqueInput!]
+  set: [ItemWhereUniqueInput!]
+  update: [ItemUpdateWithWhereUniqueWithoutCollectionInput!]
+  updateMany: [ItemUpdateManyWithWhereNestedInput!]
+  upsert: [ItemUpsertWithWhereUniqueWithoutCollectionInput!]
+}
+
+input ItemUpdateManyWithWhereNestedInput {
+  data: ItemUpdateManyDataInput!
+  where: ItemScalarWhereInput!
+}
+
+input ItemUpdateWithoutCollectionDataInput {
+  author: String
+  comment: String
+  createdAt: DateTime
+  description: String
+  id: ID
+  imageUrl: String
+  meta: String
+  productUrl: String
+  provider: String
+  title: String
+  type: ItemType
+  updatedAt: DateTime
+}
+
+input ItemUpdateWithWhereUniqueWithoutCollectionInput {
+  data: ItemUpdateWithoutCollectionDataInput!
+  where: ItemWhereUniqueInput!
+}
+
+input ItemUpsertWithWhereUniqueWithoutCollectionInput {
+  create: ItemCreateWithoutCollectionInput!
+  update: ItemUpdateWithoutCollectionDataInput!
+  where: ItemWhereUniqueInput!
 }
 
 input ItemWhereInput {
@@ -153,6 +341,7 @@ input ItemWhereInput {
   NOT: [ItemWhereInput!]
   OR: [ItemWhereInput!]
   productUrl: NullableStringFilter
+  provider: NullableStringFilter
   title: StringFilter
   type: ItemType
   updatedAt: DateTimeFilter
@@ -163,10 +352,11 @@ input ItemWhereUniqueInput {
 }
 
 type Mutation {
-  createItem(collectionId: String!, overridedTitle: String, url: String!): Item!
+  createItem(collectionId: String!, url: String!): Item!
   createOneCollection(data: CollectionCreateInput!): Collection!
   createOneSection(data: SectionCreateInput!): Section!
-  createUser(auth0Id: String!, pictureUrl: String, slug: String!): User!
+  createOneUser(data: UserCreateInput!): User!
+  updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
 }
 
 input NullableStringFilter {
@@ -188,59 +378,26 @@ enum OrderByArg {
   desc
 }
 
-type Profile {
-  linkedin: String
-  mail: String
-  website: String
-  youtube: String
-}
-
-input ProfileCreateOneWithoutProfileInput {
-  connect: ProfileWhereUniqueInput
-  create: ProfileCreateWithoutUsersInput
-}
-
-input ProfileCreateWithoutUsersInput {
-  github: String
-  id: ID
-  linkedin: String
-  mail: String
-  website: String
-  youtube: String
-}
-
-input ProfileWhereInput {
-  AND: [ProfileWhereInput!]
-  github: NullableStringFilter
-  id: StringFilter
-  linkedin: NullableStringFilter
-  mail: NullableStringFilter
-  NOT: [ProfileWhereInput!]
-  OR: [ProfileWhereInput!]
-  users: UserFilter
-  website: NullableStringFilter
-  youtube: NullableStringFilter
-}
-
-input ProfileWhereUniqueInput {
-  id: ID
-}
-
 type Query {
   collection(where: CollectionWhereUniqueInput!): Collection
   collections(after: ID, before: ID, first: Int, last: Int, orderBy: QueryCollectionsOrderByInput, skip: Int, where: QueryCollectionsWhereInput): [Collection!]!
+  items(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QueryItemsWhereInput): [Item!]!
   section(where: SectionWhereUniqueInput!): Section
   sections(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QuerySectionsWhereInput): [Section!]!
   user(where: UserWhereUniqueInput!): User
 }
 
 input QueryCollectionsOrderByInput {
-  date: OrderByArg
+  createdAt: OrderByArg
 }
 
 input QueryCollectionsWhereInput {
   owner: UserWhereInput
   section: SectionWhereInput
+}
+
+input QueryItemsWhereInput {
+  collection: CollectionWhereInput
 }
 
 input QuerySectionsWhereInput {
@@ -299,6 +456,84 @@ input SectionFilter {
   some: SectionWhereInput
 }
 
+input SectionScalarWhereInput {
+  AND: [SectionScalarWhereInput!]
+  collections: CollectionFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  index: IntFilter
+  name: StringFilter
+  NOT: [SectionScalarWhereInput!]
+  OR: [SectionScalarWhereInput!]
+  slug: StringFilter
+}
+
+input SectionUpdateManyDataInput {
+  createdAt: DateTime
+  id: ID
+  index: Int
+  name: String
+  slug: String
+}
+
+input SectionUpdateManyWithoutOwnerInput {
+  connect: [SectionWhereUniqueInput!]
+  create: [SectionCreateWithoutOwnerInput!]
+  delete: [SectionWhereUniqueInput!]
+  deleteMany: [SectionScalarWhereInput!]
+  disconnect: [SectionWhereUniqueInput!]
+  set: [SectionWhereUniqueInput!]
+  update: [SectionUpdateWithWhereUniqueWithoutOwnerInput!]
+  updateMany: [SectionUpdateManyWithWhereNestedInput!]
+  upsert: [SectionUpsertWithWhereUniqueWithoutOwnerInput!]
+}
+
+input SectionUpdateManyWithWhereNestedInput {
+  data: SectionUpdateManyDataInput!
+  where: SectionScalarWhereInput!
+}
+
+input SectionUpdateOneRequiredWithoutCollectionsInput {
+  connect: SectionWhereUniqueInput
+  create: SectionCreateWithoutCollectionsInput
+  update: SectionUpdateWithoutCollectionsDataInput
+  upsert: SectionUpsertWithoutCollectionsInput
+}
+
+input SectionUpdateWithoutCollectionsDataInput {
+  createdAt: DateTime
+  id: ID
+  index: Int
+  name: String
+  owner: UserUpdateOneRequiredWithoutSectionsInput
+  slug: String
+}
+
+input SectionUpdateWithoutOwnerDataInput {
+  collections: CollectionUpdateManyWithoutSectionInput
+  createdAt: DateTime
+  id: ID
+  index: Int
+  name: String
+  slug: String
+}
+
+input SectionUpdateWithWhereUniqueWithoutOwnerInput {
+  data: SectionUpdateWithoutOwnerDataInput!
+  where: SectionWhereUniqueInput!
+}
+
+input SectionUpsertWithoutCollectionsInput {
+  create: SectionCreateWithoutCollectionsInput!
+  update: SectionUpdateWithoutCollectionsDataInput!
+}
+
+input SectionUpsertWithWhereUniqueWithoutOwnerInput {
+  create: SectionCreateWithoutOwnerInput!
+  update: SectionUpdateWithoutOwnerDataInput!
+  where: SectionWhereUniqueInput!
+}
+
 input SectionWhereInput {
   AND: [SectionWhereInput!]
   collections: CollectionFilter
@@ -331,15 +566,36 @@ input StringFilter {
 }
 
 type User {
-  auth0Id: String
   biography: String!
   firstname: String!
+  github: String
   id: ID!
   label: String
+  linkedin: String
+  mail: String
   pictureUrl: String!
-  profile: Profile
   sections(after: ID, before: ID, first: Int, last: Int, skip: Int): [Section!]!
   slug: String!
+  website: String
+  youtube: String
+}
+
+input UserCreateInput {
+  authUserId: String
+  biography: String!
+  collections: CollectionCreateManyWithoutCollectionsInput
+  createdAt: DateTime
+  firstname: String!
+  github: String
+  id: ID
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String!
+  sections: SectionCreateManyWithoutSectionsInput
+  slug: String!
+  website: String
+  youtube: String
 }
 
 input UserCreateOneWithoutOwnerInput {
@@ -348,43 +604,120 @@ input UserCreateOneWithoutOwnerInput {
 }
 
 input UserCreateWithoutCollectionsInput {
-  auth0Id: String
+  authUserId: String
   biography: String!
   createdAt: DateTime
   firstname: String!
+  github: String
   id: ID
   label: String
+  linkedin: String
+  mail: String
   pictureUrl: String!
-  profile: ProfileCreateOneWithoutProfileInput
   sections: SectionCreateManyWithoutSectionsInput
   slug: String!
+  website: String
+  youtube: String
 }
 
-input UserFilter {
-  every: UserWhereInput
-  none: UserWhereInput
-  some: UserWhereInput
+input UserCreateWithoutSectionsInput {
+  authUserId: String
+  biography: String!
+  collections: CollectionCreateManyWithoutCollectionsInput
+  createdAt: DateTime
+  firstname: String!
+  github: String
+  id: ID
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String!
+  slug: String!
+  website: String
+  youtube: String
+}
+
+input UserUpdateOneRequiredWithoutCollectionsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutCollectionsInput
+  update: UserUpdateWithoutCollectionsDataInput
+  upsert: UserUpsertWithoutCollectionsInput
+}
+
+input UserUpdateOneRequiredWithoutSectionsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutSectionsInput
+  update: UserUpdateWithoutSectionsDataInput
+  upsert: UserUpsertWithoutSectionsInput
+}
+
+input UserUpdateWithoutCollectionsDataInput {
+  authUserId: String
+  biography: String
+  createdAt: DateTime
+  firstname: String
+  github: String
+  id: ID
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String
+  sections: SectionUpdateManyWithoutOwnerInput
+  slug: String
+  website: String
+  youtube: String
+}
+
+input UserUpdateWithoutSectionsDataInput {
+  authUserId: String
+  biography: String
+  collections: CollectionUpdateManyWithoutOwnerInput
+  createdAt: DateTime
+  firstname: String
+  github: String
+  id: ID
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String
+  slug: String
+  website: String
+  youtube: String
+}
+
+input UserUpsertWithoutCollectionsInput {
+  create: UserCreateWithoutCollectionsInput!
+  update: UserUpdateWithoutCollectionsDataInput!
+}
+
+input UserUpsertWithoutSectionsInput {
+  create: UserCreateWithoutSectionsInput!
+  update: UserUpdateWithoutSectionsDataInput!
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
-  auth0Id: NullableStringFilter
+  authUserId: NullableStringFilter
   biography: StringFilter
   collections: CollectionFilter
   createdAt: DateTimeFilter
   firstname: StringFilter
+  github: NullableStringFilter
   id: StringFilter
   label: NullableStringFilter
+  linkedin: NullableStringFilter
+  mail: NullableStringFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   pictureUrl: StringFilter
-  profile: ProfileWhereInput
   sections: SectionFilter
   slug: StringFilter
+  website: NullableStringFilter
+  youtube: NullableStringFilter
 }
 
 input UserWhereUniqueInput {
-  auth0Id: String
+  authUserId: String
   id: ID
   slug: String
 }

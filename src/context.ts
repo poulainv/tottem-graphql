@@ -1,20 +1,21 @@
 import { Photon } from '@generated/photon'
-import { verifyIdentity, UserAuth0 } from './lib/auth0'
+import { verifyIdentity, AuthenticatedUser } from './services/authentication'
 import express from 'express'
 import logger from './logging'
+
 const photon = new Photon()
 
 interface Context {
     photon: Photon
-    user: Promise<UserAuth0 | undefined>
+    user: Promise<AuthenticatedUser | undefined>
 }
 
 const createContext: (req: express.Request) => Context = req => {
     // The request is authenticated or not
-    let user: Promise<UserAuth0 | undefined>
+    let user: Promise<AuthenticatedUser | undefined>
     if (req.headers !== undefined && req.headers.authorization) {
         const token = req.headers.authorization
-        logger.info(
+        logger.debug(
             `Request with bearer token found for ${req.method} ${req.path}`
         )
         user = verifyIdentity(token)

@@ -1,10 +1,10 @@
 import { makeSchema } from 'nexus'
 import { nexusPrismaPlugin } from 'nexus-prisma'
-import * as types from './types'
 import { join } from 'path'
+import * as types from './types'
 
 export const schema = makeSchema({
-    types: [types],
+    types: [types, ],
     plugins: [nexusPrismaPlugin()],
     typegenAutoConfig: {
         contextType: 'Context.Context',

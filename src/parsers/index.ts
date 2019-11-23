@@ -36,6 +36,24 @@ function MediumParser(url: string, body: string): IItem {
     }
 }
 
+function SpotifyParser(url: string, body: string): IItem {
+    const $ = cheerio.load(body)
+    return {
+        title: $('meta[property="og:title"]').attr('content'),
+        author: $('meta[property="twitter:audio:artist_name"]').attr('content'),
+        provider: 'spotify',
+        productUrl: url,
+        type: 'album' as ItemType,
+        imageUrl: $('meta[property="og:image"]').attr('content'),
+        meta: {
+            kind: $('meta[property="og:type"]').attr('content'),
+            releaseDate: $('meta[property="music:release_date"]').attr(
+                'content'
+            ),
+        },
+    }
+}
+
 export function GithubApiParser(url: string, body: string): IItem {
     const json = JSON.parse(body)
     return {
@@ -213,6 +231,12 @@ const Parsers: Array<{
         regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?youtu\.be(\/\w{1,}){1}?$/,
         parse: YoutubeApiParser,
         fetch: YoutubeApiFetch,
+    },
+    {
+        name: 'Spotify',
+        regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?open.spotify\.com(\/.*)?$/,
+        parse: SpotifyParser,
+        fetch: SimpleFetch,
     },
 ]
 

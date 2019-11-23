@@ -456,6 +456,151 @@ const collections: ICollection[] = [
         name: '**Bruno Gaccio**',
         items: itemsByCollection['107'],
     },
+    {
+        id: 'gillesbabinet',
+        slug: 'gillesbabinet',
+        date: new Date('2019-11-14T12:00:00'),
+        sectionId: '16',
+        detail:
+            '_ Camisole numérique pour votre bien ?_ - Les recommandations de lecture de Gilles Babinet dans un interview diffusé en direct le 14/11/2019: [lien de la vidéo](https://www.youtube.com/watch?v=V4yf3HOEHPk)',
+        name: '**Gilles Babinet**',
+        items: [
+            {
+                title:
+                    'The Rise and Fall of the Great Powers: Economic Change and Military Conflict from 1500 to 2000',
+                author: 'Paul Kennedy',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/51%2BX4jxZGZL._SX322_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Rise-Fall-Great-Powers/dp/0679720197/ref=sr_1_1',
+                type: 'book',
+            },
+            {
+                title: "La formation de l'esprit scientifique",
+                author: 'Gaston Bachelard',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/51lgmcz0mjL._SX309_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/formation-lesprit-scientifique-Gaston-Bachelard/dp/2711611507',
+                type: 'book',
+            },
+        ],
+    },
+    {
+        id: 'christophebrusset',
+        slug: 'christophebrusset',
+        date: new Date('2019-11-07T12:00:00'),
+        sectionId: '12',
+        detail:
+            '_ L’agroalimentaire vu de l’intérieur, intoxication ?_ - Les recommandations de lecture de Christophe Brusset dans un interview diffusé en direct le 07/11/2019: [lien de la vidéo](https://youtu.be/lXXp-PVQ0HQ)',
+        name: '**Christophe Brusset**',
+        items: [
+            {
+                title:
+                    "Trilogie «Jacques Vingtras» L'Enfant, Le Bachelier, L'Insurgé",
+                author: 'Jules Vallès',
+                note: '',
+                imageUrl:
+                    'https://images-eu.ssl-images-amazon.com/images/I/51A%2Blw531jL.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Trilogie-%C2%ABJacques-Vingtras%C2%BB-Bachelier-Int%C3%A9grale-ebook/dp/B01JT0FAZ6',
+                type: 'book',
+            },
+            {
+                title: "Mémoires de guerre et mémoires d'espoir",
+                author: 'Charles de GAULLE',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/51%2BX4jxZGZL._SX322_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/M%C3%A9moires-guerre-m%C3%A9moires-despoir-Charles/dp/2259249361',
+                type: 'book',
+            },
+            {
+                title: "Tribulations d'un précaire",
+                author: 'Iain Levison',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/41XvzZaaxHL._SX331_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Tribulations-dun-pr%C3%A9caire-Iain-Levison/dp/2867468086',
+                type: 'book',
+            },
+        ],
+    },
+    {
+        id: 'agnes-levallois-et-pierreconesa',
+        slug: 'agnes-levallois-et-pierreconesa',
+        date: new Date('2019-11-16T12:00:00'),
+        sectionId: '13',
+        detail:
+            '_ Clientélisme politique et Moyen-Orient _ - Les recommandations de lecture de Agnès Levallois et Pierre Conesa dans un interview diffusé en direct le 24/10/2019: [lien de la vidéo](https://youtu.be/MdtxJxaF_0w)',
+        name: '**Agnès Levallois et Pierre Conesa**',
+        items: [
+            {
+                title: 'Atlas du Moyen-Orient : Aux racines de la violence',
+                author: 'Claire Levasseur',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/61%2BXxIM5TxL._SX343_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Atlas-Moyen-Orient-Pierre-Blanc-Jean/dp/2746751208',
+                type: 'book',
+            },
+            {
+                title: "J'ai couru vers le Nil ",
+                author: 'Alaa El Aswany',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/51NVJfHGYoL._SX301_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Jai-couru-vers-Alaa-Aswany/dp/2330109040',
+                type: 'book',
+            },
+            {
+                title: "Syrie, l'Etat de barbarie",
+                author: 'Michel Seurat',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/51BqGiQHQPL._SX346_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Syrie-lEtat-barbarie-Michel-Seurat/dp/2130607039',
+                type: 'book',
+            },
+            {
+                title: 'Au coeur des services spéciaux',
+                author: 'Alain Chouet',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/41ZdSg0IkpL._SX326_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/coeur-services-sp%C3%A9ciaux-Jean-GUISNEL/dp/2707175374',
+                type: 'book',
+            },
+            {
+                title: "La Fabrication de l'ennemi",
+                author: 'Pierre Conesa',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/41hE3rCJKUL._SX308_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Fabrication-lennemi-Pierre-CONESA/dp/2221126785',
+                type: 'book',
+            },
+            {
+                title: "Le Califat, histoire politique de l'Islam ",
+                author: 'Nabil Mouline',
+                note: '',
+                imageUrl:
+                    'https://images-na.ssl-images-amazon.com/images/I/41982tYdEcL._SX302_BO1,204,203,200_.jpg',
+                productUrl:
+                    'https://www.amazon.fr/Califat-histoire-politique-lIslam/dp/2081375869',
+                type: 'book',
+            },
+        ],
+    },
 ]
 
 export default collections

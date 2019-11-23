@@ -1,27 +1,35 @@
-import {enumType, mutationType, objectType, queryType, stringArg} from 'nexus'
-import {IItem} from './interfaces'
-import {inferNewItemFromUrl} from './parsers'
-import {Context} from './context'
+import {
+    arg,
+    enumType,
+    mutationType,
+    objectType,
+    queryType,
+    stringArg,
+} from 'nexus'
+import { Context } from './context'
+import { inferNewItemFromUrl } from './parsers'
 
 export const Mutation = mutationType({
     definition(t) {
         t.crud.createOneSection()
+        t.crud.createOneUser()
         t.crud.createOneCollection()
+        t.crud.updateOneCollection()
         t.field('createItem', {
             type: 'Item',
             args: {
                 url: stringArg({ required: true }),
                 collectionId: stringArg({ required: true }),
-                overridedTitle: stringArg(),
             },
-            async resolve(_, { url, overridedTitle, collectionId }, ctx: Context) {
-                return inferNewItemFromUrl(url).then((item: IItem) => {
+            async resolve(_, { url, collectionId }, ctx: Context) {
+                return inferNewItemFromUrl(url).then(item => {
                     return ctx.photon.items.create({
                         data: {
-                            title: overridedTitle || item.title,
+                            title: item.title,
                             author: item.author,
                             type: item.type,
                             meta: item.meta && JSON.stringify(item.meta),
+                            provider: item.provider,
                             productUrl: item.productUrl,
                             imageUrl: item.imageUrl,
                             collection: {
@@ -33,52 +41,7 @@ export const Mutation = mutationType({
                     })
                 })
             },
-        }),
-            t.field('createUser', {
-                type: 'User',
-                args: {
-                    slug: stringArg({ required: true }),
-                    auth0Id: stringArg({ required: true }),
-                    pictureUrl: stringArg(),
-                },
-                async resolve(_, { slug, auth0Id, pictureUrl }, ctx: Context) {
-                    const user = await ctx.photon.users.create({
-                        data: {
-                            firstname: '',
-                            slug,
-                            auth0Id,
-                            biography: '',
-                            pictureUrl: pictureUrl || '',
-                            label: '',
-                            profile: {
-                                create: {
-                                    linkedin: null,
-                                    youtube: null,
-                                    mail: null,
-                                    website: null,
-                                },
-                            },
-                        },
-                    });
-                    // we need an empty section as well
-                    await ctx.photon.sections.create({
-                        data: {
-                            slug: 'first-section',
-                            name: 'Your first section',
-                            index: 0,
-                            owner: {
-                                connect: {
-                                    id: user.id,
-                                },
-                            },
-                            collections: {
-                                create: [],
-                            },
-                        },
-                    });
-                    return user
-                },
-            })
+        })
     },
 })
 
@@ -87,9 +50,10 @@ export const Query = queryType({
         t.crud.user()
         t.crud.collection()
         t.crud.section()
+        t.crud.items({ filtering: { collection: true } })
         t.crud.sections({ filtering: { owner: true } })
         t.crud.collections({
-            ordering: { date: true },
+            ordering: { createdAt: true },
             filtering: { owner: true, section: true },
             pagination: true,
         })
@@ -101,23 +65,16 @@ export const User = objectType({
     definition(t) {
         t.model.id()
         t.model.slug()
-        t.model.auth0Id()
         t.model.biography()
-        t.model.profile()
         t.model.pictureUrl()
         t.model.label()
         t.model.firstname()
         t.model.sections()
-    },
-})
-
-export const Profile = objectType({
-    name: 'Profile',
-    definition(t) {
         t.model.website()
         t.model.linkedin()
         t.model.youtube()
         t.model.mail()
+        t.model.github()
     },
 })
 
@@ -138,7 +95,7 @@ export const Collection = objectType({
         t.model.id()
         t.model.slug()
         t.model.name()
-        t.model.date()
+        t.model.createdAt()
         t.model.detail()
         t.model.items()
         t.model.owner()
@@ -155,13 +112,15 @@ export const Item = objectType({
         t.model.imageUrl()
         t.model.productUrl()
         t.model.description()
+        t.model.provider()
         t.model.comment()
         t.model.type()
         t.model.meta()
+        t.model.createdAt()
     },
 })
 
-const ItemType = enumType({
+export const ItemType = enumType({
     name: 'ItemType',
     members: [
         'book',
@@ -172,5 +131,6 @@ const ItemType = enumType({
         'article',
         'podcast',
         'repository',
+        'website',
     ],
 })

@@ -4,14 +4,13 @@ generator photon {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
   id          String       @default(cuid()) @id
   authUserId  String?      @unique
   slug        String       @unique
-  auth0Id     String?      @unique
   createdAt   DateTime     @default(now())
   firstname   String
   pictureUrl  String

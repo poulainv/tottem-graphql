@@ -1,0 +1,12 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "Item",
+      "field": "provider",
+      "type": "String",
+      "arity": "optional"
+    }
+  ]
+}
