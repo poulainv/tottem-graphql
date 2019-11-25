@@ -13,6 +13,7 @@ export const Mutation = mutationType({
     definition(t) {
         t.crud.createOneSection()
         t.crud.createOneUser()
+        t.crud.updateOneItem()
         t.crud.createOneCollection()
         t.crud.updateOneCollection()
         t.field('createItem', {
@@ -50,7 +51,7 @@ export const Query = queryType({
         t.crud.user()
         t.crud.collection()
         t.crud.section()
-        t.crud.items({ filtering: { collection: true } })
+        t.crud.items({ filtering: { collection: true, isArchived: true } })
         t.crud.sections({ filtering: { owner: true } })
         t.crud.collections({
             ordering: { createdAt: true },
@@ -97,7 +98,7 @@ export const Collection = objectType({
         t.model.name()
         t.model.createdAt()
         t.model.detail()
-        t.model.items()
+        t.model.items({ filtering: { isArchived: true } })
         t.model.owner()
         t.model.section()
     },
@@ -108,6 +109,7 @@ export const Item = objectType({
     definition(t) {
         t.model.id()
         t.model.author()
+        t.model.isArchived()
         t.model.title()
         t.model.imageUrl()
         t.model.productUrl()

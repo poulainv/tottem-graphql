@@ -2,11 +2,16 @@
 ### Do not make changes to this file directly
 
 
+input BooleanFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 type Collection {
   createdAt: DateTime!
   detail: String
   id: ID!
-  items(after: ID, before: ID, first: Int, last: Int, skip: Int): [Item!]!
+  items(after: ID, before: ID, first: Int, last: Int, skip: Int, where: CollectionItemsWhereInput): [Item!]!
   name: String!
   owner: User!
   section: Section!
@@ -27,6 +32,16 @@ input CollectionCreateInput {
 input CollectionCreateManyWithoutCollectionsInput {
   connect: [CollectionWhereUniqueInput!]
   create: [CollectionCreateWithoutSectionInput!]
+}
+
+input CollectionCreateWithoutItemsInput {
+  createdAt: DateTime
+  detail: String
+  id: ID
+  name: String!
+  owner: UserCreateOneWithoutOwnerInput!
+  section: SectionCreateOneWithoutSectionInput!
+  slug: String!
 }
 
 input CollectionCreateWithoutOwnerInput {
@@ -53,6 +68,10 @@ input CollectionFilter {
   every: CollectionWhereInput
   none: CollectionWhereInput
   some: CollectionWhereInput
+}
+
+input CollectionItemsWhereInput {
+  isArchived: BooleanFilter
 }
 
 input CollectionScalarWhereInput {
@@ -115,6 +134,25 @@ input CollectionUpdateManyWithWhereNestedInput {
   where: CollectionScalarWhereInput!
 }
 
+input CollectionUpdateOneWithoutItemsInput {
+  connect: CollectionWhereUniqueInput
+  create: CollectionCreateWithoutItemsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: CollectionUpdateWithoutItemsDataInput
+  upsert: CollectionUpsertWithoutItemsInput
+}
+
+input CollectionUpdateWithoutItemsDataInput {
+  createdAt: DateTime
+  detail: String
+  id: ID
+  name: String
+  owner: UserUpdateOneRequiredWithoutCollectionsInput
+  section: SectionUpdateOneRequiredWithoutCollectionsInput
+  slug: String
+}
+
 input CollectionUpdateWithoutOwnerDataInput {
   createdAt: DateTime
   detail: String
@@ -143,6 +181,11 @@ input CollectionUpdateWithWhereUniqueWithoutOwnerInput {
 input CollectionUpdateWithWhereUniqueWithoutSectionInput {
   data: CollectionUpdateWithoutSectionDataInput!
   where: CollectionWhereUniqueInput!
+}
+
+input CollectionUpsertWithoutItemsInput {
+  create: CollectionCreateWithoutItemsInput!
+  update: CollectionUpdateWithoutItemsDataInput!
 }
 
 input CollectionUpsertWithWhereUniqueWithoutOwnerInput {
@@ -207,6 +250,7 @@ type Item {
   description: String
   id: ID!
   imageUrl: String
+  isArchived: Boolean!
   meta: String
   productUrl: String
   provider: String
@@ -226,6 +270,7 @@ input ItemCreateWithoutCollectionInput {
   description: String
   id: ID
   imageUrl: String
+  isArchived: Boolean
   meta: String
   productUrl: String
   provider: String
@@ -248,6 +293,7 @@ input ItemScalarWhereInput {
   description: NullableStringFilter
   id: StringFilter
   imageUrl: NullableStringFilter
+  isArchived: BooleanFilter
   meta: NullableStringFilter
   NOT: [ItemScalarWhereInput!]
   OR: [ItemScalarWhereInput!]
@@ -270,6 +316,23 @@ enum ItemType {
   website
 }
 
+input ItemUpdateInput {
+  author: String
+  collection: CollectionUpdateOneWithoutItemsInput
+  comment: String
+  createdAt: DateTime
+  description: String
+  id: ID
+  imageUrl: String
+  isArchived: Boolean
+  meta: String
+  productUrl: String
+  provider: String
+  title: String
+  type: ItemType
+  updatedAt: DateTime
+}
+
 input ItemUpdateManyDataInput {
   author: String
   comment: String
@@ -277,6 +340,7 @@ input ItemUpdateManyDataInput {
   description: String
   id: ID
   imageUrl: String
+  isArchived: Boolean
   meta: String
   productUrl: String
   provider: String
@@ -309,6 +373,7 @@ input ItemUpdateWithoutCollectionDataInput {
   description: String
   id: ID
   imageUrl: String
+  isArchived: Boolean
   meta: String
   productUrl: String
   provider: String
@@ -337,6 +402,7 @@ input ItemWhereInput {
   description: NullableStringFilter
   id: StringFilter
   imageUrl: NullableStringFilter
+  isArchived: BooleanFilter
   meta: NullableStringFilter
   NOT: [ItemWhereInput!]
   OR: [ItemWhereInput!]
@@ -357,6 +423,7 @@ type Mutation {
   createOneSection(data: SectionCreateInput!): Section!
   createOneUser(data: UserCreateInput!): User!
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
+  updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
 }
 
 input NullableStringFilter {
@@ -398,6 +465,7 @@ input QueryCollectionsWhereInput {
 
 input QueryItemsWhereInput {
   collection: CollectionWhereInput
+  isArchived: BooleanFilter
 }
 
 input QuerySectionsWhereInput {
