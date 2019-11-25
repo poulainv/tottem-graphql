@@ -714,12 +714,6 @@ export interface NexusGenFieldTypes {
     createOneUser: NexusGenRootTypes['User']; // User!
     updateOneCollection: NexusGenRootTypes['Collection'] | null; // Collection
   }
-  Profile: { // field return type
-    linkedin: string | null; // String
-    mail: string | null; // String
-    website: string | null; // String
-    youtube: string | null; // String
-  }
   Query: { // field return type
     collection: NexusGenRootTypes['Collection'] | null; // Collection
     collections: NexusGenRootTypes['Collection'][]; // [Collection!]!
@@ -736,7 +730,7 @@ export interface NexusGenFieldTypes {
     slug: string; // String!
   }
   User: { // field return type
-    auth0Id: string | null; // String
+    authUserId: string | null; // String
     biography: string; // String!
     firstname: string; // String!
     github: string | null; // String
