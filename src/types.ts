@@ -57,14 +57,19 @@ export const Mutation = mutationType({
                 { oldIndex, newIndex, collectionId },
                 ctx: Context
             ) {
-                const items = await ctx.photon.items.findMany({
-                    where: {
-                        collection: { id: collectionId },
-                        isArchived: false,
-                    },
-                    select: { id: true, position: true },
-                    orderBy: { position: 'asc' },
-                })
+                const items = (
+                    await ctx.photon.items.findMany({
+                        where: {
+                            collection: { id: collectionId },
+                            isArchived: false,
+                        },
+                        select: { id: true, position: true },
+                        // this order is related to items order on the page
+                        // Should be nested order not supported by photon yet FIXME
+                        orderBy: { createdAt: 'desc' },
+                    })
+                ).sort((a, b) => a.position - b.position) // FIXME here!
+
                 const newIndexedItems = reAssignPosition(
                     items,
                     oldIndex,
