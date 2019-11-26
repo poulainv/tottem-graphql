@@ -2,6 +2,7 @@ import { and, or, rule, shield } from 'graphql-shield'
 import util from 'util'
 import { Context } from '../context'
 import logger from '../logging'
+import { ForbiddenError } from 'apollo-server'
 
 // Rules
 const isAuthenticated = rule({ cache: 'contextual' })(
@@ -38,17 +39,26 @@ const isSectionOwner = rule({ cache: 'strict' })(
 )
 
 // Permissions
-const permissions = shield({
-    Mutation: {
-        createOneUser: isAuthenticated,
-        createItem: and(isAuthenticated, or(isAdmin, canCreateInCollection)),
-        createOneCollection: and(isAuthenticated, or(isAdmin, isSectionOwner)),
-        updateOneCollection: and(
-            isAuthenticated,
-            or(isAdmin, isCollectionOwner)
-        ),
+const permissions = shield(
+    {
+        Mutation: {
+            createOneUser: isAuthenticated,
+            createItem: and(
+                isAuthenticated,
+                or(isAdmin, canCreateInCollection)
+            ),
+            createOneCollection: and(
+                isAuthenticated,
+                or(isAdmin, isSectionOwner)
+            ),
+            updateOneCollection: and(
+                isAuthenticated,
+                or(isAdmin, isCollectionOwner)
+            ),
+        },
     },
-})
+    { fallbackError: new ForbiddenError('Not Authorised!') }
+)
 
 type Model = 'collection' | 'section'
 
