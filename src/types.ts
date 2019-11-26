@@ -90,7 +90,7 @@ export const Mutation = mutationType({
                 await Promise.all(updates)
                 return ctx.photon.items.findMany({
                     where: {
-                        OR: items.map(x => {
+                        OR: newIndexedItems.map(x => {
                             return {
                                 id: x.id,
                             }
