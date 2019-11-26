@@ -26,7 +26,7 @@ const isCollectionOwner = rule({ cache: 'strict' })(
     }
 )
 
-const canCreateInCollection = rule({ cache: 'strict' })(
+const canModifyCollection = rule({ cache: 'strict' })(
     async (parent, args, ctx, info) => {
         return isUserOwner(ctx, 'collection', args.collectionId)
     }
@@ -42,11 +42,12 @@ const isSectionOwner = rule({ cache: 'strict' })(
 const permissions = shield(
     {
         Mutation: {
-            createOneUser: isAuthenticated,
-            createItem: and(
+            changeItemPosition: and(
                 isAuthenticated,
-                or(isAdmin, canCreateInCollection)
+                or(isAdmin, canModifyCollection)
             ),
+            createOneUser: isAuthenticated,
+            createItem: and(isAuthenticated, or(isAdmin, canModifyCollection)),
             createOneCollection: and(
                 isAuthenticated,
                 or(isAdmin, isSectionOwner)
