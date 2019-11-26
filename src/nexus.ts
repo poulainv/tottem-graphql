@@ -234,6 +234,7 @@ export interface NexusGenInputs {
     imageUrl?: string | null; // String
     isArchived?: boolean | null; // Boolean
     meta?: string | null; // String
+    position?: number | null; // Int
     productUrl?: string | null; // String
     provider?: string | null; // String
     title: string; // String!
@@ -257,6 +258,7 @@ export interface NexusGenInputs {
     meta?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
     OR?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
+    position?: NexusGenInputs['IntFilter'] | null; // IntFilter
     productUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     provider?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -273,6 +275,7 @@ export interface NexusGenInputs {
     imageUrl?: string | null; // String
     isArchived?: boolean | null; // Boolean
     meta?: string | null; // String
+    position?: number | null; // Int
     productUrl?: string | null; // String
     provider?: string | null; // String
     title?: string | null; // String
@@ -288,6 +291,7 @@ export interface NexusGenInputs {
     imageUrl?: string | null; // String
     isArchived?: boolean | null; // Boolean
     meta?: string | null; // String
+    position?: number | null; // Int
     productUrl?: string | null; // String
     provider?: string | null; // String
     title?: string | null; // String
@@ -322,6 +326,7 @@ export interface NexusGenInputs {
     imageUrl?: string | null; // String
     isArchived?: boolean | null; // Boolean
     meta?: string | null; // String
+    position?: number | null; // Int
     productUrl?: string | null; // String
     provider?: string | null; // String
     title?: string | null; // String
@@ -346,6 +351,7 @@ export interface NexusGenInputs {
     meta?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
     OR?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
+    position?: NexusGenInputs['IntFilter'] | null; // IntFilter
     productUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     provider?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -769,12 +775,14 @@ export interface NexusGenFieldTypes {
     imageUrl: string | null; // String
     isArchived: boolean; // Boolean!
     meta: string | null; // String
+    position: number; // Int!
     productUrl: string | null; // String
     provider: string | null; // String
     title: string; // String!
     type: NexusGenEnums['ItemType']; // ItemType!
   }
   Mutation: { // field return type
+    changeItemPosition: NexusGenRootTypes['Item'][]; // [Item!]!
     createItem: NexusGenRootTypes['Item']; // Item!
     createOneCollection: NexusGenRootTypes['Collection']; // Collection!
     createOneSection: NexusGenRootTypes['Section']; // Section!
@@ -825,6 +833,11 @@ export interface NexusGenArgTypes {
     }
   }
   Mutation: {
+    changeItemPosition: { // args
+      collectionId: string; // ID!
+      newIndex: number; // Int!
+      oldIndex: number; // Int!
+    }
     createItem: { // args
       collectionId: string; // String!
       url: string; // String!

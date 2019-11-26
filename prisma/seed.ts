@@ -67,11 +67,12 @@ async function main() {
                                     items: {
                                         create:
                                             collection.items &&
-                                            collection.items.map(x => {
+                                            collection.items.map((x, index) => {
                                                 return {
                                                     title: x.title,
                                                     author: x.author,
                                                     type: x.type,
+                                                    position: index,
                                                     provider: x.provider,
                                                     productUrl: x.productUrl,
                                                     imageUrl: x.imageUrl,

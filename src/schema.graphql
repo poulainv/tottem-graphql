@@ -252,6 +252,7 @@ type Item {
   imageUrl: String
   isArchived: Boolean!
   meta: String
+  position: Int!
   productUrl: String
   provider: String
   title: String!
@@ -272,6 +273,7 @@ input ItemCreateWithoutCollectionInput {
   imageUrl: String
   isArchived: Boolean
   meta: String
+  position: Int
   productUrl: String
   provider: String
   title: String!
@@ -297,6 +299,7 @@ input ItemScalarWhereInput {
   meta: NullableStringFilter
   NOT: [ItemScalarWhereInput!]
   OR: [ItemScalarWhereInput!]
+  position: IntFilter
   productUrl: NullableStringFilter
   provider: NullableStringFilter
   title: StringFilter
@@ -326,6 +329,7 @@ input ItemUpdateInput {
   imageUrl: String
   isArchived: Boolean
   meta: String
+  position: Int
   productUrl: String
   provider: String
   title: String
@@ -342,6 +346,7 @@ input ItemUpdateManyDataInput {
   imageUrl: String
   isArchived: Boolean
   meta: String
+  position: Int
   productUrl: String
   provider: String
   title: String
@@ -375,6 +380,7 @@ input ItemUpdateWithoutCollectionDataInput {
   imageUrl: String
   isArchived: Boolean
   meta: String
+  position: Int
   productUrl: String
   provider: String
   title: String
@@ -406,6 +412,7 @@ input ItemWhereInput {
   meta: NullableStringFilter
   NOT: [ItemWhereInput!]
   OR: [ItemWhereInput!]
+  position: IntFilter
   productUrl: NullableStringFilter
   provider: NullableStringFilter
   title: StringFilter
@@ -418,6 +425,7 @@ input ItemWhereUniqueInput {
 }
 
 type Mutation {
+  changeItemPosition(collectionId: ID!, newIndex: Int!, oldIndex: Int!): [Item!]!
   createItem(collectionId: String!, url: String!): Item!
   createOneCollection(data: CollectionCreateInput!): Collection!
   createOneSection(data: SectionCreateInput!): Section!
