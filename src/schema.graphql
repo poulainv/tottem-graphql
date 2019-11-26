@@ -425,6 +425,11 @@ input ItemWhereUniqueInput {
 }
 
 type Mutation {
+  """
+  Mutation changing the position of an item from his $oldIndex to the $newIndex.
+              It takes *indexes* (not position) and return changed items with new position.
+              
+  """
   changeItemPosition(collectionId: ID!, newIndex: Int!, oldIndex: Int!): [Item!]!
   createItem(collectionId: String!, url: String!): Item!
   createOneCollection(data: CollectionCreateInput!): Collection!
