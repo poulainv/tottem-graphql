@@ -20,6 +20,10 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  BooleanFilter: { // input type
+    equals?: boolean | null; // Boolean
+    not?: boolean | null; // Boolean
+  }
   CollectionCreateInput: { // input type
     createdAt?: any | null; // DateTime
     detail?: string | null; // String
@@ -33,6 +37,15 @@ export interface NexusGenInputs {
   CollectionCreateManyWithoutCollectionsInput: { // input type
     connect?: NexusGenInputs['CollectionWhereUniqueInput'][] | null; // [CollectionWhereUniqueInput!]
     create?: NexusGenInputs['CollectionCreateWithoutSectionInput'][] | null; // [CollectionCreateWithoutSectionInput!]
+  }
+  CollectionCreateWithoutItemsInput: { // input type
+    createdAt?: any | null; // DateTime
+    detail?: string | null; // String
+    id?: string | null; // ID
+    name: string; // String!
+    owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
+    section: NexusGenInputs['SectionCreateOneWithoutSectionInput']; // SectionCreateOneWithoutSectionInput!
+    slug: string; // String!
   }
   CollectionCreateWithoutOwnerInput: { // input type
     createdAt?: any | null; // DateTime
@@ -56,6 +69,9 @@ export interface NexusGenInputs {
     every?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
     none?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
     some?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
+  }
+  CollectionItemsWhereInput: { // input type
+    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
   }
   CollectionScalarWhereInput: { // input type
     AND?: NexusGenInputs['CollectionScalarWhereInput'][] | null; // [CollectionScalarWhereInput!]
@@ -111,6 +127,14 @@ export interface NexusGenInputs {
     updateMany?: NexusGenInputs['CollectionUpdateManyWithWhereNestedInput'][] | null; // [CollectionUpdateManyWithWhereNestedInput!]
     upsert?: NexusGenInputs['CollectionUpsertWithWhereUniqueWithoutSectionInput'][] | null; // [CollectionUpsertWithWhereUniqueWithoutSectionInput!]
   }
+  CollectionUpdateOneWithoutItemsInput: { // input type
+    connect?: NexusGenInputs['CollectionWhereUniqueInput'] | null; // CollectionWhereUniqueInput
+    create?: NexusGenInputs['CollectionCreateWithoutItemsInput'] | null; // CollectionCreateWithoutItemsInput
+    delete?: boolean | null; // Boolean
+    disconnect?: boolean | null; // Boolean
+    update?: NexusGenInputs['CollectionUpdateWithoutItemsDataInput'] | null; // CollectionUpdateWithoutItemsDataInput
+    upsert?: NexusGenInputs['CollectionUpsertWithoutItemsInput'] | null; // CollectionUpsertWithoutItemsInput
+  }
   CollectionUpdateWithWhereUniqueWithoutOwnerInput: { // input type
     data: NexusGenInputs['CollectionUpdateWithoutOwnerDataInput']; // CollectionUpdateWithoutOwnerDataInput!
     where: NexusGenInputs['CollectionWhereUniqueInput']; // CollectionWhereUniqueInput!
@@ -118,6 +142,15 @@ export interface NexusGenInputs {
   CollectionUpdateWithWhereUniqueWithoutSectionInput: { // input type
     data: NexusGenInputs['CollectionUpdateWithoutSectionDataInput']; // CollectionUpdateWithoutSectionDataInput!
     where: NexusGenInputs['CollectionWhereUniqueInput']; // CollectionWhereUniqueInput!
+  }
+  CollectionUpdateWithoutItemsDataInput: { // input type
+    createdAt?: any | null; // DateTime
+    detail?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+    owner?: NexusGenInputs['UserUpdateOneRequiredWithoutCollectionsInput'] | null; // UserUpdateOneRequiredWithoutCollectionsInput
+    section?: NexusGenInputs['SectionUpdateOneRequiredWithoutCollectionsInput'] | null; // SectionUpdateOneRequiredWithoutCollectionsInput
+    slug?: string | null; // String
   }
   CollectionUpdateWithoutOwnerDataInput: { // input type
     createdAt?: any | null; // DateTime
@@ -146,6 +179,10 @@ export interface NexusGenInputs {
     create: NexusGenInputs['CollectionCreateWithoutSectionInput']; // CollectionCreateWithoutSectionInput!
     update: NexusGenInputs['CollectionUpdateWithoutSectionDataInput']; // CollectionUpdateWithoutSectionDataInput!
     where: NexusGenInputs['CollectionWhereUniqueInput']; // CollectionWhereUniqueInput!
+  }
+  CollectionUpsertWithoutItemsInput: { // input type
+    create: NexusGenInputs['CollectionCreateWithoutItemsInput']; // CollectionCreateWithoutItemsInput!
+    update: NexusGenInputs['CollectionUpdateWithoutItemsDataInput']; // CollectionUpdateWithoutItemsDataInput!
   }
   CollectionWhereInput: { // input type
     AND?: NexusGenInputs['CollectionWhereInput'][] | null; // [CollectionWhereInput!]
@@ -195,7 +232,9 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
+    isArchived?: boolean | null; // Boolean
     meta?: string | null; // String
+    position?: number | null; // Int
     productUrl?: string | null; // String
     provider?: string | null; // String
     title: string; // String!
@@ -215,14 +254,33 @@ export interface NexusGenInputs {
     description?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     imageUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     meta?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
     OR?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
+    position?: NexusGenInputs['IntFilter'] | null; // IntFilter
     productUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     provider?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
     type?: NexusGenEnums['ItemType'] | null; // ItemType
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  ItemUpdateInput: { // input type
+    author?: string | null; // String
+    collection?: NexusGenInputs['CollectionUpdateOneWithoutItemsInput'] | null; // CollectionUpdateOneWithoutItemsInput
+    comment?: string | null; // String
+    createdAt?: any | null; // DateTime
+    description?: string | null; // String
+    id?: string | null; // ID
+    imageUrl?: string | null; // String
+    isArchived?: boolean | null; // Boolean
+    meta?: string | null; // String
+    position?: number | null; // Int
+    productUrl?: string | null; // String
+    provider?: string | null; // String
+    title?: string | null; // String
+    type?: NexusGenEnums['ItemType'] | null; // ItemType
+    updatedAt?: any | null; // DateTime
   }
   ItemUpdateManyDataInput: { // input type
     author?: string | null; // String
@@ -231,7 +289,9 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
+    isArchived?: boolean | null; // Boolean
     meta?: string | null; // String
+    position?: number | null; // Int
     productUrl?: string | null; // String
     provider?: string | null; // String
     title?: string | null; // String
@@ -264,7 +324,9 @@ export interface NexusGenInputs {
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
+    isArchived?: boolean | null; // Boolean
     meta?: string | null; // String
+    position?: number | null; // Int
     productUrl?: string | null; // String
     provider?: string | null; // String
     title?: string | null; // String
@@ -285,9 +347,11 @@ export interface NexusGenInputs {
     description?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     imageUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     meta?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
     OR?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
+    position?: NexusGenInputs['IntFilter'] | null; // IntFilter
     productUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     provider?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     title?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -319,6 +383,7 @@ export interface NexusGenInputs {
   }
   QueryItemsWhereInput: { // input type
     collection?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
+    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
   }
   QuerySectionsWhereInput: { // input type
     owner?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -610,23 +675,29 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  BooleanFilter: NexusGenInputs['BooleanFilter'];
   CollectionCreateInput: NexusGenInputs['CollectionCreateInput'];
   CollectionCreateManyWithoutCollectionsInput: NexusGenInputs['CollectionCreateManyWithoutCollectionsInput'];
+  CollectionCreateWithoutItemsInput: NexusGenInputs['CollectionCreateWithoutItemsInput'];
   CollectionCreateWithoutOwnerInput: NexusGenInputs['CollectionCreateWithoutOwnerInput'];
   CollectionCreateWithoutSectionInput: NexusGenInputs['CollectionCreateWithoutSectionInput'];
   CollectionFilter: NexusGenInputs['CollectionFilter'];
+  CollectionItemsWhereInput: NexusGenInputs['CollectionItemsWhereInput'];
   CollectionScalarWhereInput: NexusGenInputs['CollectionScalarWhereInput'];
   CollectionUpdateInput: NexusGenInputs['CollectionUpdateInput'];
   CollectionUpdateManyDataInput: NexusGenInputs['CollectionUpdateManyDataInput'];
   CollectionUpdateManyWithWhereNestedInput: NexusGenInputs['CollectionUpdateManyWithWhereNestedInput'];
   CollectionUpdateManyWithoutOwnerInput: NexusGenInputs['CollectionUpdateManyWithoutOwnerInput'];
   CollectionUpdateManyWithoutSectionInput: NexusGenInputs['CollectionUpdateManyWithoutSectionInput'];
+  CollectionUpdateOneWithoutItemsInput: NexusGenInputs['CollectionUpdateOneWithoutItemsInput'];
   CollectionUpdateWithWhereUniqueWithoutOwnerInput: NexusGenInputs['CollectionUpdateWithWhereUniqueWithoutOwnerInput'];
   CollectionUpdateWithWhereUniqueWithoutSectionInput: NexusGenInputs['CollectionUpdateWithWhereUniqueWithoutSectionInput'];
+  CollectionUpdateWithoutItemsDataInput: NexusGenInputs['CollectionUpdateWithoutItemsDataInput'];
   CollectionUpdateWithoutOwnerDataInput: NexusGenInputs['CollectionUpdateWithoutOwnerDataInput'];
   CollectionUpdateWithoutSectionDataInput: NexusGenInputs['CollectionUpdateWithoutSectionDataInput'];
   CollectionUpsertWithWhereUniqueWithoutOwnerInput: NexusGenInputs['CollectionUpsertWithWhereUniqueWithoutOwnerInput'];
   CollectionUpsertWithWhereUniqueWithoutSectionInput: NexusGenInputs['CollectionUpsertWithWhereUniqueWithoutSectionInput'];
+  CollectionUpsertWithoutItemsInput: NexusGenInputs['CollectionUpsertWithoutItemsInput'];
   CollectionWhereInput: NexusGenInputs['CollectionWhereInput'];
   CollectionWhereUniqueInput: NexusGenInputs['CollectionWhereUniqueInput'];
   DateTimeFilter: NexusGenInputs['DateTimeFilter'];
@@ -635,6 +706,7 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   ItemCreateWithoutCollectionInput: NexusGenInputs['ItemCreateWithoutCollectionInput'];
   ItemFilter: NexusGenInputs['ItemFilter'];
   ItemScalarWhereInput: NexusGenInputs['ItemScalarWhereInput'];
+  ItemUpdateInput: NexusGenInputs['ItemUpdateInput'];
   ItemUpdateManyDataInput: NexusGenInputs['ItemUpdateManyDataInput'];
   ItemUpdateManyWithWhereNestedInput: NexusGenInputs['ItemUpdateManyWithWhereNestedInput'];
   ItemUpdateManyWithoutCollectionInput: NexusGenInputs['ItemUpdateManyWithoutCollectionInput'];
@@ -701,18 +773,22 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     id: string; // ID!
     imageUrl: string | null; // String
+    isArchived: boolean; // Boolean!
     meta: string | null; // String
+    position: number; // Int!
     productUrl: string | null; // String
     provider: string | null; // String
     title: string; // String!
     type: NexusGenEnums['ItemType']; // ItemType!
   }
   Mutation: { // field return type
+    changeItemPosition: NexusGenRootTypes['Item'][]; // [Item!]!
     createItem: NexusGenRootTypes['Item']; // Item!
     createOneCollection: NexusGenRootTypes['Collection']; // Collection!
     createOneSection: NexusGenRootTypes['Section']; // Section!
     createOneUser: NexusGenRootTypes['User']; // User!
     updateOneCollection: NexusGenRootTypes['Collection'] | null; // Collection
+    updateOneItem: NexusGenRootTypes['Item'] | null; // Item
   }
   Query: { // field return type
     collection: NexusGenRootTypes['Collection'] | null; // Collection
@@ -754,9 +830,15 @@ export interface NexusGenArgTypes {
       first?: number | null; // Int
       last?: number | null; // Int
       skip?: number | null; // Int
+      where?: NexusGenInputs['CollectionItemsWhereInput'] | null; // CollectionItemsWhereInput
     }
   }
   Mutation: {
+    changeItemPosition: { // args
+      collectionId: string; // ID!
+      newIndex: number; // Int!
+      oldIndex: number; // Int!
+    }
     createItem: { // args
       collectionId: string; // String!
       url: string; // String!
@@ -773,6 +855,10 @@ export interface NexusGenArgTypes {
     updateOneCollection: { // args
       data: NexusGenInputs['CollectionUpdateInput']; // CollectionUpdateInput!
       where: NexusGenInputs['CollectionWhereUniqueInput']; // CollectionWhereUniqueInput!
+    }
+    updateOneItem: { // args
+      data: NexusGenInputs['ItemUpdateInput']; // ItemUpdateInput!
+      where: NexusGenInputs['ItemWhereUniqueInput']; // ItemWhereUniqueInput!
     }
   }
   Query: {
@@ -838,7 +924,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Collection" | "Item" | "Mutation" | "Query" | "Section" | "User";
 
-export type NexusGenInputNames = "CollectionCreateInput" | "CollectionCreateManyWithoutCollectionsInput" | "CollectionCreateWithoutOwnerInput" | "CollectionCreateWithoutSectionInput" | "CollectionFilter" | "CollectionScalarWhereInput" | "CollectionUpdateInput" | "CollectionUpdateManyDataInput" | "CollectionUpdateManyWithWhereNestedInput" | "CollectionUpdateManyWithoutOwnerInput" | "CollectionUpdateManyWithoutSectionInput" | "CollectionUpdateWithWhereUniqueWithoutOwnerInput" | "CollectionUpdateWithWhereUniqueWithoutSectionInput" | "CollectionUpdateWithoutOwnerDataInput" | "CollectionUpdateWithoutSectionDataInput" | "CollectionUpsertWithWhereUniqueWithoutOwnerInput" | "CollectionUpsertWithWhereUniqueWithoutSectionInput" | "CollectionWhereInput" | "CollectionWhereUniqueInput" | "DateTimeFilter" | "IntFilter" | "ItemCreateManyWithoutItemsInput" | "ItemCreateWithoutCollectionInput" | "ItemFilter" | "ItemScalarWhereInput" | "ItemUpdateManyDataInput" | "ItemUpdateManyWithWhereNestedInput" | "ItemUpdateManyWithoutCollectionInput" | "ItemUpdateWithWhereUniqueWithoutCollectionInput" | "ItemUpdateWithoutCollectionDataInput" | "ItemUpsertWithWhereUniqueWithoutCollectionInput" | "ItemWhereInput" | "ItemWhereUniqueInput" | "NullableStringFilter" | "QueryCollectionsOrderByInput" | "QueryCollectionsWhereInput" | "QueryItemsWhereInput" | "QuerySectionsWhereInput" | "SectionCreateInput" | "SectionCreateManyWithoutSectionsInput" | "SectionCreateOneWithoutSectionInput" | "SectionCreateWithoutCollectionsInput" | "SectionCreateWithoutOwnerInput" | "SectionFilter" | "SectionScalarWhereInput" | "SectionUpdateManyDataInput" | "SectionUpdateManyWithWhereNestedInput" | "SectionUpdateManyWithoutOwnerInput" | "SectionUpdateOneRequiredWithoutCollectionsInput" | "SectionUpdateWithWhereUniqueWithoutOwnerInput" | "SectionUpdateWithoutCollectionsDataInput" | "SectionUpdateWithoutOwnerDataInput" | "SectionUpsertWithWhereUniqueWithoutOwnerInput" | "SectionUpsertWithoutCollectionsInput" | "SectionWhereInput" | "SectionWhereUniqueInput" | "StringFilter" | "UserCreateInput" | "UserCreateOneWithoutOwnerInput" | "UserCreateWithoutCollectionsInput" | "UserCreateWithoutSectionsInput" | "UserUpdateOneRequiredWithoutCollectionsInput" | "UserUpdateOneRequiredWithoutSectionsInput" | "UserUpdateWithoutCollectionsDataInput" | "UserUpdateWithoutSectionsDataInput" | "UserUpsertWithoutCollectionsInput" | "UserUpsertWithoutSectionsInput" | "UserWhereInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "BooleanFilter" | "CollectionCreateInput" | "CollectionCreateManyWithoutCollectionsInput" | "CollectionCreateWithoutItemsInput" | "CollectionCreateWithoutOwnerInput" | "CollectionCreateWithoutSectionInput" | "CollectionFilter" | "CollectionItemsWhereInput" | "CollectionScalarWhereInput" | "CollectionUpdateInput" | "CollectionUpdateManyDataInput" | "CollectionUpdateManyWithWhereNestedInput" | "CollectionUpdateManyWithoutOwnerInput" | "CollectionUpdateManyWithoutSectionInput" | "CollectionUpdateOneWithoutItemsInput" | "CollectionUpdateWithWhereUniqueWithoutOwnerInput" | "CollectionUpdateWithWhereUniqueWithoutSectionInput" | "CollectionUpdateWithoutItemsDataInput" | "CollectionUpdateWithoutOwnerDataInput" | "CollectionUpdateWithoutSectionDataInput" | "CollectionUpsertWithWhereUniqueWithoutOwnerInput" | "CollectionUpsertWithWhereUniqueWithoutSectionInput" | "CollectionUpsertWithoutItemsInput" | "CollectionWhereInput" | "CollectionWhereUniqueInput" | "DateTimeFilter" | "IntFilter" | "ItemCreateManyWithoutItemsInput" | "ItemCreateWithoutCollectionInput" | "ItemFilter" | "ItemScalarWhereInput" | "ItemUpdateInput" | "ItemUpdateManyDataInput" | "ItemUpdateManyWithWhereNestedInput" | "ItemUpdateManyWithoutCollectionInput" | "ItemUpdateWithWhereUniqueWithoutCollectionInput" | "ItemUpdateWithoutCollectionDataInput" | "ItemUpsertWithWhereUniqueWithoutCollectionInput" | "ItemWhereInput" | "ItemWhereUniqueInput" | "NullableStringFilter" | "QueryCollectionsOrderByInput" | "QueryCollectionsWhereInput" | "QueryItemsWhereInput" | "QuerySectionsWhereInput" | "SectionCreateInput" | "SectionCreateManyWithoutSectionsInput" | "SectionCreateOneWithoutSectionInput" | "SectionCreateWithoutCollectionsInput" | "SectionCreateWithoutOwnerInput" | "SectionFilter" | "SectionScalarWhereInput" | "SectionUpdateManyDataInput" | "SectionUpdateManyWithWhereNestedInput" | "SectionUpdateManyWithoutOwnerInput" | "SectionUpdateOneRequiredWithoutCollectionsInput" | "SectionUpdateWithWhereUniqueWithoutOwnerInput" | "SectionUpdateWithoutCollectionsDataInput" | "SectionUpdateWithoutOwnerDataInput" | "SectionUpsertWithWhereUniqueWithoutOwnerInput" | "SectionUpsertWithoutCollectionsInput" | "SectionWhereInput" | "SectionWhereUniqueInput" | "StringFilter" | "UserCreateInput" | "UserCreateOneWithoutOwnerInput" | "UserCreateWithoutCollectionsInput" | "UserCreateWithoutSectionsInput" | "UserUpdateOneRequiredWithoutCollectionsInput" | "UserUpdateOneRequiredWithoutSectionsInput" | "UserUpdateWithoutCollectionsDataInput" | "UserUpdateWithoutSectionsDataInput" | "UserUpsertWithoutCollectionsInput" | "UserUpsertWithoutSectionsInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
 export type NexusGenEnumNames = "ItemType" | "OrderByArg";
 

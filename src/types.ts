@@ -1,20 +1,103 @@
 import {
-    arg,
     enumType,
     mutationType,
     objectType,
     queryType,
     stringArg,
+    intArg,
+    idArg,
 } from 'nexus'
 import { Context } from './context'
 import { inferNewItemFromUrl } from './parsers'
+
+interface Positonnable {
+    position: number
+}
+
+export function reAssignPosition<T extends Positonnable>(
+    array: T[],
+    startIndex: number,
+    endIndex: number
+) {
+    const result = Array.from(array)
+    const [removed] = result.splice(startIndex, 1)
+    result.splice(endIndex, 0, removed)
+    return result.flatMap((x, index) => {
+        if (index === x.position) {
+            return []
+        } else {
+            return {
+                ...x,
+                position: index,
+            }
+        }
+    })
+}
 
 export const Mutation = mutationType({
     definition(t) {
         t.crud.createOneSection()
         t.crud.createOneUser()
+        t.crud.updateOneItem()
         t.crud.createOneCollection()
         t.crud.updateOneCollection()
+        t.field('changeItemPosition', {
+            type: 'Item',
+            list: true,
+            description: `Mutation changing the position of an item from his $oldIndex to the $newIndex.
+            It takes *indexes* (not position) and return changed items with new position.
+            `,
+            args: {
+                collectionId: idArg({ required: true }),
+                oldIndex: intArg({ required: true }),
+                newIndex: intArg({ required: true }),
+            },
+            async resolve(
+                _,
+                { oldIndex, newIndex, collectionId },
+                ctx: Context
+            ) {
+                const items = (
+                    await ctx.photon.items.findMany({
+                        where: {
+                            collection: { id: collectionId },
+                            isArchived: false,
+                        },
+                        select: { id: true, position: true },
+                        // this order is related to items order on the page
+                        // Should be nested order not supported by photon yet FIXME
+                        orderBy: { createdAt: 'desc' },
+                    })
+                ).sort((a, b) => a.position - b.position) // FIXME here!
+
+                const newIndexedItems = reAssignPosition(
+                    items,
+                    oldIndex,
+                    newIndex
+                )
+                const updates: Array<Promise<any>> = []
+                for (const item of newIndexedItems) {
+                    updates.push(
+                        ctx.photon.items.update({
+                            data: {
+                                position: item.position,
+                            },
+                            where: { id: item.id },
+                        })
+                    )
+                }
+                await Promise.all(updates)
+                return ctx.photon.items.findMany({
+                    where: {
+                        OR: items.map(x => {
+                            return {
+                                id: x.id,
+                            }
+                        }),
+                    },
+                })
+            },
+        })
         t.field('createItem', {
             type: 'Item',
             args: {
@@ -50,7 +133,7 @@ export const Query = queryType({
         t.crud.user()
         t.crud.collection()
         t.crud.section()
-        t.crud.items({ filtering: { collection: true } })
+        t.crud.items({ filtering: { collection: true, isArchived: true } })
         t.crud.sections({ filtering: { owner: true } })
         t.crud.collections({
             ordering: { createdAt: true },
@@ -98,7 +181,7 @@ export const Collection = objectType({
         t.model.name()
         t.model.createdAt()
         t.model.detail()
-        t.model.items()
+        t.model.items({ filtering: { isArchived: true } })
         t.model.owner()
         t.model.section()
     },
@@ -109,7 +192,9 @@ export const Item = objectType({
     definition(t) {
         t.model.id()
         t.model.author()
+        t.model.isArchived()
         t.model.title()
+        t.model.position()
         t.model.imageUrl()
         t.model.productUrl()
         t.model.description()

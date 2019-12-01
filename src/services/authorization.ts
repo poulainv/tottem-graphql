@@ -2,6 +2,7 @@ import { and, or, rule, shield } from 'graphql-shield'
 import util from 'util'
 import { Context } from '../context'
 import logger from '../logging'
+import { ForbiddenError } from 'apollo-server'
 
 // Rules
 const isAuthenticated = rule({ cache: 'contextual' })(
@@ -25,7 +26,7 @@ const isCollectionOwner = rule({ cache: 'strict' })(
     }
 )
 
-const canCreateInCollection = rule({ cache: 'strict' })(
+const canModifyCollection = rule({ cache: 'strict' })(
     async (parent, args, ctx, info) => {
         return isUserOwner(ctx, 'collection', args.collectionId)
     }
@@ -38,16 +39,26 @@ const isSectionOwner = rule({ cache: 'strict' })(
 )
 
 // Permissions
-const permissions = shield({
-    Mutation: {
-        createItem: and(isAuthenticated, or(isAdmin, canCreateInCollection)),
-        createOneCollection: and(isAuthenticated, or(isAdmin, isSectionOwner)),
-        updateOneCollection: and(
-            isAuthenticated,
-            or(isAdmin, isCollectionOwner)
-        ),
+const permissions = shield(
+    {
+        Mutation: {
+            changeItemPosition: and(
+                isAuthenticated,
+                or(isAdmin, canModifyCollection)
+            ),
+            createItem: and(isAuthenticated, or(isAdmin, canModifyCollection)),
+            createOneCollection: and(
+                isAuthenticated,
+                or(isAdmin, isSectionOwner)
+            ),
+            updateOneCollection: and(
+                isAuthenticated,
+                or(isAdmin, isCollectionOwner)
+            ),
+        },
     },
-})
+    { fallbackError: new ForbiddenError('Not Authorised!') }
+)
 
 type Model = 'collection' | 'section'
 

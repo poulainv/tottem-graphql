@@ -28,7 +28,7 @@ model User {
 model Section {
   id          String       @default(cuid()) @id
   createdAt   DateTime     @default(now())
-  slug        String       
+  slug        String
   name        String
   index       Int          @default(0)
   collections Collection[]
@@ -50,6 +50,8 @@ model Item {
   id          String      @default(cuid()) @id
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  isArchived  Boolean     @default(false)
+  position    Int         @default(0)
   title       String
   provider    String?
   author      String?
