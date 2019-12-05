@@ -24,6 +24,19 @@ function FnacParser(url: string, body: string): IItem {
     }
 }
 
+function AmazonParser(url: string, body: string): IItem {
+    const $ = cheerio.load(body)
+    return {
+        title: $('#productTitle').text(),
+        author: $('.contributorNameID')
+            .first()
+            .text(),
+        productUrl: url,
+        type: 'book' as ItemType,
+        imageUrl: $('.main-image-container<img').attr('src'),
+    }
+}
+
 function MediumParser(url: string, body: string): IItem {
     const $ = cheerio.load(body)
     return {
@@ -236,6 +249,12 @@ const Parsers: Array<{
         name: 'Spotify',
         regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?open.spotify\.com(\/.*)?$/,
         parse: SpotifyParser,
+        fetch: SimpleFetch,
+    },
+    {
+        name: 'Amazon',
+        regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?amazon\.fr(\/.*)?$/,
+        parse: AmazonParser,
         fetch: SimpleFetch,
     },
 ]
