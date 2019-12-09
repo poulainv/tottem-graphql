@@ -806,6 +806,7 @@ export interface NexusGenFieldTypes {
     slug: string; // String!
   }
   User: { // field return type
+    authUserId: string | null; // String
     biography: string; // String!
     firstname: string; // String!
     github: string | null; // String

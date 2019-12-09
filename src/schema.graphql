@@ -647,6 +647,7 @@ input StringFilter {
 }
 
 type User {
+  authUserId: String
   biography: String!
   firstname: String!
   github: String

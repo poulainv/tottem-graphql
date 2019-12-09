@@ -46,7 +46,6 @@ const permissions = shield(
                 isAuthenticated,
                 or(isAdmin, canModifyCollection)
             ),
-            createOneUser: isAuthenticated,
             createItem: and(isAuthenticated, or(isAdmin, canModifyCollection)),
             createOneCollection: and(
                 isAuthenticated,
