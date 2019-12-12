@@ -1,0 +1,31 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "DeleteField",
+      "model": "User",
+      "field": "test"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Section",
+      "field": "isExpanded",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Section",
+      "field": "isExpanded",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Section",
+      "field": "isExpanded",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
+    }
+  ]
+}

@@ -37,6 +37,7 @@ export function reAssignPosition<T extends Positonnable>(
 export const Mutation = mutationType({
     definition(t) {
         t.crud.createOneSection()
+        t.crud.updateOneSection()
         t.crud.createOneUser()
         t.crud.updateOneItem()
         t.crud.createOneCollection()
@@ -170,6 +171,7 @@ export const Section = objectType({
         t.model.index()
         t.model.name()
         t.model.collections()
+        t.model.isExpanded()
     },
 })
 

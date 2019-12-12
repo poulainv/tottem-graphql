@@ -437,6 +437,7 @@ type Mutation {
   createOneUser(data: UserCreateInput!): User!
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
   updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
+  updateOneSection(data: SectionUpdateInput!, where: SectionWhereUniqueInput!): Section
 }
 
 input NullableStringFilter {
@@ -489,6 +490,7 @@ type Section {
   collections(after: ID, before: ID, first: Int, last: Int, skip: Int): [Collection!]!
   id: ID!
   index: Int!
+  isExpanded: Boolean!
   name: String!
   slug: String!
 }
@@ -498,6 +500,7 @@ input SectionCreateInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isExpanded: Boolean
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
   slug: String!
@@ -517,6 +520,7 @@ input SectionCreateWithoutCollectionsInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isExpanded: Boolean
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
   slug: String!
@@ -527,6 +531,7 @@ input SectionCreateWithoutOwnerInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isExpanded: Boolean
   name: String!
   slug: String!
 }
@@ -543,16 +548,29 @@ input SectionScalarWhereInput {
   createdAt: DateTimeFilter
   id: StringFilter
   index: IntFilter
+  isExpanded: BooleanFilter
   name: StringFilter
   NOT: [SectionScalarWhereInput!]
   OR: [SectionScalarWhereInput!]
   slug: StringFilter
 }
 
+input SectionUpdateInput {
+  collections: CollectionUpdateManyWithoutSectionInput
+  createdAt: DateTime
+  id: ID
+  index: Int
+  isExpanded: Boolean
+  name: String
+  owner: UserUpdateOneRequiredWithoutSectionsInput
+  slug: String
+}
+
 input SectionUpdateManyDataInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isExpanded: Boolean
   name: String
   slug: String
 }
@@ -585,6 +603,7 @@ input SectionUpdateWithoutCollectionsDataInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isExpanded: Boolean
   name: String
   owner: UserUpdateOneRequiredWithoutSectionsInput
   slug: String
@@ -595,6 +614,7 @@ input SectionUpdateWithoutOwnerDataInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isExpanded: Boolean
   name: String
   slug: String
 }
@@ -621,6 +641,7 @@ input SectionWhereInput {
   createdAt: DateTimeFilter
   id: StringFilter
   index: IntFilter
+  isExpanded: BooleanFilter
   name: StringFilter
   NOT: [SectionWhereInput!]
   OR: [SectionWhereInput!]
