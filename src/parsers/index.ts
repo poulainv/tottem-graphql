@@ -3,8 +3,15 @@ import { ItemType } from '@generated/photon'
 import cheerio from 'cheerio'
 import URL from 'url'
 import { IItem } from '../interfaces'
-import { GithubApiFetch, SimpleFetch, YoutubeApiFetch } from './fetchers'
+import {
+    GithubApiFetch,
+    SimpleFetch,
+    YoutubeApiFetch,
+    JSONFetch,
+} from './fetchers'
 import logger from '../logging'
+import { MovieDBResult } from './types/moviedb'
+import { Item as GoogleBookItem } from './types/googlebook'
 
 /* -------- PARSERS DEFINITION --------  */
 function FnacParser(url: string, body: string): IItem {
@@ -84,6 +91,40 @@ export function GithubApiParser(url: string, body: string): IItem {
             issuesCount: json.open_issues,
             pushedAt: json.pushed_at,
         },
+    }
+}
+
+export function MovieDBApiParser(url: string, body: string): IItem {
+    const json: MovieDBResult = JSON.parse(body)
+    return {
+        title: json.title,
+        author: '', // todo
+        productUrl: url,
+        description: json.overview,
+        provider: 'moviedb',
+        type: 'movie' as ItemType,
+        imageUrl:
+            json.poster_path &&
+            `https://image.tmdb.org/t/p/w500${json.poster_path}`,
+        meta: {
+            releaseDate: json.release_date,
+            voteAverage: json.vote_average,
+            genres: json.genres.map(x => x.name),
+        },
+    }
+}
+
+export function GoogleBooksApiParser(url: string, body: string): IItem {
+    const json: GoogleBookItem = JSON.parse(body)
+    return {
+        title: json.volumeInfo.title,
+        author: json.volumeInfo.authors && json.volumeInfo.authors[0],
+        productUrl: json.volumeInfo.infoLink,
+        description: json.volumeInfo.description,
+        provider: 'google',
+        type: 'book' as ItemType,
+        imageUrl: `https://books.google.com/books/content/images/frontcover/${json.id}?fife=w200-h300`,
+        meta: {},
     }
 }
 
@@ -246,6 +287,18 @@ const Parsers: Array<{
         fetch: YoutubeApiFetch,
     },
     {
+        name: 'MovieDBApi',
+        regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?api.themoviedb\.org(\/.*)?$/,
+        parse: MovieDBApiParser,
+        fetch: JSONFetch,
+    },
+    {
+        name: 'GoogleBooksApi',
+        regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?googleapis\.com(\/.*)?$/,
+        parse: GoogleBooksApiParser,
+        fetch: JSONFetch,
+    },
+    {
         name: 'Spotify',
         regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?open.spotify\.com(\/.*)?$/,
         parse: SpotifyParser,
@@ -261,7 +314,7 @@ const Parsers: Array<{
 
 export async function inferNewItemFromUrl(url: string): Promise<IItem> {
     const Parser = Parsers.find(x => x.regex.test(url)) || FallbackParser
-    logger.debug(`Use parser ${Parser.name} for ${url}`)
+    logger.info(`Use parser ${Parser.name} for ${url}`)
     try {
         const body = await Parser.fetch(url)
         const inferredItem = await Parser.parse(url, body)
@@ -274,4 +327,21 @@ export async function inferNewItemFromUrl(url: string): Promise<IItem> {
         }
         throw Error(`Something went wrong when parsing ${url}`)
     }
+}
+
+export async function createNewItemFromSearch(
+    id: string,
+    kind: string,
+    lang?: string
+): Promise<IItem> {
+    if (kind === 'movie') {
+        const movieDBUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${
+            process.env.MOVIEDB_API_KEY
+        }${lang !== undefined ? `&language=${lang}` : ''}`
+        return inferNewItemFromUrl(movieDBUrl)
+    } else if (kind === 'book') {
+        const bookUrl = `https://www.googleapis.com/books/v1/volumes/${id}?key=${process.env.GOOGLEBOOKS_API_KEY}`
+        return inferNewItemFromUrl(bookUrl)
+    }
+    return Promise.reject(`kind ${kind} unknown`)
 }

@@ -1,8 +1,9 @@
 import { ItemType } from '@generated/photon'
 import querystring from 'querystring'
 import { IItem } from '../interfaces'
-import { SimpleFetch } from './fetchers'
+import { SimpleFetch, JSONFetch } from './fetchers'
 import logger from '../logging'
+import { GoogleBookResult } from './types/googlebook'
 
 const MOVIEDB_GENRES: { [i: number]: string } = {
     28: 'Action',
@@ -26,11 +27,21 @@ const MOVIEDB_GENRES: { [i: number]: string } = {
     37: 'Western',
 }
 
+interface IMovieDB {
+    id: string
+    title: string
+    overview: string
+    release_date: string
+    poster_path: string
+    vote_average: number
+    genre_ids: number[]
+}
+
 export async function MovieDBSearch(
     title: string,
     year?: number,
     lang?: string
-): Promise<IItem> {
+): Promise<IMovieDB[]> {
     const text = await SimpleFetch(
         `https://api.themoviedb.org/3/search/movie?api_key=${
             process.env.MOVIEDB_API_KEY
@@ -52,7 +63,24 @@ export async function MovieDBSearch(
         logger.error(`No result for ${title}}`)
         return Promise.reject()
     }
-    const best = response.results[0]
+    return response.results
+}
+
+export async function GoogleBookSearch(
+    query: string
+): Promise<GoogleBookResult> {
+    return JSONFetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&langRestrict=fr&maxResults=10&key=${process.env.GOOGLEBOOKS_API_KEY}`
+    ).then(s => JSON.parse(s))
+}
+
+export async function MovieDBFind(
+    title: string,
+    year?: number,
+    lang?: string
+): Promise<IItem> {
+    const search = await MovieDBSearch(title, year, lang)
+    const best = search[0]
     return {
         title: best.title,
         author: '',

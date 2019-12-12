@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 import querystring from 'querystring'
 import URL from 'url'
 import logger from '../logging'
+import { MovieDBResult } from './types/moviedb'
 
 const TINYYTREGEXP = /youtu\.be\/(?<youtubeId>[^\/:]{1,})(\/)?$/
 const GITHUBREGEXP = /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?github\.com(\/)(?<username>[^\/:]+)(\/)(?<repos>[^\/:]+).*?$/
@@ -94,4 +95,12 @@ export function YoutubeApiFetch(url: string): Promise<string> {
             },
         }
     ).then(res => res.text())
+}
+
+export function JSONFetch(url: string): Promise<string> {
+    return fetch(url, {
+        headers: {
+            Accept: 'application/json',
+        },
+    }).then(res => res.text())
 }

@@ -11,7 +11,7 @@ type Collection {
   createdAt: DateTime!
   detail: String
   id: ID!
-  items(after: ID, before: ID, first: Int, last: Int, skip: Int, where: CollectionItemsWhereInput): [Item!]!
+  items(after: ID, before: ID, first: Int, last: Int, orderBy: CollectionItemsOrderByInput, skip: Int, where: CollectionItemsWhereInput): [Item!]!
   name: String!
   owner: User!
   section: Section!
@@ -68,6 +68,10 @@ input CollectionFilter {
   every: CollectionWhereInput
   none: CollectionWhereInput
   some: CollectionWhereInput
+}
+
+input CollectionItemsOrderByInput {
+  position: OrderByArg
 }
 
 input CollectionItemsWhereInput {
@@ -431,7 +435,8 @@ type Mutation {
               
   """
   changeItemPosition(collectionId: ID!, newIndex: Int!, oldIndex: Int!): [Item!]!
-  createItem(collectionId: String!, url: String!): Item!
+  createItemFromSearch(collectionId: String!, id: String!, kind: String!): Item!
+  createItemFromUrl(collectionId: String!, url: String!): Item!
   createOneCollection(data: CollectionCreateInput!): Collection!
   createOneSection(data: SectionCreateInput!): Section!
   createOneUser(data: UserCreateInput!): User!
@@ -462,7 +467,8 @@ enum OrderByArg {
 type Query {
   collection(where: CollectionWhereUniqueInput!): Collection
   collections(after: ID, before: ID, first: Int, last: Int, orderBy: QueryCollectionsOrderByInput, skip: Int, where: QueryCollectionsWhereInput): [Collection!]!
-  items(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QueryItemsWhereInput): [Item!]!
+  items(after: ID, before: ID, first: Int, last: Int, orderBy: QueryItemsOrderByInput, skip: Int, where: QueryItemsWhereInput): [Item!]!
+  search(kind: String!, q: String!): [SearchItem!]!
   section(where: SectionWhereUniqueInput!): Section
   sections(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QuerySectionsWhereInput): [Section!]!
   user(where: UserWhereUniqueInput!): User
@@ -477,6 +483,10 @@ input QueryCollectionsWhereInput {
   section: SectionWhereInput
 }
 
+input QueryItemsOrderByInput {
+  position: OrderByArg
+}
+
 input QueryItemsWhereInput {
   collection: CollectionWhereInput
   isArchived: BooleanFilter
@@ -484,6 +494,13 @@ input QueryItemsWhereInput {
 
 input QuerySectionsWhereInput {
   owner: UserWhereInput
+}
+
+type SearchItem {
+  author: String
+  id: String!
+  title: String!
+  type: String!
 }
 
 type Section {

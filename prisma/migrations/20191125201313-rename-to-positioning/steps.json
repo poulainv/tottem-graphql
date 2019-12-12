@@ -1,0 +1,31 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "Item",
+      "field": "position",
+      "type": "Int",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Item",
+      "field": "position",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Item",
+      "field": "position",
+      "directive": "default",
+      "argument": "",
+      "value": "0"
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Item",
+      "field": "index"
+    }
+  ]
+}

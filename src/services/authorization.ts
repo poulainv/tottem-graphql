@@ -46,7 +46,15 @@ const permissions = shield(
                 isAuthenticated,
                 or(isAdmin, canModifyCollection)
             ),
-            createItem: and(isAuthenticated, or(isAdmin, canModifyCollection)),
+            createOneUser: isAuthenticated,
+            createItemFromUrl: and(
+                isAuthenticated,
+                or(isAdmin, canModifyCollection)
+            ),
+            createItemFromSearch: and(
+                isAuthenticated,
+                or(isAdmin, canModifyCollection)
+            ),
             createOneCollection: and(
                 isAuthenticated,
                 or(isAdmin, isSectionOwner)
@@ -111,4 +119,3 @@ const isUserOwner: (
 }
 
 export { permissions, isUserOwner }
-

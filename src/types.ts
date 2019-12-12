@@ -8,7 +8,8 @@ import {
     idArg,
 } from 'nexus'
 import { Context } from './context'
-import { inferNewItemFromUrl } from './parsers'
+import { inferNewItemFromUrl, createNewItemFromSearch } from './parsers'
+import { MovieDBSearch, GoogleBookSearch } from './parsers/searchers'
 
 interface Positonnable {
     position: number
@@ -99,7 +100,35 @@ export const Mutation = mutationType({
                 })
             },
         })
-        t.field('createItem', {
+        t.field('createItemFromSearch', {
+            type: 'Item',
+            args: {
+                id: stringArg({ required: true }),
+                kind: stringArg({ required: true }),
+                collectionId: stringArg({ required: true }),
+            },
+            async resolve(_, { id, kind, collectionId }, ctx: Context) {
+                return createNewItemFromSearch(id, kind).then(item => {
+                    return ctx.photon.items.create({
+                        data: {
+                            title: item.title,
+                            author: item.author,
+                            type: item.type,
+                            meta: item.meta && JSON.stringify(item.meta),
+                            provider: item.provider,
+                            productUrl: item.productUrl,
+                            imageUrl: item.imageUrl,
+                            collection: {
+                                connect: {
+                                    id: collectionId,
+                                },
+                            },
+                        },
+                    })
+                })
+            },
+        })
+        t.field('createItemFromUrl', {
             type: 'Item',
             args: {
                 url: stringArg({ required: true }),
@@ -134,12 +163,48 @@ export const Query = queryType({
         t.crud.user()
         t.crud.collection()
         t.crud.section()
-        t.crud.items({ filtering: { collection: true, isArchived: true } })
+        t.crud.items({
+            filtering: { collection: true, isArchived: true },
+            ordering: { position: true },
+        })
         t.crud.sections({ filtering: { owner: true } })
         t.crud.collections({
             ordering: { createdAt: true },
             filtering: { owner: true, section: true },
             pagination: true,
+        })
+        t.field('search', {
+            type: 'SearchItem',
+            args: {
+                q: stringArg({ required: true }),
+                kind: stringArg({ required: true }),
+            },
+            list: true,
+            async resolve(_, { q, kind }, ctx: Context) {
+                if (kind === 'movie') {
+                    const res = await MovieDBSearch(q, undefined, 'fr')
+                    return res.map(x => {
+                        return {
+                            id: x.id,
+                            title: x.title,
+                            author: '',
+                            type: 'movie',
+                        }
+                    })
+                } else if (kind === 'book') {
+                    const res = await GoogleBookSearch(q)
+                    return res.items.map(x => {
+                        return {
+                            id: x.id,
+                            title: x.volumeInfo.title,
+                            author:
+                                x.volumeInfo.authors && x.volumeInfo.authors[0],
+                            type: 'book',
+                        }
+                    })
+                }
+                return Promise.reject('Kind not found')
+            },
         })
     },
 })
@@ -183,7 +248,10 @@ export const Collection = objectType({
         t.model.name()
         t.model.createdAt()
         t.model.detail()
-        t.model.items({ filtering: { isArchived: true } })
+        t.model.items({
+            filtering: { isArchived: true },
+            ordering: { position: true },
+        })
         t.model.owner()
         t.model.section()
     },
@@ -205,6 +273,16 @@ export const Item = objectType({
         t.model.type()
         t.model.meta()
         t.model.createdAt()
+    },
+})
+
+export const SearchItem = objectType({
+    name: 'SearchItem',
+    definition(t) {
+        t.string('id')
+        t.string('title')
+        t.string('author', { nullable: true })
+        t.string('type')
     },
 })
 

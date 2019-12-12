@@ -1,10 +1,10 @@
 import fs from 'fs'
 // import lemonde from '../../data/lemonde-movies.json'
 import pThrottle from 'p-throttle'
-import { ItemType } from '../../../src/types'
 import { IItem } from '../interfaces'
 import logger from '../logging'
-import { MovieDBSearch } from '../parsers/searchers'
+import { MovieDBFind } from '../parsers/searchers'
+import { ItemType } from '../data/types'
 
 interface Movie {
     title: string
@@ -19,8 +19,7 @@ async function launchLemonde() {
     const now = Date.now()
 
     const throttled = pThrottle(
-        (title: string) =>
-            MovieDBSearch(title, undefined, 'fr-FR').catch(e => e),
+        (title: string) => MovieDBFind(title, undefined, 'fr-FR').catch(e => e),
         3,
         1000
     )
