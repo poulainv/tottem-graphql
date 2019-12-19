@@ -11,6 +11,7 @@ type Collection {
   createdAt: DateTime!
   detail: String
   id: ID!
+  isDeleted: Boolean!
   items(after: ID, before: ID, first: Int, last: Int, orderBy: CollectionItemsOrderByInput, skip: Int, where: CollectionItemsWhereInput): [Item!]!
   name: String!
   owner: User!
@@ -22,6 +23,7 @@ input CollectionCreateInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   items: ItemCreateManyWithoutItemsInput
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
@@ -38,6 +40,7 @@ input CollectionCreateWithoutItemsInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
   section: SectionCreateOneWithoutSectionInput!
@@ -48,6 +51,7 @@ input CollectionCreateWithoutOwnerInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   items: ItemCreateManyWithoutItemsInput
   name: String!
   section: SectionCreateOneWithoutSectionInput!
@@ -58,6 +62,7 @@ input CollectionCreateWithoutSectionInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   items: ItemCreateManyWithoutItemsInput
   name: String!
   owner: UserCreateOneWithoutOwnerInput!
@@ -83,6 +88,7 @@ input CollectionScalarWhereInput {
   createdAt: DateTimeFilter
   detail: NullableStringFilter
   id: StringFilter
+  isDeleted: BooleanFilter
   items: ItemFilter
   name: StringFilter
   NOT: [CollectionScalarWhereInput!]
@@ -94,6 +100,7 @@ input CollectionUpdateInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   items: ItemUpdateManyWithoutCollectionInput
   name: String
   owner: UserUpdateOneRequiredWithoutCollectionsInput
@@ -105,6 +112,7 @@ input CollectionUpdateManyDataInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   name: String
   slug: String
 }
@@ -151,6 +159,7 @@ input CollectionUpdateWithoutItemsDataInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   name: String
   owner: UserUpdateOneRequiredWithoutCollectionsInput
   section: SectionUpdateOneRequiredWithoutCollectionsInput
@@ -161,6 +170,7 @@ input CollectionUpdateWithoutOwnerDataInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   items: ItemUpdateManyWithoutCollectionInput
   name: String
   section: SectionUpdateOneRequiredWithoutCollectionsInput
@@ -171,6 +181,7 @@ input CollectionUpdateWithoutSectionDataInput {
   createdAt: DateTime
   detail: String
   id: ID
+  isDeleted: Boolean
   items: ItemUpdateManyWithoutCollectionInput
   name: String
   owner: UserUpdateOneRequiredWithoutCollectionsInput
@@ -209,6 +220,7 @@ input CollectionWhereInput {
   createdAt: DateTimeFilter
   detail: NullableStringFilter
   id: StringFilter
+  isDeleted: BooleanFilter
   items: ItemFilter
   name: StringFilter
   NOT: [CollectionWhereInput!]
@@ -479,6 +491,7 @@ input QueryCollectionsOrderByInput {
 }
 
 input QueryCollectionsWhereInput {
+  isDeleted: BooleanFilter
   owner: UserWhereInput
   section: SectionWhereInput
 }
@@ -504,12 +517,16 @@ type SearchItem {
 }
 
 type Section {
-  collections(after: ID, before: ID, first: Int, last: Int, skip: Int): [Collection!]!
+  collections(after: ID, before: ID, first: Int, last: Int, skip: Int, where: SectionCollectionsWhereInput): [Collection!]!
   id: ID!
   index: Int!
   isExpanded: Boolean!
   name: String!
   slug: String!
+}
+
+input SectionCollectionsWhereInput {
+  isDeleted: BooleanFilter
 }
 
 input SectionCreateInput {

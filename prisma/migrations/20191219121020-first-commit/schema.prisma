@@ -33,6 +33,7 @@ model Section {
   index       Int          @default(0)
   collections Collection[]
   owner       User
+  isExpanded  Boolean      @default(false)
 }
 
 model Collection {
@@ -40,6 +41,7 @@ model Collection {
   createdAt DateTime @default(now())
   slug      String   @unique
   name      String
+  isDeleted Boolean  @default(false)
   detail    String?
   items     Item[]
   section   Section
@@ -50,7 +52,8 @@ model Item {
   id          String      @default(cuid()) @id
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  isArchived  Boolean
+  isArchived  Boolean     @default(false)
+  position    Int         @default(0)
   title       String
   provider    String?
   author      String?

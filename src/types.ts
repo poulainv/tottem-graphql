@@ -77,7 +77,7 @@ export const Mutation = mutationType({
                     oldIndex,
                     newIndex
                 )
-                const updates: Array<Promise<any>> = []
+                const updates: Array<Promise<any>> = [] // FIXME any!
                 for (const item of newIndexedItems) {
                     updates.push(
                         ctx.photon.items.update({
@@ -114,7 +114,7 @@ export const Mutation = mutationType({
                             title: item.title,
                             author: item.author,
                             type: item.type,
-                            meta: item.meta && JSON.stringify(item.meta),
+                            meta: item.meta && JSON.stringify(item.meta), // FIXME JSON fields not supported yet
                             provider: item.provider,
                             productUrl: item.productUrl,
                             imageUrl: item.imageUrl,
@@ -141,7 +141,7 @@ export const Mutation = mutationType({
                             title: item.title,
                             author: item.author,
                             type: item.type,
-                            meta: item.meta && JSON.stringify(item.meta),
+                            meta: item.meta && JSON.stringify(item.meta), // FIXME JSON fields not supported yet
                             provider: item.provider,
                             productUrl: item.productUrl,
                             imageUrl: item.imageUrl,
@@ -170,7 +170,7 @@ export const Query = queryType({
         t.crud.sections({ filtering: { owner: true } })
         t.crud.collections({
             ordering: { createdAt: true },
-            filtering: { owner: true, section: true },
+            filtering: { owner: true, section: true, isDeleted: true },
             pagination: true,
         })
         t.field('search', {
@@ -203,7 +203,7 @@ export const Query = queryType({
                         }
                     })
                 }
-                return Promise.reject('Kind not found')
+                return Promise.reject(`Kind ${kind} not supported`)
             },
         })
     },
@@ -235,7 +235,7 @@ export const Section = objectType({
         t.model.slug()
         t.model.index()
         t.model.name()
-        t.model.collections()
+        t.model.collections({ filtering: { isDeleted: true } })
         t.model.isExpanded()
     },
 })
@@ -247,6 +247,7 @@ export const Collection = objectType({
         t.model.slug()
         t.model.name()
         t.model.createdAt()
+        t.model.isDeleted()
         t.model.detail()
         t.model.items({
             filtering: { isArchived: true },

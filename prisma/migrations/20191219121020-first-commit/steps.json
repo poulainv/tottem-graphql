@@ -273,6 +273,27 @@
       "arity": "required"
     },
     {
+      "stepType": "CreateField",
+      "model": "Section",
+      "field": "isExpanded",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Section",
+      "field": "isExpanded",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Section",
+      "field": "isExpanded",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
+    },
+    {
       "stepType": "CreateModel",
       "model": "Collection"
     },
@@ -343,6 +364,27 @@
       "field": "name",
       "type": "String",
       "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Collection",
+      "field": "isDeleted",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Collection",
+      "field": "isDeleted",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Collection",
+      "field": "isDeleted",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
     },
     {
       "stepType": "CreateField",
@@ -443,6 +485,41 @@
       "field": "isArchived",
       "type": "Boolean",
       "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Item",
+      "field": "isArchived",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Item",
+      "field": "isArchived",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Item",
+      "field": "position",
+      "type": "Int",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Item",
+      "field": "position",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Item",
+      "field": "position",
+      "directive": "default",
+      "argument": "",
+      "value": "0"
     },
     {
       "stepType": "CreateField",
