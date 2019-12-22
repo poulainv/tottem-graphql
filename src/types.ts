@@ -39,6 +39,7 @@ export const Mutation = mutationType({
     definition(t) {
         t.crud.createOneSection()
         t.crud.updateOneSection()
+        t.crud.deleteOneSection()
         t.crud.createOneUser()
         t.crud.updateOneItem()
         t.crud.createOneCollection()

@@ -30,7 +30,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     isDeleted?: boolean | null; // Boolean
     items?: NexusGenInputs['ItemCreateManyWithoutItemsInput'] | null; // ItemCreateManyWithoutItemsInput
-    name?: string | null; // String
+    name: string; // String!
     owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
     section: NexusGenInputs['SectionCreateOneWithoutSectionInput']; // SectionCreateOneWithoutSectionInput!
     slug: string; // String!
@@ -44,7 +44,7 @@ export interface NexusGenInputs {
     detail?: string | null; // String
     id?: string | null; // ID
     isDeleted?: boolean | null; // Boolean
-    name?: string | null; // String
+    name: string; // String!
     owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
     section: NexusGenInputs['SectionCreateOneWithoutSectionInput']; // SectionCreateOneWithoutSectionInput!
     slug: string; // String!
@@ -55,7 +55,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     isDeleted?: boolean | null; // Boolean
     items?: NexusGenInputs['ItemCreateManyWithoutItemsInput'] | null; // ItemCreateManyWithoutItemsInput
-    name?: string | null; // String
+    name: string; // String!
     section: NexusGenInputs['SectionCreateOneWithoutSectionInput']; // SectionCreateOneWithoutSectionInput!
     slug: string; // String!
   }
@@ -65,7 +65,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     isDeleted?: boolean | null; // Boolean
     items?: NexusGenInputs['ItemCreateManyWithoutItemsInput'] | null; // ItemCreateManyWithoutItemsInput
-    name?: string | null; // String
+    name: string; // String!
     owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
     slug: string; // String!
   }
@@ -87,7 +87,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     isDeleted?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     items?: NexusGenInputs['ItemFilter'] | null; // ItemFilter
-    name?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['CollectionScalarWhereInput'][] | null; // [CollectionScalarWhereInput!]
     OR?: NexusGenInputs['CollectionScalarWhereInput'][] | null; // [CollectionScalarWhereInput!]
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -204,7 +204,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     isDeleted?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     items?: NexusGenInputs['ItemFilter'] | null; // ItemFilter
-    name?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['CollectionWhereInput'][] | null; // [CollectionWhereInput!]
     OR?: NexusGenInputs['CollectionWhereInput'][] | null; // [CollectionWhereInput!]
     owner?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
@@ -415,10 +415,9 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     index?: number | null; // Int
     isExpanded?: boolean | null; // Boolean
-    name?: string | null; // String
+    name: string; // String!
     owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
     slug: string; // String!
-    updatedAt?: any | null; // DateTime
   }
   SectionCreateManyWithoutSectionsInput: { // input type
     connect?: NexusGenInputs['SectionWhereUniqueInput'][] | null; // [SectionWhereUniqueInput!]
@@ -433,10 +432,9 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     index?: number | null; // Int
     isExpanded?: boolean | null; // Boolean
-    name?: string | null; // String
+    name: string; // String!
     owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
     slug: string; // String!
-    updatedAt?: any | null; // DateTime
   }
   SectionCreateWithoutOwnerInput: { // input type
     collections?: NexusGenInputs['CollectionCreateManyWithoutCollectionsInput'] | null; // CollectionCreateManyWithoutCollectionsInput
@@ -444,9 +442,8 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     index?: number | null; // Int
     isExpanded?: boolean | null; // Boolean
-    name?: string | null; // String
+    name: string; // String!
     slug: string; // String!
-    updatedAt?: any | null; // DateTime
   }
   SectionFilter: { // input type
     every?: NexusGenInputs['SectionWhereInput'] | null; // SectionWhereInput
@@ -460,11 +457,10 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     index?: NexusGenInputs['IntFilter'] | null; // IntFilter
     isExpanded?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
-    name?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['SectionScalarWhereInput'][] | null; // [SectionScalarWhereInput!]
     OR?: NexusGenInputs['SectionScalarWhereInput'][] | null; // [SectionScalarWhereInput!]
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   SectionUpdateInput: { // input type
     collections?: NexusGenInputs['CollectionUpdateManyWithoutSectionInput'] | null; // CollectionUpdateManyWithoutSectionInput
@@ -475,7 +471,6 @@ export interface NexusGenInputs {
     name?: string | null; // String
     owner?: NexusGenInputs['UserUpdateOneRequiredWithoutSectionsInput'] | null; // UserUpdateOneRequiredWithoutSectionsInput
     slug?: string | null; // String
-    updatedAt?: any | null; // DateTime
   }
   SectionUpdateManyDataInput: { // input type
     createdAt?: any | null; // DateTime
@@ -484,7 +479,6 @@ export interface NexusGenInputs {
     isExpanded?: boolean | null; // Boolean
     name?: string | null; // String
     slug?: string | null; // String
-    updatedAt?: any | null; // DateTime
   }
   SectionUpdateManyWithWhereNestedInput: { // input type
     data: NexusGenInputs['SectionUpdateManyDataInput']; // SectionUpdateManyDataInput!
@@ -519,7 +513,6 @@ export interface NexusGenInputs {
     name?: string | null; // String
     owner?: NexusGenInputs['UserUpdateOneRequiredWithoutSectionsInput'] | null; // UserUpdateOneRequiredWithoutSectionsInput
     slug?: string | null; // String
-    updatedAt?: any | null; // DateTime
   }
   SectionUpdateWithoutOwnerDataInput: { // input type
     collections?: NexusGenInputs['CollectionUpdateManyWithoutSectionInput'] | null; // CollectionUpdateManyWithoutSectionInput
@@ -529,7 +522,6 @@ export interface NexusGenInputs {
     isExpanded?: boolean | null; // Boolean
     name?: string | null; // String
     slug?: string | null; // String
-    updatedAt?: any | null; // DateTime
   }
   SectionUpsertWithWhereUniqueWithoutOwnerInput: { // input type
     create: NexusGenInputs['SectionCreateWithoutOwnerInput']; // SectionCreateWithoutOwnerInput!
@@ -547,12 +539,11 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     index?: NexusGenInputs['IntFilter'] | null; // IntFilter
     isExpanded?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
-    name?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['SectionWhereInput'][] | null; // [SectionWhereInput!]
     OR?: NexusGenInputs['SectionWhereInput'][] | null; // [SectionWhereInput!]
     owner?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
-    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   SectionWhereUniqueInput: { // input type
     id?: string | null; // ID
@@ -820,7 +811,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     isDeleted: boolean; // Boolean!
     items: NexusGenRootTypes['Item'][]; // [Item!]!
-    name: string | null; // String
+    name: string; // String!
     owner: NexusGenRootTypes['User']; // User!
     section: NexusGenRootTypes['Section']; // Section!
     slug: string; // String!
@@ -847,6 +838,7 @@ export interface NexusGenFieldTypes {
     createOneCollection: NexusGenRootTypes['Collection']; // Collection!
     createOneSection: NexusGenRootTypes['Section']; // Section!
     createOneUser: NexusGenRootTypes['User']; // User!
+    deleteOneSection: NexusGenRootTypes['Section'] | null; // Section
     updateOneCollection: NexusGenRootTypes['Collection'] | null; // Collection
     updateOneItem: NexusGenRootTypes['Item'] | null; // Item
     updateOneSection: NexusGenRootTypes['Section'] | null; // Section
@@ -871,7 +863,7 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     index: number; // Int!
     isExpanded: boolean; // Boolean!
-    name: string | null; // String
+    name: string; // String!
     slug: string; // String!
   }
   User: { // field return type
@@ -926,6 +918,9 @@ export interface NexusGenArgTypes {
     }
     createOneUser: { // args
       data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
+    }
+    deleteOneSection: { // args
+      where: NexusGenInputs['SectionWhereUniqueInput']; // SectionWhereUniqueInput!
     }
     updateOneCollection: { // args
       data: NexusGenInputs['CollectionUpdateInput']; // CollectionUpdateInput!
