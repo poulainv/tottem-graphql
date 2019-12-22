@@ -13,7 +13,7 @@ type Collection {
   id: ID!
   isDeleted: Boolean!
   items(after: ID, before: ID, first: Int, last: Int, orderBy: CollectionItemsOrderByInput, skip: Int, where: CollectionItemsWhereInput): [Item!]!
-  name: String!
+  name: String
   owner: User!
   section: Section!
   slug: String!
@@ -25,7 +25,7 @@ input CollectionCreateInput {
   id: ID
   isDeleted: Boolean
   items: ItemCreateManyWithoutItemsInput
-  name: String!
+  name: String
   owner: UserCreateOneWithoutOwnerInput!
   section: SectionCreateOneWithoutSectionInput!
   slug: String!
@@ -41,7 +41,7 @@ input CollectionCreateWithoutItemsInput {
   detail: String
   id: ID
   isDeleted: Boolean
-  name: String!
+  name: String
   owner: UserCreateOneWithoutOwnerInput!
   section: SectionCreateOneWithoutSectionInput!
   slug: String!
@@ -53,7 +53,7 @@ input CollectionCreateWithoutOwnerInput {
   id: ID
   isDeleted: Boolean
   items: ItemCreateManyWithoutItemsInput
-  name: String!
+  name: String
   section: SectionCreateOneWithoutSectionInput!
   slug: String!
 }
@@ -64,7 +64,7 @@ input CollectionCreateWithoutSectionInput {
   id: ID
   isDeleted: Boolean
   items: ItemCreateManyWithoutItemsInput
-  name: String!
+  name: String
   owner: UserCreateOneWithoutOwnerInput!
   slug: String!
 }
@@ -90,7 +90,7 @@ input CollectionScalarWhereInput {
   id: StringFilter
   isDeleted: BooleanFilter
   items: ItemFilter
-  name: StringFilter
+  name: NullableStringFilter
   NOT: [CollectionScalarWhereInput!]
   OR: [CollectionScalarWhereInput!]
   slug: StringFilter
@@ -222,7 +222,7 @@ input CollectionWhereInput {
   id: StringFilter
   isDeleted: BooleanFilter
   items: ItemFilter
-  name: StringFilter
+  name: NullableStringFilter
   NOT: [CollectionWhereInput!]
   OR: [CollectionWhereInput!]
   owner: UserWhereInput
@@ -521,7 +521,7 @@ type Section {
   id: ID!
   index: Int!
   isExpanded: Boolean!
-  name: String!
+  name: String
   slug: String!
 }
 
@@ -535,9 +535,10 @@ input SectionCreateInput {
   id: ID
   index: Int
   isExpanded: Boolean
-  name: String!
+  name: String
   owner: UserCreateOneWithoutOwnerInput!
   slug: String!
+  updatedAt: DateTime
 }
 
 input SectionCreateManyWithoutSectionsInput {
@@ -555,9 +556,10 @@ input SectionCreateWithoutCollectionsInput {
   id: ID
   index: Int
   isExpanded: Boolean
-  name: String!
+  name: String
   owner: UserCreateOneWithoutOwnerInput!
   slug: String!
+  updatedAt: DateTime
 }
 
 input SectionCreateWithoutOwnerInput {
@@ -566,8 +568,9 @@ input SectionCreateWithoutOwnerInput {
   id: ID
   index: Int
   isExpanded: Boolean
-  name: String!
+  name: String
   slug: String!
+  updatedAt: DateTime
 }
 
 input SectionFilter {
@@ -583,10 +586,11 @@ input SectionScalarWhereInput {
   id: StringFilter
   index: IntFilter
   isExpanded: BooleanFilter
-  name: StringFilter
+  name: NullableStringFilter
   NOT: [SectionScalarWhereInput!]
   OR: [SectionScalarWhereInput!]
   slug: StringFilter
+  updatedAt: DateTimeFilter
 }
 
 input SectionUpdateInput {
@@ -598,6 +602,7 @@ input SectionUpdateInput {
   name: String
   owner: UserUpdateOneRequiredWithoutSectionsInput
   slug: String
+  updatedAt: DateTime
 }
 
 input SectionUpdateManyDataInput {
@@ -607,6 +612,7 @@ input SectionUpdateManyDataInput {
   isExpanded: Boolean
   name: String
   slug: String
+  updatedAt: DateTime
 }
 
 input SectionUpdateManyWithoutOwnerInput {
@@ -641,6 +647,7 @@ input SectionUpdateWithoutCollectionsDataInput {
   name: String
   owner: UserUpdateOneRequiredWithoutSectionsInput
   slug: String
+  updatedAt: DateTime
 }
 
 input SectionUpdateWithoutOwnerDataInput {
@@ -651,6 +658,7 @@ input SectionUpdateWithoutOwnerDataInput {
   isExpanded: Boolean
   name: String
   slug: String
+  updatedAt: DateTime
 }
 
 input SectionUpdateWithWhereUniqueWithoutOwnerInput {
@@ -676,11 +684,12 @@ input SectionWhereInput {
   id: StringFilter
   index: IntFilter
   isExpanded: BooleanFilter
-  name: StringFilter
+  name: NullableStringFilter
   NOT: [SectionWhereInput!]
   OR: [SectionWhereInput!]
   owner: UserWhereInput
   slug: StringFilter
+  updatedAt: DateTimeFilter
 }
 
 input SectionWhereUniqueInput {
