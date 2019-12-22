@@ -4,7 +4,7 @@ generator photon {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
@@ -30,7 +30,7 @@ model Section {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   slug        String
-  name        String?
+  name        String       @default("New space")
   index       Int          @default(0)
   collections Collection[]
   owner       User
@@ -41,7 +41,7 @@ model Collection {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   slug      String   @unique
-  name      String?
+  name      String
   isDeleted Boolean  @default(false)
   detail    String?
   items     Item[]

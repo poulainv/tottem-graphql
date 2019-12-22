@@ -55,7 +55,7 @@ const permissions = shield(
                 isAuthenticated,
                 or(isAdmin, canModifyCollection)
             ),
-            createOneCollection: and(
+            createEmptyCollection: and(
                 isAuthenticated,
                 or(isAdmin, isSectionOwner)
             ),

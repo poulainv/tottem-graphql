@@ -1,15 +1,16 @@
 import {
     enumType,
+    idArg,
+    intArg,
     mutationType,
     objectType,
     queryType,
     stringArg,
-    intArg,
-    idArg,
 } from 'nexus'
 import { Context } from './context'
-import { inferNewItemFromUrl, createNewItemFromSearch } from './parsers'
-import { MovieDBSearch, GoogleBookSearch } from './parsers/searchers'
+import { createNewItemFromSearch, inferNewItemFromUrl } from './parsers'
+import { GoogleBookSearch, MovieDBSearch } from './parsers/searchers'
+import cuid from 'cuid'
 
 interface Positonnable {
     position: number
@@ -37,13 +38,65 @@ export function reAssignPosition<T extends Positonnable>(
 
 export const Mutation = mutationType({
     definition(t) {
-        t.crud.createOneSection()
         t.crud.updateOneSection()
         t.crud.deleteOneSection()
         t.crud.createOneUser()
         t.crud.updateOneItem()
-        t.crud.createOneCollection()
         t.crud.updateOneCollection()
+        t.field('createEmptyCollection', {
+            type: 'Collection',
+            args: {
+                sectionId: idArg({ required: true }),
+            },
+            async resolve(_, { sectionId }, ctx: Context) {
+                const user = await ctx.user
+                if (user === undefined) {
+                    return Promise.reject('User not authenticated')
+                }
+                const id = cuid()
+                return ctx.photon.collections.create({
+                    data: {
+                        id,
+                        owner: {
+                            connect: {
+                                authUserId: user.auth0Id,
+                            },
+                        },
+                        section: {
+                            connect: {
+                                id: sectionId,
+                            },
+                        },
+                        slug: `new-collection-${id}`,
+                    },
+                })
+            },
+        })
+        t.field('createEmptySection', {
+            type: 'Section',
+            async resolve(_, __, ctx: Context) {
+                const user = await ctx.user
+                if (user === undefined) {
+                    return Promise.reject('User not authenticated')
+                }
+                const sections = await ctx.photon.sections.findMany({
+                    where: { AND: { owner: { authUserId: user.auth0Id } } },
+                })
+                const id = cuid()
+                return ctx.photon.sections.create({
+                    data: {
+                        id,
+                        owner: {
+                            connect: {
+                                authUserId: user.auth0Id,
+                            },
+                        },
+                        slug: `new-space-${id}`,
+                        index: sections.length,
+                    },
+                })
+            },
+        })
         t.field('changeItemPosition', {
             type: 'Item',
             list: true,
