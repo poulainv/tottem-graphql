@@ -440,7 +440,6 @@ type Mutation {
   createItemFromSearch(collectionId: String!, id: String!, kind: String!): Item!
   createItemFromUrl(collectionId: String!, url: String!): Item!
   createOneUser(data: UserCreateInput!): User!
-  deleteOneSection(where: SectionWhereUniqueInput!): Section
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
   updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
   updateOneSection(data: SectionUpdateInput!, where: SectionWhereUniqueInput!): Section
@@ -495,6 +494,7 @@ input QueryItemsWhereInput {
 }
 
 input QuerySectionsWhereInput {
+  isDeleted: BooleanFilter
   owner: UserWhereInput
 }
 
@@ -532,6 +532,7 @@ input SectionCreateWithoutCollectionsInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isDeleted: Boolean
   isExpanded: Boolean
   name: String
   owner: UserCreateOneWithoutOwnerInput!
@@ -544,6 +545,7 @@ input SectionCreateWithoutOwnerInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isDeleted: Boolean
   isExpanded: Boolean
   name: String
   slug: String!
@@ -562,6 +564,7 @@ input SectionScalarWhereInput {
   createdAt: DateTimeFilter
   id: StringFilter
   index: IntFilter
+  isDeleted: BooleanFilter
   isExpanded: BooleanFilter
   name: NullableStringFilter
   NOT: [SectionScalarWhereInput!]
@@ -575,6 +578,7 @@ input SectionUpdateInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isDeleted: Boolean
   isExpanded: Boolean
   name: String
   owner: UserUpdateOneRequiredWithoutSectionsInput
@@ -586,6 +590,7 @@ input SectionUpdateManyDataInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isDeleted: Boolean
   isExpanded: Boolean
   name: String
   slug: String
@@ -620,6 +625,7 @@ input SectionUpdateWithoutCollectionsDataInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isDeleted: Boolean
   isExpanded: Boolean
   name: String
   owner: UserUpdateOneRequiredWithoutSectionsInput
@@ -632,6 +638,7 @@ input SectionUpdateWithoutOwnerDataInput {
   createdAt: DateTime
   id: ID
   index: Int
+  isDeleted: Boolean
   isExpanded: Boolean
   name: String
   slug: String
@@ -660,6 +667,7 @@ input SectionWhereInput {
   createdAt: DateTimeFilter
   id: StringFilter
   index: IntFilter
+  isDeleted: BooleanFilter
   isExpanded: BooleanFilter
   name: NullableStringFilter
   NOT: [SectionWhereInput!]

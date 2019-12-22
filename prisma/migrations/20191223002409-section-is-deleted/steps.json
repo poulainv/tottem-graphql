@@ -1,0 +1,26 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "Section",
+      "field": "isDeleted",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Section",
+      "field": "isDeleted",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Section",
+      "field": "isDeleted",
+      "directive": "default",
+      "argument": "",
+      "value": "false"
+    }
+  ]
+}

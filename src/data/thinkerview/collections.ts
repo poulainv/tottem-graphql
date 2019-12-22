@@ -8,7 +8,7 @@ const itemsByCollection = keyBy(items, (x: Item) => x.collectionId)
 const collections: ICollection[] = [
     {
         id: '1',
-        slug: 'eric-denece',
+        slug: 'eric-denece-1',
         date: new Date('2019-09-11T12:00:00'),
         sectionId: '11',
         detail:
@@ -18,7 +18,7 @@ const collections: ICollection[] = [
     },
     {
         id: '2',
-        slug: 'vikash-dhorasoo',
+        slug: 'vikash-dhorasoo-2',
         date: new Date('2019-09-05T12:00:00'),
         sectionId: '12',
         detail:
@@ -28,7 +28,7 @@ const collections: ICollection[] = [
     },
     {
         id: '3',
-        slug: 'maxime-renahy',
+        slug: 'maxime-renahy-3',
         date: new Date('2019-09-03T12:00:00'),
         sectionId: '13',
         detail:
@@ -38,7 +38,7 @@ const collections: ICollection[] = [
     },
     {
         id: '4',
-        slug: 'frederic-pierucci',
+        slug: 'frederic-pierucci-4',
         date: new Date('2019-07-08T12:00:00'),
         sectionId: '13',
         detail:
@@ -48,7 +48,7 @@ const collections: ICollection[] = [
     },
     {
         id: '5',
-        slug: 'pierre-conesa',
+        slug: 'pierre-conesa-5',
         date: new Date('2019-07-02T12:00:00'),
         sectionId: '13',
         detail:
@@ -58,7 +58,7 @@ const collections: ICollection[] = [
     },
     {
         id: '6',
-        slug: 'laurent-alexandre-et-philippe-bihouix',
+        slug: 'laurent-alexandre-et-philippe-bihouix-6',
         date: new Date('2019-06-25T12:00:00'),
         sectionId: '14',
         detail:
@@ -68,7 +68,7 @@ const collections: ICollection[] = [
     },
     {
         id: '7',
-        slug: 'jean-ziegler',
+        slug: 'jean-ziegler-7',
         date: new Date('2019-06-14T12:00:00'),
         sectionId: '12',
         detail:
@@ -78,7 +78,7 @@ const collections: ICollection[] = [
     },
     {
         id: '8',
-        slug: 'monique-pinconcharlot',
+        slug: 'monique-pinconcharlot-8',
         date: new Date('2019-06-04T12:00:00'),
         sectionId: '11',
         detail:
@@ -88,7 +88,7 @@ const collections: ICollection[] = [
     },
     {
         id: '9',
-        slug: 'barbara-stiegler',
+        slug: 'barbara-stiegler-9',
         date: new Date('2019-05-17T12:00:00'),
         sectionId: '12',
         detail:
@@ -98,7 +98,7 @@ const collections: ICollection[] = [
     },
     {
         id: '10',
-        slug: 'coralie-delaume',
+        slug: 'coralie-delaume-10',
         date: new Date('2019-05-10T12:00:00'),
         sectionId: '12',
         detail:
@@ -108,7 +108,7 @@ const collections: ICollection[] = [
     },
     {
         id: '11',
-        slug: 'jeanluc-melenchon',
+        slug: 'jeanluc-melenchon-11',
         date: new Date('2019-05-06T12:00:00'),
         sectionId: '12',
         detail:
@@ -118,7 +118,7 @@ const collections: ICollection[] = [
     },
     {
         id: '12',
-        slug: 'bernard-stiegler',
+        slug: 'bernard-stiegler-12',
         date: new Date('2019-04-17T12:00:00'),
         sectionId: '12',
         detail:
@@ -128,7 +128,7 @@ const collections: ICollection[] = [
     },
     {
         id: '13',
-        slug: 'champagne,-duplessy-et-fontaine',
+        slug: 'champagne,-duplessy-et-fontaine-13',
         date: new Date('2019-04-12T12:00:00'),
         sectionId: '12',
         detail:
@@ -138,7 +138,7 @@ const collections: ICollection[] = [
     },
     {
         id: '14',
-        slug: 'alain-damasio',
+        slug: 'alain-damasio-14',
         date: new Date('2019-04-11T12:00:00'),
         sectionId: '12',
         detail:
@@ -148,7 +148,7 @@ const collections: ICollection[] = [
     },
     {
         id: '15',
-        slug: 'yannick-rousselet',
+        slug: 'yannick-rousselet-15',
         date: new Date('2018-09-19T12:00:00'),
         sectionId: '14',
         detail:
@@ -158,7 +158,7 @@ const collections: ICollection[] = [
     },
     {
         id: '1d',
-        slug: 'edgar-morin',
+        slug: 'edgar-morin-1d',
         date: new Date('2018-09-19T12:00:00'),
         sectionId: '12',
         detail:
@@ -168,7 +168,7 @@ const collections: ICollection[] = [
     },
     {
         id: '17',
-        slug: 'caroline-galacteros',
+        slug: 'caroline-galacteros-17',
         date: new Date('2019-03-27T12:00:00'),
         sectionId: '13',
         detail:
@@ -178,7 +178,7 @@ const collections: ICollection[] = [
     },
     {
         id: '18',
-        slug: 'gael-giraud',
+        slug: 'gael-giraud-18',
         date: new Date('2019-03-20T12:00:00'),
         sectionId: '14',
         detail:
@@ -188,7 +188,7 @@ const collections: ICollection[] = [
     },
     {
         id: '19',
-        slug: 'noam-anouar',
+        slug: 'noam-anouar-19',
         date: new Date('2019-03-20T12:00:00'),
         sectionId: '15',
         detail:
@@ -198,7 +198,7 @@ const collections: ICollection[] = [
     },
     {
         id: '20',
-        slug: 'francois-boulot',
+        slug: 'francois-boulot-20',
         date: new Date('2019-02-25T12:00:00'),
         sectionId: '12',
         detail:
@@ -208,7 +208,7 @@ const collections: ICollection[] = [
     },
     {
         id: '21',
-        slug: 'francis-dupuisderi',
+        slug: 'francis-dupuisderi-21',
         date: new Date('2019-02-25T12:00:00'),
         sectionId: '12',
         detail:
@@ -218,7 +218,7 @@ const collections: ICollection[] = [
     },
     {
         id: '1a',
-        slug: '22',
+        slug: '22-1a',
         date: new Date('2019-02-18T12:00:00'),
         sectionId: '12',
         detail:
@@ -228,7 +228,7 @@ const collections: ICollection[] = [
     },
     {
         id: '1b',
-        slug: '23',
+        slug: '23-1b',
         date: new Date('2019-02-12T12:00:00'),
         sectionId: '14',
         detail:
@@ -238,7 +238,7 @@ const collections: ICollection[] = [
     },
     {
         id: '24',
-        slug: 'khalid-essa',
+        slug: 'khalid-essa-24',
         date: new Date('2019-02-18T12:00:00'),
         sectionId: '12',
         detail:
@@ -248,7 +248,7 @@ const collections: ICollection[] = [
     },
     {
         id: '25',
-        slug: 'yanis-varoufakis',
+        slug: 'yanis-varoufakis-25',
         date: new Date('2019-02-18T12:00:00'),
         sectionId: '11',
         detail:
@@ -258,7 +258,7 @@ const collections: ICollection[] = [
     },
     {
         id: '26',
-        slug: 'denis-robert',
+        slug: 'denis-robert-26',
         date: new Date('2019-01-17T12:00:00'),
         sectionId: '12',
         detail:
@@ -268,7 +268,7 @@ const collections: ICollection[] = [
     },
     {
         id: '27',
-        slug: 'aleksei-pouchkov',
+        slug: 'aleksei-pouchkov-27',
         date: new Date('2018-12-18T12:00:00'),
         sectionId: '13',
         detail:
@@ -278,7 +278,7 @@ const collections: ICollection[] = [
     },
     {
         id: '28',
-        slug: 'jeanchristophe-picard',
+        slug: 'jeanchristophe-picard-28',
         date: new Date('2018-12-10T12:00:00'),
         sectionId: '12',
         detail:
@@ -288,7 +288,7 @@ const collections: ICollection[] = [
     },
     {
         id: '29',
-        slug: 'jeremy-ferrari',
+        slug: 'jeremy-ferrari-29',
         date: new Date('2018-11-27T12:00:00'),
         sectionId: '12',
         detail:
@@ -298,7 +298,7 @@ const collections: ICollection[] = [
     },
     {
         id: '30',
-        slug: 'kemi-seba',
+        slug: 'kemi-seba-30',
         date: new Date('2018-11-21T12:00:00'),
         sectionId: '13',
         detail:
@@ -308,7 +308,7 @@ const collections: ICollection[] = [
     },
     {
         id: '31',
-        slug: 'daniel-schneidermann',
+        slug: 'daniel-schneidermann-31',
         date: new Date('2018-11-12T12:00:00'),
         sectionId: '16',
         detail:
@@ -318,7 +318,7 @@ const collections: ICollection[] = [
     },
     {
         id: '32',
-        slug: '32',
+        slug: '32-32',
         date: new Date('2018-11-08T12:00:00'),
         sectionId: '17',
         detail:
@@ -328,7 +328,7 @@ const collections: ICollection[] = [
     },
     {
         id: '33',
-        slug: 'emmanuel-todd',
+        slug: 'emmanuel-todd-33',
         date: new Date('2018-11-07T12:00:00'),
         sectionId: '12',
         detail:
@@ -338,7 +338,7 @@ const collections: ICollection[] = [
     },
     {
         id: '34',
-        slug: 'jeremie-zimmermann',
+        slug: 'jeremie-zimmermann-34',
         date: new Date('2018-10-18T12:00:00'),
         sectionId: '17',
         detail:
@@ -348,7 +348,7 @@ const collections: ICollection[] = [
     },
     {
         id: '35',
-        slug: 'tancrede-ramonet',
+        slug: 'tancrede-ramonet-35',
         date: new Date('2018-10-02T12:00:00'),
         sectionId: '12',
         detail:
@@ -358,7 +358,7 @@ const collections: ICollection[] = [
     },
     {
         id: '36',
-        slug: 'isabelle-attard',
+        slug: 'isabelle-attard-36',
         date: new Date('2018-09-21T12:00:00'),
         sectionId: '14',
         detail:
@@ -368,7 +368,7 @@ const collections: ICollection[] = [
     },
     {
         id: '99',
-        slug: 'carbon-de-seze',
+        slug: 'carbon-de-seze-99',
         date: new Date('2018-11-30T12:00:00'),
         sectionId: '12',
         detail:
@@ -378,7 +378,7 @@ const collections: ICollection[] = [
     },
     {
         id: '100',
-        slug: 'vincent-cespedes',
+        slug: 'vincent-cespedes-100',
         date: new Date('2019-01-22T12:00:00'),
         sectionId: '12',
         detail:
@@ -388,7 +388,7 @@ const collections: ICollection[] = [
     },
     {
         id: '101',
-        slug: 'general-vincent-desportes',
+        slug: 'general-vincent-desportes-101',
         date: new Date('2018-11-18T12:00:00'),
         sectionId: '13',
         detail:
@@ -398,7 +398,7 @@ const collections: ICollection[] = [
     },
     {
         id: '102',
-        slug: 'olivier-marleix',
+        slug: 'olivier-marleix-102',
         date: new Date('2019-09-17T12:00:00'),
         sectionId: '13',
         detail:
@@ -408,7 +408,7 @@ const collections: ICollection[] = [
     },
     {
         id: '103',
-        slug: 'inconnu',
+        slug: 'inconnu-103',
         date: new Date('2019-09-20T12:00:00'),
         sectionId: '13',
         detail:
@@ -418,7 +418,7 @@ const collections: ICollection[] = [
     },
     {
         id: '104',
-        slug: 'joseph-stiglitz',
+        slug: 'joseph-stiglitz-104',
         date: new Date('2019-09-25T12:00:00'),
         sectionId: '11',
         detail:
@@ -428,7 +428,7 @@ const collections: ICollection[] = [
     },
     {
         id: '105',
-        slug: 'jouzel-and-larrouturou',
+        slug: 'jouzel-and-larrouturou-105',
         date: new Date('2019-09-27T12:00:00'),
         sectionId: '14',
         detail:
@@ -438,7 +438,7 @@ const collections: ICollection[] = [
     },
     {
         id: '106',
-        slug: 'christophe-nijdam-and-jerome-cazes',
+        slug: 'christophe-nijdam-and-jerome-cazes-106',
         date: new Date('2019-10-10T12:00:00'),
         sectionId: '11',
         detail:
@@ -448,7 +448,7 @@ const collections: ICollection[] = [
     },
     {
         id: '107',
-        slug: 'bruno-gaccio',
+        slug: 'bruno-gaccio-107',
         date: new Date('2019-10-16T12:00:00'),
         sectionId: '16',
         detail:
@@ -458,7 +458,7 @@ const collections: ICollection[] = [
     },
     {
         id: 'gillesbabinet',
-        slug: 'gillesbabinet',
+        slug: 'gillesbabinet-gillesbabinet',
         date: new Date('2019-11-14T12:00:00'),
         sectionId: '16',
         detail:
@@ -490,7 +490,7 @@ const collections: ICollection[] = [
     },
     {
         id: 'christophebrusset',
-        slug: 'christophebrusset',
+        slug: 'christophebrusset-christophebrusset',
         date: new Date('2019-11-07T12:00:00'),
         sectionId: '12',
         detail:
@@ -532,7 +532,7 @@ const collections: ICollection[] = [
     },
     {
         id: 'agnes-levallois-et-pierreconesa',
-        slug: 'agnes-levallois-et-pierreconesa',
+        slug: 'agnes-levallois-et-pierreconesa-agnes',
         date: new Date('2019-11-16T12:00:00'),
         sectionId: '13',
         detail:

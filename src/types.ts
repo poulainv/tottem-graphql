@@ -39,7 +39,6 @@ export function reAssignPosition<T extends Positonnable>(
 export const Mutation = mutationType({
     definition(t) {
         t.crud.updateOneSection()
-        t.crud.deleteOneSection()
         t.crud.createOneUser()
         t.crud.updateOneItem()
         t.crud.updateOneCollection()
@@ -221,7 +220,7 @@ export const Query = queryType({
             filtering: { collection: true, isArchived: true },
             ordering: { position: true },
         })
-        t.crud.sections({ filtering: { owner: true } })
+        t.crud.sections({ filtering: { owner: true, isDeleted: true} })
         t.crud.collections({
             ordering: { createdAt: true },
             filtering: { owner: true, section: true, isDeleted: true },
