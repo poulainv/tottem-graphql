@@ -2,6 +2,7 @@ import { Photon } from '@generated/photon'
 import { ICollection } from '../src/data/types'
 import { getSections } from '../src/data/utils'
 import logger from '../src/logging'
+import cuid = require('cuid')
 
 const profiles = [
     'awesome-css-learning',
@@ -54,8 +55,10 @@ async function main() {
                     collections: {
                         create: section.collections.map(
                             (collection: ICollection) => {
+                                const cid = cuid()
                                 return {
-                                    slug: collection.id,
+                                    id: cid,
+                                    slug: `${collection.name}-${cid}`,
                                     name: collection.name,
                                     detail: collection.detail,
                                     createdAt: collection.date, // FIXME override does work
