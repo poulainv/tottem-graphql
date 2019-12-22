@@ -4,7 +4,7 @@ generator photon {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
@@ -41,7 +41,7 @@ model Collection {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   slug      String   @unique
-  name      String?
+  name      String
   isDeleted Boolean  @default(false)
   detail    String?
   items     Item[]
