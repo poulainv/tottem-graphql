@@ -34,7 +34,7 @@ model Section {
   index       Int          @default(0)
   collections Collection[]
   owner       User
-  isExpanded  Boolean      @default(false)
+  isExpanded  Boolean      @default(true)
   isDeleted   Boolean      @default(false)
 }
 
