@@ -41,6 +41,12 @@ const getAuthUser: (
     }
 }
 
+const localUser: AuthenticatedUser = {
+    auth0Id: process.env.LOCAL_AUTH0 || 'auth0|local|TBD',
+    permissions: [],
+    roles: ['admin'],
+}
+
 export const verifyIdentity: (
     token?: string
 ) => Promise<AuthenticatedUser> = async (token?: string) => {
@@ -49,6 +55,9 @@ export const verifyIdentity: (
     }
     return new Promise((resolve, reject) => {
         try {
+            if (process.env.NODE_ENV !== 'production') {
+                return resolve(localUser)
+            }
             jwt.verify(
                 token,
                 getKey,
