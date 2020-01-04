@@ -42,7 +42,7 @@ const getAuthUser: (
 }
 
 const localUser: AuthenticatedUser = {
-    auth0Id: process.env.LOCAL_AUTH0 || 'auth0|local|TBD',
+    auth0Id: process.env.AUTH0_LOCAL_ID || 'auth0|local|TBD',
     permissions: [],
     roles: ['admin'],
 }
