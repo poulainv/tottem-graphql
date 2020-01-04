@@ -37,6 +37,7 @@ export interface NexusGenInputs {
     owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
     section: NexusGenInputs['SectionCreateOneWithoutSectionInput']; // SectionCreateOneWithoutSectionInput!
     slug: string; // String!
+    updatedAt?: any | null; // DateTime
   }
   CollectionCreateWithoutOwnerInput: { // input type
     createdAt?: any | null; // DateTime
@@ -47,6 +48,7 @@ export interface NexusGenInputs {
     name?: string | null; // String
     section: NexusGenInputs['SectionCreateOneWithoutSectionInput']; // SectionCreateOneWithoutSectionInput!
     slug: string; // String!
+    updatedAt?: any | null; // DateTime
   }
   CollectionCreateWithoutSectionInput: { // input type
     createdAt?: any | null; // DateTime
@@ -57,6 +59,7 @@ export interface NexusGenInputs {
     name?: string | null; // String
     owner: NexusGenInputs['UserCreateOneWithoutOwnerInput']; // UserCreateOneWithoutOwnerInput!
     slug: string; // String!
+    updatedAt?: any | null; // DateTime
   }
   CollectionFilter: { // input type
     every?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
@@ -80,6 +83,7 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['CollectionScalarWhereInput'][] | null; // [CollectionScalarWhereInput!]
     OR?: NexusGenInputs['CollectionScalarWhereInput'][] | null; // [CollectionScalarWhereInput!]
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   CollectionUpdateInput: { // input type
     createdAt?: any | null; // DateTime
@@ -91,6 +95,7 @@ export interface NexusGenInputs {
     owner?: NexusGenInputs['UserUpdateOneRequiredWithoutCollectionsInput'] | null; // UserUpdateOneRequiredWithoutCollectionsInput
     section?: NexusGenInputs['SectionUpdateOneRequiredWithoutCollectionsInput'] | null; // SectionUpdateOneRequiredWithoutCollectionsInput
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
   }
   CollectionUpdateManyDataInput: { // input type
     createdAt?: any | null; // DateTime
@@ -99,6 +104,7 @@ export interface NexusGenInputs {
     isDeleted?: boolean | null; // Boolean
     name?: string | null; // String
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
   }
   CollectionUpdateManyWithWhereNestedInput: { // input type
     data: NexusGenInputs['CollectionUpdateManyDataInput']; // CollectionUpdateManyDataInput!
@@ -151,6 +157,7 @@ export interface NexusGenInputs {
     owner?: NexusGenInputs['UserUpdateOneRequiredWithoutCollectionsInput'] | null; // UserUpdateOneRequiredWithoutCollectionsInput
     section?: NexusGenInputs['SectionUpdateOneRequiredWithoutCollectionsInput'] | null; // SectionUpdateOneRequiredWithoutCollectionsInput
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
   }
   CollectionUpdateWithoutOwnerDataInput: { // input type
     createdAt?: any | null; // DateTime
@@ -161,6 +168,7 @@ export interface NexusGenInputs {
     name?: string | null; // String
     section?: NexusGenInputs['SectionUpdateOneRequiredWithoutCollectionsInput'] | null; // SectionUpdateOneRequiredWithoutCollectionsInput
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
   }
   CollectionUpdateWithoutSectionDataInput: { // input type
     createdAt?: any | null; // DateTime
@@ -171,6 +179,7 @@ export interface NexusGenInputs {
     name?: string | null; // String
     owner?: NexusGenInputs['UserUpdateOneRequiredWithoutCollectionsInput'] | null; // UserUpdateOneRequiredWithoutCollectionsInput
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
   }
   CollectionUpsertWithWhereUniqueWithoutOwnerInput: { // input type
     create: NexusGenInputs['CollectionCreateWithoutOwnerInput']; // CollectionCreateWithoutOwnerInput!
@@ -199,6 +208,7 @@ export interface NexusGenInputs {
     owner?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     section?: NexusGenInputs['SectionWhereInput'] | null; // SectionWhereInput
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
   }
   CollectionWhereUniqueInput: { // input type
     id?: string | null; // ID
@@ -809,6 +819,7 @@ export interface NexusGenFieldTypes {
     owner: NexusGenRootTypes['User']; // User!
     section: NexusGenRootTypes['Section']; // Section!
     slug: string; // String!
+    updatedAt: any; // DateTime!
   }
   Item: { // field return type
     author: string | null; // String

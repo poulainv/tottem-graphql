@@ -17,6 +17,7 @@ type Collection {
   owner: User!
   section: Section!
   slug: String!
+  updatedAt: DateTime!
 }
 
 input CollectionCreateManyWithoutCollectionsInput {
@@ -33,6 +34,7 @@ input CollectionCreateWithoutItemsInput {
   owner: UserCreateOneWithoutOwnerInput!
   section: SectionCreateOneWithoutSectionInput!
   slug: String!
+  updatedAt: DateTime
 }
 
 input CollectionCreateWithoutOwnerInput {
@@ -44,6 +46,7 @@ input CollectionCreateWithoutOwnerInput {
   name: String
   section: SectionCreateOneWithoutSectionInput!
   slug: String!
+  updatedAt: DateTime
 }
 
 input CollectionCreateWithoutSectionInput {
@@ -55,6 +58,7 @@ input CollectionCreateWithoutSectionInput {
   name: String
   owner: UserCreateOneWithoutOwnerInput!
   slug: String!
+  updatedAt: DateTime
 }
 
 input CollectionFilter {
@@ -82,6 +86,7 @@ input CollectionScalarWhereInput {
   NOT: [CollectionScalarWhereInput!]
   OR: [CollectionScalarWhereInput!]
   slug: StringFilter
+  updatedAt: DateTimeFilter
 }
 
 input CollectionUpdateInput {
@@ -94,6 +99,7 @@ input CollectionUpdateInput {
   owner: UserUpdateOneRequiredWithoutCollectionsInput
   section: SectionUpdateOneRequiredWithoutCollectionsInput
   slug: String
+  updatedAt: DateTime
 }
 
 input CollectionUpdateManyDataInput {
@@ -103,6 +109,7 @@ input CollectionUpdateManyDataInput {
   isDeleted: Boolean
   name: String
   slug: String
+  updatedAt: DateTime
 }
 
 input CollectionUpdateManyWithoutOwnerInput {
@@ -152,6 +159,7 @@ input CollectionUpdateWithoutItemsDataInput {
   owner: UserUpdateOneRequiredWithoutCollectionsInput
   section: SectionUpdateOneRequiredWithoutCollectionsInput
   slug: String
+  updatedAt: DateTime
 }
 
 input CollectionUpdateWithoutOwnerDataInput {
@@ -163,6 +171,7 @@ input CollectionUpdateWithoutOwnerDataInput {
   name: String
   section: SectionUpdateOneRequiredWithoutCollectionsInput
   slug: String
+  updatedAt: DateTime
 }
 
 input CollectionUpdateWithoutSectionDataInput {
@@ -174,6 +183,7 @@ input CollectionUpdateWithoutSectionDataInput {
   name: String
   owner: UserUpdateOneRequiredWithoutCollectionsInput
   slug: String
+  updatedAt: DateTime
 }
 
 input CollectionUpdateWithWhereUniqueWithoutOwnerInput {
@@ -216,6 +226,7 @@ input CollectionWhereInput {
   owner: UserWhereInput
   section: SectionWhereInput
   slug: StringFilter
+  updatedAt: DateTimeFilter
 }
 
 input CollectionWhereUniqueInput {

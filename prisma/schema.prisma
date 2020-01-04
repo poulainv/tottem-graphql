@@ -41,6 +41,7 @@ model Section {
 model Collection {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   slug      String   @unique
   name      String?
   isDeleted Boolean  @default(false)

@@ -11,6 +11,7 @@ import { Context } from './context'
 import { createNewItemFromSearch, inferNewItemFromUrl } from './parsers'
 import { GoogleBookSearch, MovieDBSearch } from './parsers/searchers'
 import cuid from 'cuid'
+import logger from './logging'
 
 interface Positonnable {
     position: number
@@ -300,6 +301,7 @@ export const Collection = objectType({
         t.model.slug()
         t.model.name()
         t.model.createdAt()
+        t.model.updatedAt()
         t.model.isDeleted()
         t.model.detail()
         t.model.items({
