@@ -25,6 +25,11 @@ input CollectionCreateManyWithoutCollectionsInput {
   create: [CollectionCreateWithoutSectionInput!]
 }
 
+input CollectionCreateOneWithoutCollectionInput {
+  connect: CollectionWhereUniqueInput
+  create: CollectionCreateWithoutItemsInput
+}
+
 input CollectionCreateWithoutItemsInput {
   createdAt: DateTime
   detail: String
@@ -274,6 +279,11 @@ type Item {
   type: ItemType!
 }
 
+input ItemCreateManyWithoutInboxedItemsInput {
+  connect: [ItemWhereUniqueInput!]
+  create: [ItemCreateWithoutUserInput!]
+}
+
 input ItemCreateManyWithoutItemsInput {
   connect: [ItemWhereUniqueInput!]
   create: [ItemCreateWithoutCollectionInput!]
@@ -281,6 +291,25 @@ input ItemCreateManyWithoutItemsInput {
 
 input ItemCreateWithoutCollectionInput {
   author: String
+  comment: String
+  createdAt: DateTime
+  description: String
+  id: ID
+  imageUrl: String
+  isArchived: Boolean
+  meta: String
+  position: Int
+  productUrl: String
+  provider: String
+  title: String!
+  type: ItemType!
+  updatedAt: DateTime
+  user: UserCreateOneWithoutUserInput
+}
+
+input ItemCreateWithoutUserInput {
+  author: String
+  collection: CollectionCreateOneWithoutCollectionInput
   comment: String
   createdAt: DateTime
   description: String
@@ -350,6 +379,7 @@ input ItemUpdateInput {
   title: String
   type: ItemType
   updatedAt: DateTime
+  user: UserUpdateOneWithoutInboxedItemsInput
 }
 
 input ItemUpdateManyDataInput {
@@ -381,6 +411,18 @@ input ItemUpdateManyWithoutCollectionInput {
   upsert: [ItemUpsertWithWhereUniqueWithoutCollectionInput!]
 }
 
+input ItemUpdateManyWithoutUserInput {
+  connect: [ItemWhereUniqueInput!]
+  create: [ItemCreateWithoutUserInput!]
+  delete: [ItemWhereUniqueInput!]
+  deleteMany: [ItemScalarWhereInput!]
+  disconnect: [ItemWhereUniqueInput!]
+  set: [ItemWhereUniqueInput!]
+  update: [ItemUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ItemUpdateManyWithWhereNestedInput!]
+  upsert: [ItemUpsertWithWhereUniqueWithoutUserInput!]
+}
+
 input ItemUpdateManyWithWhereNestedInput {
   data: ItemUpdateManyDataInput!
   where: ItemScalarWhereInput!
@@ -401,6 +443,25 @@ input ItemUpdateWithoutCollectionDataInput {
   title: String
   type: ItemType
   updatedAt: DateTime
+  user: UserUpdateOneWithoutInboxedItemsInput
+}
+
+input ItemUpdateWithoutUserDataInput {
+  author: String
+  collection: CollectionUpdateOneWithoutItemsInput
+  comment: String
+  createdAt: DateTime
+  description: String
+  id: ID
+  imageUrl: String
+  isArchived: Boolean
+  meta: String
+  position: Int
+  productUrl: String
+  provider: String
+  title: String
+  type: ItemType
+  updatedAt: DateTime
 }
 
 input ItemUpdateWithWhereUniqueWithoutCollectionInput {
@@ -408,9 +469,20 @@ input ItemUpdateWithWhereUniqueWithoutCollectionInput {
   where: ItemWhereUniqueInput!
 }
 
+input ItemUpdateWithWhereUniqueWithoutUserInput {
+  data: ItemUpdateWithoutUserDataInput!
+  where: ItemWhereUniqueInput!
+}
+
 input ItemUpsertWithWhereUniqueWithoutCollectionInput {
   create: ItemCreateWithoutCollectionInput!
   update: ItemUpdateWithoutCollectionDataInput!
+  where: ItemWhereUniqueInput!
+}
+
+input ItemUpsertWithWhereUniqueWithoutUserInput {
+  create: ItemCreateWithoutUserInput!
+  update: ItemUpdateWithoutUserDataInput!
   where: ItemWhereUniqueInput!
 }
 
@@ -433,6 +505,7 @@ input ItemWhereInput {
   title: StringFilter
   type: ItemType
   updatedAt: DateTimeFilter
+  user: UserWhereInput
 }
 
 input ItemWhereUniqueInput {
@@ -449,7 +522,7 @@ type Mutation {
   createEmptyCollection(sectionId: ID!): Collection!
   createEmptySection: Section!
   createItemFromSearch(collectionId: String!, id: String!, kind: String!): Item!
-  createItemFromUrl(collectionId: String!, url: String!): Item!
+  createItemFromUrl(collectionId: String, inbox: Boolean, url: String!): Item!
   createOneUser(data: UserCreateInput!): User!
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
   updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
@@ -730,6 +803,7 @@ input UserCreateInput {
   firstname: String!
   github: String
   id: ID
+  inboxedItems: ItemCreateManyWithoutInboxedItemsInput
   label: String
   linkedin: String
   mail: String
@@ -745,9 +819,33 @@ input UserCreateOneWithoutOwnerInput {
   create: UserCreateWithoutCollectionsInput
 }
 
+input UserCreateOneWithoutUserInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutInboxedItemsInput
+}
+
 input UserCreateWithoutCollectionsInput {
   authUserId: String
   biography: String!
+  createdAt: DateTime
+  firstname: String!
+  github: String
+  id: ID
+  inboxedItems: ItemCreateManyWithoutInboxedItemsInput
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String!
+  sections: SectionCreateManyWithoutSectionsInput
+  slug: String!
+  website: String
+  youtube: String
+}
+
+input UserCreateWithoutInboxedItemsInput {
+  authUserId: String
+  biography: String!
+  collections: CollectionCreateManyWithoutCollectionsInput
   createdAt: DateTime
   firstname: String!
   github: String
@@ -770,6 +868,7 @@ input UserCreateWithoutSectionsInput {
   firstname: String!
   github: String
   id: ID
+  inboxedItems: ItemCreateManyWithoutInboxedItemsInput
   label: String
   linkedin: String
   mail: String
@@ -793,9 +892,37 @@ input UserUpdateOneRequiredWithoutSectionsInput {
   upsert: UserUpsertWithoutSectionsInput
 }
 
+input UserUpdateOneWithoutInboxedItemsInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutInboxedItemsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: UserUpdateWithoutInboxedItemsDataInput
+  upsert: UserUpsertWithoutInboxedItemsInput
+}
+
 input UserUpdateWithoutCollectionsDataInput {
   authUserId: String
   biography: String
+  createdAt: DateTime
+  firstname: String
+  github: String
+  id: ID
+  inboxedItems: ItemUpdateManyWithoutUserInput
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String
+  sections: SectionUpdateManyWithoutOwnerInput
+  slug: String
+  website: String
+  youtube: String
+}
+
+input UserUpdateWithoutInboxedItemsDataInput {
+  authUserId: String
+  biography: String
+  collections: CollectionUpdateManyWithoutOwnerInput
   createdAt: DateTime
   firstname: String
   github: String
@@ -818,6 +945,7 @@ input UserUpdateWithoutSectionsDataInput {
   firstname: String
   github: String
   id: ID
+  inboxedItems: ItemUpdateManyWithoutUserInput
   label: String
   linkedin: String
   mail: String
@@ -830,6 +958,11 @@ input UserUpdateWithoutSectionsDataInput {
 input UserUpsertWithoutCollectionsInput {
   create: UserCreateWithoutCollectionsInput!
   update: UserUpdateWithoutCollectionsDataInput!
+}
+
+input UserUpsertWithoutInboxedItemsInput {
+  create: UserCreateWithoutInboxedItemsInput!
+  update: UserUpdateWithoutInboxedItemsDataInput!
 }
 
 input UserUpsertWithoutSectionsInput {
@@ -846,6 +979,7 @@ input UserWhereInput {
   firstname: StringFilter
   github: NullableStringFilter
   id: StringFilter
+  inboxedItems: ItemFilter
   label: NullableStringFilter
   linkedin: NullableStringFilter
   mail: NullableStringFilter

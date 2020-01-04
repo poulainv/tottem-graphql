@@ -6,12 +6,14 @@ import {
     objectType,
     queryType,
     stringArg,
+    booleanArg,
 } from 'nexus'
 import { Context } from './context'
 import { createNewItemFromSearch, inferNewItemFromUrl } from './parsers'
 import { GoogleBookSearch, MovieDBSearch } from './parsers/searchers'
 import cuid from 'cuid'
 import logger from './logging'
+import { resolve } from 'dns'
 
 interface Positonnable {
     position: number
@@ -186,10 +188,33 @@ export const Mutation = mutationType({
             type: 'Item',
             args: {
                 url: stringArg({ required: true }),
-                collectionId: stringArg({ required: true }),
+                collectionId: stringArg(),
+                inbox: booleanArg(),
             },
-            async resolve(_, { url, collectionId }, ctx: Context) {
-                return inferNewItemFromUrl(url).then(item => {
+            async resolve(_, { url, collectionId, inbox }, ctx: Context) {
+                return inferNewItemFromUrl(url).then(async item => {
+                    const user = await ctx.user
+                    if (user === undefined) {
+                        return Promise.reject('User not authenticated')
+                    }
+                    let connect
+                    if (collectionId) {
+                        connect = {
+                            collection: {
+                                connect: {
+                                    id: collectionId,
+                                },
+                            },
+                        }
+                    } else if (inbox) {
+                        connect = {
+                            user: {
+                                connect: {
+                                    authUserId: user.auth0Id,
+                                },
+                            },
+                        }
+                    }
                     return ctx.photon.items.create({
                         data: {
                             title: item.title,
@@ -199,11 +224,7 @@ export const Mutation = mutationType({
                             provider: item.provider,
                             productUrl: item.productUrl,
                             imageUrl: item.imageUrl,
-                            collection: {
-                                connect: {
-                                    id: collectionId,
-                                },
-                            },
+                            ...connect,
                         },
                     })
                 })
@@ -221,11 +242,27 @@ export const Query = queryType({
             filtering: { collection: true, isArchived: true },
             ordering: { position: true },
         })
-        t.crud.sections({ filtering: { owner: true, isDeleted: true} })
+        t.crud.sections({ filtering: { owner: true, isDeleted: true } })
         t.crud.collections({
             ordering: { createdAt: true },
             filtering: { owner: true, section: true, isDeleted: true },
             pagination: true,
+        })
+        t.field('inbox', {
+            type: 'Item',
+            list: true,
+            async resolve(_, {}, ctx: Context) {
+                const user = await ctx.user
+                const userInbox = await ctx.photon.users.findOne({
+                    where: { authUserId: user?.auth0Id },
+                    select: { inboxedItems: true },
+                })
+
+                if (userInbox?.inboxedItems === undefined) {
+                    return Promise.reject(`Inbox ${user?.auth0Id} not found`)
+                }
+                return userInbox?.inboxedItems
+            },
         })
         t.field('search', {
             type: 'SearchItem',

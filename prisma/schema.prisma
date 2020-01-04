@@ -8,21 +8,21 @@ datasource db {
 }
 
 model User {
-  id          String       @default(cuid()) @id
-  authUserId  String?      @unique
-  slug        String       @unique
-  createdAt   DateTime     @default(now())
-  firstname   String
-  pictureUrl  String
-  biography   String
-  linkedin    String?
-  github      String?
-  mail        String?
-  youtube     String?
-  website     String?
-  label       String?
-  sections    Section[]
-  collections Collection[]
+  id           String       @default(cuid()) @id
+  authUserId   String?      @unique
+  slug         String       @unique
+  createdAt    DateTime     @default(now())
+  firstname    String
+  pictureUrl   String
+  biography    String
+  linkedin     String?
+  github       String?
+  mail         String?
+  youtube      String?
+  website      String?
+  label        String?
+  sections     Section[]
+  collections  Collection[]
 }
 
 model Section {

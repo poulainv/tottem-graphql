@@ -35,6 +35,15 @@ async function main() {
                 youtube: profile.social && profile.social.youtube,
                 mail: profile.social && profile.social.mail,
                 website: profile.social && profile.social.website,
+                collections: {
+                    create: [
+                        {
+                            title: 'Tottem',
+                            type: 'website',
+                            productUrl: 'https://tottem.app',
+                        },
+                    ],
+                },
             },
         })
 

@@ -8,39 +8,43 @@ datasource db {
 }
 
 model User {
-  id          String       @default(cuid()) @id
-  authUserId  String?      @unique
-  slug        String       @unique
-  createdAt   DateTime     @default(now())
-  firstname   String
-  pictureUrl  String
-  biography   String
-  linkedin    String?
-  github      String?
-  mail        String?
-  youtube     String?
-  website     String?
-  label       String?
-  sections    Section[]
-  collections Collection[]
+  id           String       @default(cuid()) @id
+  authUserId   String?      @unique
+  slug         String       @unique
+  createdAt    DateTime     @default(now())
+  firstname    String
+  pictureUrl   String
+  biography    String
+  linkedin     String?
+  github       String?
+  mail         String?
+  youtube      String?
+  website      String?
+  label        String?
+  sections     Section[]
+  inboxedItems Item[]
+  collections  Collection[]
 }
 
 model Section {
   id          String       @default(cuid()) @id
   createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   slug        String
-  name        String
+  name        String?
   index       Int          @default(0)
   collections Collection[]
   owner       User
-  isExpanded  Boolean      @default(false)
+  isExpanded  Boolean      @default(true)
+  isDeleted   Boolean      @default(false)
 }
 
 model Collection {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   slug      String   @unique
-  name      String
+  name      String?
   isDeleted Boolean  @default(false)
   detail    String?
   items     Item[]

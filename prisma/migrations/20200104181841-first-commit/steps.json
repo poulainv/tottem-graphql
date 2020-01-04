@@ -167,6 +167,13 @@
     {
       "stepType": "CreateField",
       "model": "User",
+      "field": "inboxedItems",
+      "type": "Item",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
       "field": "collections",
       "type": "Collection",
       "arity": "list"
@@ -226,6 +233,19 @@
     {
       "stepType": "CreateField",
       "model": "Section",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Section",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Section",
       "field": "slug",
       "type": "String",
       "arity": "required"
@@ -235,7 +255,7 @@
       "model": "Section",
       "field": "name",
       "type": "String",
-      "arity": "required"
+      "arity": "optional"
     },
     {
       "stepType": "CreateField",
@@ -289,6 +309,27 @@
       "stepType": "CreateDirectiveArgument",
       "model": "Section",
       "field": "isExpanded",
+      "directive": "default",
+      "argument": "",
+      "value": "true"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Section",
+      "field": "isDeleted",
+      "type": "Boolean",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Section",
+      "field": "isDeleted",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Section",
+      "field": "isDeleted",
       "directive": "default",
       "argument": "",
       "value": "false"
@@ -348,6 +389,19 @@
     {
       "stepType": "CreateField",
       "model": "Collection",
+      "field": "updatedAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Collection",
+      "field": "updatedAt",
+      "directive": "updatedAt"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Collection",
       "field": "slug",
       "type": "String",
       "arity": "required"
@@ -363,7 +417,7 @@
       "model": "Collection",
       "field": "name",
       "type": "String",
-      "arity": "required"
+      "arity": "optional"
     },
     {
       "stepType": "CreateField",
