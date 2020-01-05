@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server'
 import { applyMiddleware } from 'graphql-middleware'
-import { createContext, Context } from './context'
+import { createContext } from './context'
 import { schema } from './schema'
 import dotenv from 'dotenv'
 import logger from './logging'

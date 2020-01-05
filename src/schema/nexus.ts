@@ -3,7 +3,7 @@
  * Do not make changes to this file directly
  */
 
-import * as Context from "./context"
+import * as Context from "../context"
 import * as photon from "@generated/photon"
 
 

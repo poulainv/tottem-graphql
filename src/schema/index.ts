@@ -1,10 +1,12 @@
 import { makeSchema } from 'nexus'
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { join } from 'path'
-import * as types from './types'
+import * as Objects from './Object'
+import * as Query from './Query'
+import * as Mutation from './Mutation'
 
 export const schema = makeSchema({
-    types: [types, ],
+    types: [Objects, Query, Mutation],
     plugins: [nexusPrismaPlugin()],
     typegenAutoConfig: {
         contextType: 'Context.Context',
@@ -14,7 +16,7 @@ export const schema = makeSchema({
                 alias: 'photon',
             },
             {
-                source: require.resolve('./context'),
+                source: require.resolve('../context'),
                 alias: 'Context',
             },
         ],
