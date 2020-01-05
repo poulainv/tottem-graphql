@@ -4,7 +4,7 @@ generator photon {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 model User {
@@ -68,7 +68,7 @@ model Item {
   comment     String?
   collection  Collection?
   meta        String?     @default("{}")
-  inboxOwner  User?
+  inboxOwner  User
 }
 
 

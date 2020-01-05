@@ -149,10 +149,33 @@ export const Mutation = mutationType({
             args: {
                 id: stringArg({ required: true }),
                 kind: stringArg({ required: true }),
-                collectionId: stringArg({ required: true }),
+                collectionId: stringArg(),
+                inbox: booleanArg(),
             },
-            async resolve(_, { id, kind, collectionId }, ctx: Context) {
-                return createNewItemFromSearch(id, kind).then(item => {
+            async resolve(_, { id, kind, collectionId, inbox }, ctx: Context) {
+                return createNewItemFromSearch(id, kind).then(async item => {
+                    const user = await ctx.user
+                    if (user === undefined) {
+                        return Promise.reject('User not authenticated')
+                    }
+                    let connect
+                    if (collectionId) {
+                        connect = {
+                            collection: {
+                                connect: {
+                                    id: collectionId,
+                                },
+                            },
+                        }
+                    } else if (inbox) {
+                        connect = {
+                            inboxOwner: {
+                                connect: {
+                                    authUserId: user.auth0Id,
+                                },
+                            },
+                        }
+                    }
                     return ctx.photon.items.create({
                         data: {
                             title: item.title,
@@ -162,11 +185,7 @@ export const Mutation = mutationType({
                             provider: item.provider,
                             productUrl: item.productUrl,
                             imageUrl: item.imageUrl,
-                            collection: {
-                                connect: {
-                                    id: collectionId,
-                                },
-                            },
+                            ...connect,
                         },
                     })
                 })
@@ -196,7 +215,7 @@ export const Mutation = mutationType({
                         }
                     } else if (inbox) {
                         connect = {
-                            user: {
+                            inboxOwner: {
                                 connect: {
                                     authUserId: user.auth0Id,
                                 },

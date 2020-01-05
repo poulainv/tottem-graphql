@@ -25,7 +25,7 @@
         "generate:prisma": "prisma2 generate",
         "lift:up": "prisma2 lift up",
         "lift:save": "prisma2 lift save",
-        "generate:nexus": "ts-node --transpile-only src/schema.ts",
+        "generate:nexus": "ts-node --transpile-only src/schema/index.ts",
         "seed": "ts-node --transpile-only prisma/seed.ts",
         "awesome": "ts-node src/scrappers/awesome.ts"
     },

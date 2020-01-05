@@ -281,7 +281,7 @@ type Item {
 
 input ItemCreateManyWithoutInboxedItemsInput {
   connect: [ItemWhereUniqueInput!]
-  create: [ItemCreateWithoutUserInput!]
+  create: [ItemCreateWithoutInboxOwnerInput!]
 }
 
 input ItemCreateManyWithoutItemsInput {
@@ -296,6 +296,7 @@ input ItemCreateWithoutCollectionInput {
   description: String
   id: ID
   imageUrl: String
+  inboxOwner: UserCreateOneWithoutInboxOwnerInput
   isArchived: Boolean
   meta: String
   position: Int
@@ -304,10 +305,9 @@ input ItemCreateWithoutCollectionInput {
   title: String!
   type: ItemType!
   updatedAt: DateTime
-  user: UserCreateOneWithoutUserInput
 }
 
-input ItemCreateWithoutUserInput {
+input ItemCreateWithoutInboxOwnerInput {
   author: String
   collection: CollectionCreateOneWithoutCollectionInput
   comment: String
@@ -371,6 +371,7 @@ input ItemUpdateInput {
   description: String
   id: ID
   imageUrl: String
+  inboxOwner: UserUpdateOneWithoutInboxedItemsInput
   isArchived: Boolean
   meta: String
   position: Int
@@ -379,7 +380,6 @@ input ItemUpdateInput {
   title: String
   type: ItemType
   updatedAt: DateTime
-  user: UserUpdateOneWithoutInboxedItemsInput
 }
 
 input ItemUpdateManyDataInput {
@@ -411,16 +411,16 @@ input ItemUpdateManyWithoutCollectionInput {
   upsert: [ItemUpsertWithWhereUniqueWithoutCollectionInput!]
 }
 
-input ItemUpdateManyWithoutUserInput {
+input ItemUpdateManyWithoutInboxOwnerInput {
   connect: [ItemWhereUniqueInput!]
-  create: [ItemCreateWithoutUserInput!]
+  create: [ItemCreateWithoutInboxOwnerInput!]
   delete: [ItemWhereUniqueInput!]
   deleteMany: [ItemScalarWhereInput!]
   disconnect: [ItemWhereUniqueInput!]
   set: [ItemWhereUniqueInput!]
-  update: [ItemUpdateWithWhereUniqueWithoutUserInput!]
+  update: [ItemUpdateWithWhereUniqueWithoutInboxOwnerInput!]
   updateMany: [ItemUpdateManyWithWhereNestedInput!]
-  upsert: [ItemUpsertWithWhereUniqueWithoutUserInput!]
+  upsert: [ItemUpsertWithWhereUniqueWithoutInboxOwnerInput!]
 }
 
 input ItemUpdateManyWithWhereNestedInput {
@@ -435,6 +435,7 @@ input ItemUpdateWithoutCollectionDataInput {
   description: String
   id: ID
   imageUrl: String
+  inboxOwner: UserUpdateOneWithoutInboxedItemsInput
   isArchived: Boolean
   meta: String
   position: Int
@@ -443,10 +444,9 @@ input ItemUpdateWithoutCollectionDataInput {
   title: String
   type: ItemType
   updatedAt: DateTime
-  user: UserUpdateOneWithoutInboxedItemsInput
 }
 
-input ItemUpdateWithoutUserDataInput {
+input ItemUpdateWithoutInboxOwnerDataInput {
   author: String
   collection: CollectionUpdateOneWithoutItemsInput
   comment: String
@@ -469,8 +469,8 @@ input ItemUpdateWithWhereUniqueWithoutCollectionInput {
   where: ItemWhereUniqueInput!
 }
 
-input ItemUpdateWithWhereUniqueWithoutUserInput {
-  data: ItemUpdateWithoutUserDataInput!
+input ItemUpdateWithWhereUniqueWithoutInboxOwnerInput {
+  data: ItemUpdateWithoutInboxOwnerDataInput!
   where: ItemWhereUniqueInput!
 }
 
@@ -480,9 +480,9 @@ input ItemUpsertWithWhereUniqueWithoutCollectionInput {
   where: ItemWhereUniqueInput!
 }
 
-input ItemUpsertWithWhereUniqueWithoutUserInput {
-  create: ItemCreateWithoutUserInput!
-  update: ItemUpdateWithoutUserDataInput!
+input ItemUpsertWithWhereUniqueWithoutInboxOwnerInput {
+  create: ItemCreateWithoutInboxOwnerInput!
+  update: ItemUpdateWithoutInboxOwnerDataInput!
   where: ItemWhereUniqueInput!
 }
 
@@ -495,6 +495,7 @@ input ItemWhereInput {
   description: NullableStringFilter
   id: StringFilter
   imageUrl: NullableStringFilter
+  inboxOwner: UserWhereInput
   isArchived: BooleanFilter
   meta: NullableStringFilter
   NOT: [ItemWhereInput!]
@@ -505,7 +506,6 @@ input ItemWhereInput {
   title: StringFilter
   type: ItemType
   updatedAt: DateTimeFilter
-  user: UserWhereInput
 }
 
 input ItemWhereUniqueInput {
@@ -521,7 +521,7 @@ type Mutation {
   changeItemPosition(collectionId: ID!, newIndex: Int!, oldIndex: Int!): [Item!]!
   createEmptyCollection(sectionId: ID!): Collection!
   createEmptySection: Section!
-  createItemFromSearch(collectionId: String!, id: String!, kind: String!): Item!
+  createItemFromSearch(collectionId: String, id: String!, inbox: Boolean, kind: String!): Item!
   createItemFromUrl(collectionId: String, inbox: Boolean, url: String!): Item!
   createOneUser(data: UserCreateInput!): User!
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
@@ -815,14 +815,14 @@ input UserCreateInput {
   youtube: String
 }
 
+input UserCreateOneWithoutInboxOwnerInput {
+  connect: UserWhereUniqueInput
+  create: UserCreateWithoutInboxedItemsInput
+}
+
 input UserCreateOneWithoutOwnerInput {
   connect: UserWhereUniqueInput
   create: UserCreateWithoutCollectionsInput
-}
-
-input UserCreateOneWithoutUserInput {
-  connect: UserWhereUniqueInput
-  create: UserCreateWithoutInboxedItemsInput
 }
 
 input UserCreateWithoutCollectionsInput {
@@ -909,7 +909,7 @@ input UserUpdateWithoutCollectionsDataInput {
   firstname: String
   github: String
   id: ID
-  inboxedItems: ItemUpdateManyWithoutUserInput
+  inboxedItems: ItemUpdateManyWithoutInboxOwnerInput
   label: String
   linkedin: String
   mail: String
@@ -946,7 +946,7 @@ input UserUpdateWithoutSectionsDataInput {
   firstname: String
   github: String
   id: ID
-  inboxedItems: ItemUpdateManyWithoutUserInput
+  inboxedItems: ItemUpdateManyWithoutInboxOwnerInput
   label: String
   linkedin: String
   mail: String

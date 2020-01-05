@@ -35,7 +35,7 @@ async function main() {
                 youtube: profile.social && profile.social.youtube,
                 mail: profile.social && profile.social.mail,
                 website: profile.social && profile.social.website,
-                collections: {
+                inboxedItems: {
                     create: [
                         {
                             title: 'Tottem',
