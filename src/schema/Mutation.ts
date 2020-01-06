@@ -1,3 +1,7 @@
+import {
+    CollectionCreateOneWithoutCollectionInput,
+    UserCreateOneWithoutInboxOwnerInput,
+} from '@prisma/photon'
 import cuid from 'cuid'
 import { booleanArg, idArg, intArg, mutationType, stringArg } from 'nexus'
 import { Context } from '../context'
@@ -121,7 +125,9 @@ export const Mutation = mutationType({
                     oldIndex,
                     newIndex
                 )
-                const updates: Array<Promise<any>> = [] // FIXME any!
+                const updates: Array<ReturnType<
+                    typeof ctx.photon.items.update
+                >> = []
                 for (const item of newIndexedItems) {
                     updates.push(
                         ctx.photon.items.update({
@@ -204,7 +210,11 @@ export const Mutation = mutationType({
                     if (user === undefined) {
                         return Promise.reject('User not authenticated')
                     }
-                    let connect
+                    let connect: {
+                        collection?: CollectionCreateOneWithoutCollectionInput
+                        inboxOwner?: UserCreateOneWithoutInboxOwnerInput
+                    } = {}
+
                     if (collectionId) {
                         connect = {
                             collection: {
