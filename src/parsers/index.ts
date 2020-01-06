@@ -1,5 +1,5 @@
 import emoji from 'node-emoji'
-import { ItemType } from '@generated/photon'
+import { ItemType } from '@prisma/photon'
 import cheerio from 'cheerio'
 import URL from 'url'
 import { IItem } from '../interfaces'
@@ -47,8 +47,8 @@ function AmazonParser(url: string, body: string): IItem {
 function MediumParser(url: string, body: string): IItem {
     const $ = cheerio.load(body)
     return {
-        title: $('meta[property="og:title"]').attr('content'),
-        author: $('meta[name="author"]').attr('content'),
+        title: $('meta[property="og:title"]').attr('content') || '',
+        author: $('meta[name="author"]').attr('content') || '',
         provider: 'medium',
         productUrl: url,
         type: 'article' as ItemType,
@@ -59,8 +59,10 @@ function MediumParser(url: string, body: string): IItem {
 function SpotifyParser(url: string, body: string): IItem {
     const $ = cheerio.load(body)
     return {
-        title: $('meta[property="og:title"]').attr('content'),
-        author: $('meta[property="twitter:audio:artist_name"]').attr('content'),
+        title: $('meta[property="og:title"]').attr('content') || '',
+        author:
+            $('meta[property="twitter:audio:artist_name"]').attr('content') ||
+            '',
         provider: 'spotify',
         productUrl: url,
         type: 'album' as ItemType,
@@ -203,7 +205,7 @@ const FallbackParser = {
         return {
             title: header,
             description,
-            author,
+            author: author || '',
             productUrl: url,
             type: 'website' as ItemType,
             imageUrl,
@@ -211,8 +213,10 @@ const FallbackParser = {
     },
 }
 
-const withDomain = (baseUrl: string, url: string) => {
-    if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
+const withDomain = (baseUrl: string, url?: string) => {
+    if (url === undefined) {
+        return undefined
+    } else if (url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
         return url
     } else {
         return `${URL.parse(baseUrl).host}/${url}`

@@ -4,7 +4,7 @@
  */
 
 import * as Context from "./context"
-import * as photon from "@generated/photon"
+import * as photon from "@prisma/photon"
 
 
 

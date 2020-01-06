@@ -1,4 +1,4 @@
-import { Photon } from '@generated/photon'
+import { Photon } from '@prisma/photon'
 import { ICollection } from '../src/data/types'
 import { getSections } from '../src/data/utils'
 import logger from '../src/logging'

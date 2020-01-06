@@ -1,4 +1,4 @@
-import { ItemType } from '@generated/photon'
+import { ItemType } from '@prisma/photon'
 
 export interface IItem {
     title: string

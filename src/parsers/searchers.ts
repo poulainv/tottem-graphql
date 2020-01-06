@@ -1,4 +1,4 @@
-import { ItemType } from '@generated/photon'
+import { ItemType } from '@prisma/photon'
 import querystring from 'querystring'
 import { IItem } from '../interfaces'
 import { SimpleFetch, JSONFetch } from './fetchers'

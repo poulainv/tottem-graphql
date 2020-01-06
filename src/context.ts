@@ -1,4 +1,4 @@
-import { Photon } from '@generated/photon'
+import { Photon } from '@prisma/photon'
 import { verifyIdentity, AuthenticatedUser } from './services/authentication'
 import express from 'express'
 import logger from './logging'

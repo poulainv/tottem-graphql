@@ -12,7 +12,7 @@ export const schema = makeSchema({
         contextType: 'Context.Context',
         sources: [
             {
-                source: '@generated/photon',
+                source: '@prisma/photon',
                 alias: 'photon',
             },
             {
