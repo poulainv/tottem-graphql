@@ -239,6 +239,12 @@ input CollectionWhereUniqueInput {
   slug: String
 }
 
+"""Metric about collection usage"""
+type CountMetric {
+  """Non deleted items in inbox"""
+  inboxCount: String!
+}
+
 scalar DateTime
 
 input DateTimeFilter {
@@ -250,6 +256,14 @@ input DateTimeFilter {
   lte: DateTime
   not: DateTime
   notIn: [DateTime!]
+}
+
+"""Inbox user relative content"""
+type Inbox {
+  """Non deleted items count in inbox"""
+  count: Int!
+  id: String!
+  items: [Item!]!
 }
 
 input IntFilter {
@@ -551,11 +565,13 @@ enum OrderByArg {
 type Query {
   collection(where: CollectionWhereUniqueInput!): Collection
   collections(after: ID, before: ID, first: Int, last: Int, orderBy: QueryCollectionsOrderByInput, skip: Int, where: QueryCollectionsWhereInput): [Collection!]!
-  inbox: [Item!]!
+
+  """Inbox user relative content"""
+  inbox: Inbox
   items(after: ID, before: ID, first: Int, last: Int, orderBy: QueryItemsOrderByInput, skip: Int, where: QueryItemsWhereInput): [Item!]!
   search(kind: String!, q: String!): [SearchItem!]!
   section(where: SectionWhereUniqueInput!): Section
-  sections(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QuerySectionsWhereInput): [Section!]!
+  sections(after: ID, before: ID, first: Int, last: Int, orderBy: QuerySectionsOrderByInput, skip: Int, where: QuerySectionsWhereInput): [Section!]!
   user(where: UserWhereUniqueInput!): User
 }
 
@@ -578,6 +594,10 @@ input QueryItemsWhereInput {
   isArchived: BooleanFilter
 }
 
+input QuerySectionsOrderByInput {
+  createdAt: OrderByArg
+}
+
 input QuerySectionsWhereInput {
   isDeleted: BooleanFilter
   owner: UserWhereInput
@@ -592,6 +612,7 @@ type SearchItem {
 
 type Section {
   collections(after: ID, before: ID, first: Int, last: Int, skip: Int, where: SectionCollectionsWhereInput): [Collection!]!
+  createdAt: DateTime!
   id: ID!
   index: Int!
   isExpanded: Boolean!

@@ -12,26 +12,21 @@ export const Query = queryType({
             filtering: { collection: true, isArchived: true },
             ordering: { position: true },
         })
-        t.crud.sections({ filtering: { owner: true, isDeleted: true } })
+        t.crud.sections({
+            filtering: { owner: true, isDeleted: true },
+            ordering: { createdAt: true },
+        })
         t.crud.collections({
             ordering: { createdAt: true },
             filtering: { owner: true, section: true, isDeleted: true },
             pagination: true,
         })
         t.field('inbox', {
-            type: 'Item',
-            list: true,
-            async resolve(_, {}, ctx: Context) {
-                const user = await ctx.user
-                const userInbox = await ctx.photon.users.findOne({
-                    where: { authUserId: user?.auth0Id },
-                    select: { inboxedItems: true },
-                })
-
-                if (userInbox?.inboxedItems === undefined) {
-                    return Promise.reject(`Inbox ${user?.auth0Id} not found`)
-                }
-                return userInbox?.inboxedItems
+            type: 'Inbox',
+            nullable: true,
+            description: 'Inbox user relative content',
+            resolve: (_, {}) => {
+                return {}
             },
         })
         t.field('search', {
