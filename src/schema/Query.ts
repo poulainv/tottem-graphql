@@ -2,14 +2,13 @@ import { queryType, stringArg } from 'nexus'
 import { Context } from '../context'
 import { GoogleBookSearch, MovieDBSearch } from '../parsers/searchers'
 
-
 export const Query = queryType({
     definition(t) {
         t.crud.user()
         t.crud.collection()
         t.crud.section()
         t.crud.items({
-            filtering: { collection: true, isArchived: true },
+            filtering: { collection: true, isDeleted: true },
             ordering: { position: true },
         })
         t.crud.sections({

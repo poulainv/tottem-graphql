@@ -44,7 +44,7 @@ export const Collection = objectType({
         t.model.isDeleted()
         t.model.detail()
         t.model.items({
-            filtering: { isArchived: true },
+            filtering: { isDeleted: true },
             ordering: { position: true },
         })
         t.model.owner()
@@ -57,7 +57,7 @@ export const Item = objectType({
     definition(t) {
         t.model.id()
         t.model.author()
-        t.model.isArchived()
+        t.model.isDeleted()
         t.model.title()
         t.model.position()
         t.model.imageUrl()
@@ -95,7 +95,7 @@ export const Inbox = objectType({
                 const user = await ctx.user
                 const userInbox = await ctx.photon.users.findOne({
                     where: { authUserId: user?.auth0Id },
-                    select: { inboxedItems: { where: { isArchived: false } } },
+                    select: { inboxedItems: { where: { isDeleted: false } } },
                 })
 
                 if (userInbox?.inboxedItems === undefined) {
@@ -110,7 +110,7 @@ export const Inbox = objectType({
                 const user = await ctx.user
                 const userInbox = await ctx.photon.users.findOne({
                     where: { authUserId: user?.auth0Id },
-                    select: { inboxedItems: { where: { isArchived: false } } },
+                    select: { inboxedItems: { where: { isDeleted: false } } },
                 })
 
                 if (userInbox?.inboxedItems === undefined) {

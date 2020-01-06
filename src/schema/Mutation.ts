@@ -107,7 +107,7 @@ export const Mutation = mutationType({
                     await ctx.photon.items.findMany({
                         where: {
                             collection: { id: collectionId },
-                            isArchived: false,
+                            isDeleted: false,
                         },
                         select: { id: true, position: true },
                         // this order is related to items order on the page

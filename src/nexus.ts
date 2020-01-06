@@ -74,7 +74,7 @@ export interface NexusGenInputs {
     position?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
   }
   CollectionItemsWhereInput: { // input type
-    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
+    isDeleted?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
   }
   CollectionScalarWhereInput: { // input type
     AND?: NexusGenInputs['CollectionScalarWhereInput'][] | null; // [CollectionScalarWhereInput!]
@@ -248,13 +248,14 @@ export interface NexusGenInputs {
   }
   ItemCreateWithoutCollectionInput: { // input type
     author?: string | null; // String
+    bar: string; // String!
     comment?: string | null; // String
     createdAt?: any | null; // DateTime
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
     inboxOwner?: NexusGenInputs['UserCreateOneWithoutInboxOwnerInput'] | null; // UserCreateOneWithoutInboxOwnerInput
-    isArchived?: boolean | null; // Boolean
+    isDeleted?: boolean | null; // Boolean
     meta?: string | null; // String
     position?: number | null; // Int
     productUrl?: string | null; // String
@@ -265,13 +266,14 @@ export interface NexusGenInputs {
   }
   ItemCreateWithoutInboxOwnerInput: { // input type
     author?: string | null; // String
+    bar: string; // String!
     collection?: NexusGenInputs['CollectionCreateOneWithoutCollectionInput'] | null; // CollectionCreateOneWithoutCollectionInput
     comment?: string | null; // String
     createdAt?: any | null; // DateTime
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
-    isArchived?: boolean | null; // Boolean
+    isDeleted?: boolean | null; // Boolean
     meta?: string | null; // String
     position?: number | null; // Int
     productUrl?: string | null; // String
@@ -288,12 +290,13 @@ export interface NexusGenInputs {
   ItemScalarWhereInput: { // input type
     AND?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
     author?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    bar?: NexusGenInputs['StringFilter'] | null; // StringFilter
     comment?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     description?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     imageUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
-    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
+    isDeleted?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     meta?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
     OR?: NexusGenInputs['ItemScalarWhereInput'][] | null; // [ItemScalarWhereInput!]
@@ -306,6 +309,7 @@ export interface NexusGenInputs {
   }
   ItemUpdateInput: { // input type
     author?: string | null; // String
+    bar?: string | null; // String
     collection?: NexusGenInputs['CollectionUpdateOneWithoutItemsInput'] | null; // CollectionUpdateOneWithoutItemsInput
     comment?: string | null; // String
     createdAt?: any | null; // DateTime
@@ -313,7 +317,7 @@ export interface NexusGenInputs {
     id?: string | null; // ID
     imageUrl?: string | null; // String
     inboxOwner?: NexusGenInputs['UserUpdateOneWithoutInboxedItemsInput'] | null; // UserUpdateOneWithoutInboxedItemsInput
-    isArchived?: boolean | null; // Boolean
+    isDeleted?: boolean | null; // Boolean
     meta?: string | null; // String
     position?: number | null; // Int
     productUrl?: string | null; // String
@@ -324,12 +328,13 @@ export interface NexusGenInputs {
   }
   ItemUpdateManyDataInput: { // input type
     author?: string | null; // String
+    bar?: string | null; // String
     comment?: string | null; // String
     createdAt?: any | null; // DateTime
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
-    isArchived?: boolean | null; // Boolean
+    isDeleted?: boolean | null; // Boolean
     meta?: string | null; // String
     position?: number | null; // Int
     productUrl?: string | null; // String
@@ -374,13 +379,14 @@ export interface NexusGenInputs {
   }
   ItemUpdateWithoutCollectionDataInput: { // input type
     author?: string | null; // String
+    bar?: string | null; // String
     comment?: string | null; // String
     createdAt?: any | null; // DateTime
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
     inboxOwner?: NexusGenInputs['UserUpdateOneWithoutInboxedItemsInput'] | null; // UserUpdateOneWithoutInboxedItemsInput
-    isArchived?: boolean | null; // Boolean
+    isDeleted?: boolean | null; // Boolean
     meta?: string | null; // String
     position?: number | null; // Int
     productUrl?: string | null; // String
@@ -391,13 +397,14 @@ export interface NexusGenInputs {
   }
   ItemUpdateWithoutInboxOwnerDataInput: { // input type
     author?: string | null; // String
+    bar?: string | null; // String
     collection?: NexusGenInputs['CollectionUpdateOneWithoutItemsInput'] | null; // CollectionUpdateOneWithoutItemsInput
     comment?: string | null; // String
     createdAt?: any | null; // DateTime
     description?: string | null; // String
     id?: string | null; // ID
     imageUrl?: string | null; // String
-    isArchived?: boolean | null; // Boolean
+    isDeleted?: boolean | null; // Boolean
     meta?: string | null; // String
     position?: number | null; // Int
     productUrl?: string | null; // String
@@ -419,6 +426,7 @@ export interface NexusGenInputs {
   ItemWhereInput: { // input type
     AND?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
     author?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    bar?: NexusGenInputs['StringFilter'] | null; // StringFilter
     collection?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
     comment?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
@@ -426,7 +434,7 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     imageUrl?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     inboxOwner?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
-    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
+    isDeleted?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     meta?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     NOT?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
     OR?: NexusGenInputs['ItemWhereInput'][] | null; // [ItemWhereInput!]
@@ -466,7 +474,7 @@ export interface NexusGenInputs {
   }
   QueryItemsWhereInput: { // input type
     collection?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
-    isArchived?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
+    isDeleted?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
   }
   QuerySectionsOrderByInput: { // input type
     createdAt?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
@@ -831,7 +839,6 @@ export interface NexusGenEnums {
 
 export interface NexusGenRootTypes {
   Collection: photon.Collection;
-  CountMetric: {};
   Inbox: {};
   Item: photon.Item;
   Mutation: {};
@@ -961,9 +968,6 @@ export interface NexusGenFieldTypes {
     slug: string; // String!
     updatedAt: any; // DateTime!
   }
-  CountMetric: { // field return type
-    inboxCount: string; // String!
-  }
   Inbox: { // field return type
     count: number; // Int!
     id: string; // String!
@@ -976,7 +980,7 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     id: string; // ID!
     imageUrl: string | null; // String
-    isArchived: boolean; // Boolean!
+    isDeleted: boolean; // Boolean!
     meta: string | null; // String
     position: number; // Int!
     productUrl: string | null; // String
@@ -1153,7 +1157,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Collection" | "CountMetric" | "Inbox" | "Item" | "Mutation" | "Query" | "SearchItem" | "Section" | "User";
+export type NexusGenObjectNames = "Collection" | "Inbox" | "Item" | "Mutation" | "Query" | "SearchItem" | "Section" | "User";
 
 export type NexusGenInputNames = "BooleanFilter" | "CollectionCreateManyWithoutCollectionsInput" | "CollectionCreateOneWithoutCollectionInput" | "CollectionCreateWithoutItemsInput" | "CollectionCreateWithoutOwnerInput" | "CollectionCreateWithoutSectionInput" | "CollectionFilter" | "CollectionItemsOrderByInput" | "CollectionItemsWhereInput" | "CollectionScalarWhereInput" | "CollectionUpdateInput" | "CollectionUpdateManyDataInput" | "CollectionUpdateManyWithWhereNestedInput" | "CollectionUpdateManyWithoutOwnerInput" | "CollectionUpdateManyWithoutSectionInput" | "CollectionUpdateOneWithoutItemsInput" | "CollectionUpdateWithWhereUniqueWithoutOwnerInput" | "CollectionUpdateWithWhereUniqueWithoutSectionInput" | "CollectionUpdateWithoutItemsDataInput" | "CollectionUpdateWithoutOwnerDataInput" | "CollectionUpdateWithoutSectionDataInput" | "CollectionUpsertWithWhereUniqueWithoutOwnerInput" | "CollectionUpsertWithWhereUniqueWithoutSectionInput" | "CollectionUpsertWithoutItemsInput" | "CollectionWhereInput" | "CollectionWhereUniqueInput" | "DateTimeFilter" | "IntFilter" | "ItemCreateManyWithoutInboxedItemsInput" | "ItemCreateManyWithoutItemsInput" | "ItemCreateWithoutCollectionInput" | "ItemCreateWithoutInboxOwnerInput" | "ItemFilter" | "ItemScalarWhereInput" | "ItemUpdateInput" | "ItemUpdateManyDataInput" | "ItemUpdateManyWithWhereNestedInput" | "ItemUpdateManyWithoutCollectionInput" | "ItemUpdateManyWithoutInboxOwnerInput" | "ItemUpdateWithWhereUniqueWithoutCollectionInput" | "ItemUpdateWithWhereUniqueWithoutInboxOwnerInput" | "ItemUpdateWithoutCollectionDataInput" | "ItemUpdateWithoutInboxOwnerDataInput" | "ItemUpsertWithWhereUniqueWithoutCollectionInput" | "ItemUpsertWithWhereUniqueWithoutInboxOwnerInput" | "ItemWhereInput" | "ItemWhereUniqueInput" | "NullableStringFilter" | "QueryCollectionsOrderByInput" | "QueryCollectionsWhereInput" | "QueryItemsOrderByInput" | "QueryItemsWhereInput" | "QuerySectionsOrderByInput" | "QuerySectionsWhereInput" | "SectionCollectionsWhereInput" | "SectionCreateManyWithoutSectionsInput" | "SectionCreateOneWithoutSectionInput" | "SectionCreateWithoutCollectionsInput" | "SectionCreateWithoutOwnerInput" | "SectionFilter" | "SectionScalarWhereInput" | "SectionUpdateInput" | "SectionUpdateManyDataInput" | "SectionUpdateManyWithWhereNestedInput" | "SectionUpdateManyWithoutOwnerInput" | "SectionUpdateOneRequiredWithoutCollectionsInput" | "SectionUpdateWithWhereUniqueWithoutOwnerInput" | "SectionUpdateWithoutCollectionsDataInput" | "SectionUpdateWithoutOwnerDataInput" | "SectionUpsertWithWhereUniqueWithoutOwnerInput" | "SectionUpsertWithoutCollectionsInput" | "SectionWhereInput" | "SectionWhereUniqueInput" | "StringFilter" | "UserCreateInput" | "UserCreateOneWithoutInboxOwnerInput" | "UserCreateOneWithoutOwnerInput" | "UserCreateWithoutCollectionsInput" | "UserCreateWithoutInboxedItemsInput" | "UserCreateWithoutSectionsInput" | "UserUpdateOneRequiredWithoutCollectionsInput" | "UserUpdateOneRequiredWithoutSectionsInput" | "UserUpdateOneWithoutInboxedItemsInput" | "UserUpdateWithoutCollectionsDataInput" | "UserUpdateWithoutInboxedItemsDataInput" | "UserUpdateWithoutSectionsDataInput" | "UserUpsertWithoutCollectionsInput" | "UserUpsertWithoutInboxedItemsInput" | "UserUpsertWithoutSectionsInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
