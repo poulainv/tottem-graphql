@@ -28,7 +28,10 @@ export const Section = objectType({
         t.model.index()
         t.model.name()
         t.model.createdAt()
-        t.model.collections({ filtering: { isDeleted: true } })
+        t.model.collections({
+            filtering: { isDeleted: true },
+            ordering: { createdAt: true, updatedAt: true },
+        })
         t.model.isExpanded()
     },
 })
@@ -80,7 +83,6 @@ export const SearchItem = objectType({
         t.string('type')
     },
 })
-
 
 export const Inbox = objectType({
     name: 'Inbox',

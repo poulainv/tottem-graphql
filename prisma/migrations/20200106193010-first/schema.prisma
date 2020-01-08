@@ -56,7 +56,7 @@ model Item {
   id          String      @default(cuid()) @id
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  isArchived  Boolean     @default(false)
+  isDeleted   Boolean     @default(false)
   position    Int         @default(0)
   title       String
   provider    String?
@@ -68,7 +68,7 @@ model Item {
   comment     String?
   collection  Collection?
   meta        String?     @default("{}")
-  inboxOwner  User
+  inboxOwner  User?
 }
 
 

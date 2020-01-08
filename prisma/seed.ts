@@ -16,7 +16,6 @@ const profiles = [
     'thinkerview',
 ]
 const photon = new Photon()
-
 // TODO Make nullable value optionnable rather than || ''!
 async function main() {
     for (const profileName of profiles) {

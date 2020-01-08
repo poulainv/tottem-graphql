@@ -73,9 +73,11 @@ export const Mutation = mutationType({
                 if (user === undefined) {
                     return Promise.reject('User not authenticated')
                 }
-                const sections = await ctx.photon.sections.findMany({
-                    where: { AND: { owner: { authUserId: user.auth0Id } } },
-                })
+                const sectionsCount = (
+                    await ctx.photon.sections.findMany({
+                        where: { AND: { owner: { authUserId: user.auth0Id } } },
+                    })
+                ).length
                 const id = cuid()
                 return ctx.photon.sections.create({
                     data: {
@@ -86,7 +88,7 @@ export const Mutation = mutationType({
                             },
                         },
                         slug: `new-space-${id}`,
-                        index: sections.length,
+                        index: sectionsCount,
                     },
                 })
             },

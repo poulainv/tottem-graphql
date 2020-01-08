@@ -299,7 +299,6 @@ input ItemCreateManyWithoutItemsInput {
 
 input ItemCreateWithoutCollectionInput {
   author: String
-  bar: String!
   comment: String
   createdAt: DateTime
   description: String
@@ -318,7 +317,6 @@ input ItemCreateWithoutCollectionInput {
 
 input ItemCreateWithoutInboxOwnerInput {
   author: String
-  bar: String!
   collection: CollectionCreateOneWithoutCollectionInput
   comment: String
   createdAt: DateTime
@@ -344,7 +342,6 @@ input ItemFilter {
 input ItemScalarWhereInput {
   AND: [ItemScalarWhereInput!]
   author: NullableStringFilter
-  bar: StringFilter
   comment: NullableStringFilter
   createdAt: DateTimeFilter
   description: NullableStringFilter
@@ -376,7 +373,6 @@ enum ItemType {
 
 input ItemUpdateInput {
   author: String
-  bar: String
   collection: CollectionUpdateOneWithoutItemsInput
   comment: String
   createdAt: DateTime
@@ -396,7 +392,6 @@ input ItemUpdateInput {
 
 input ItemUpdateManyDataInput {
   author: String
-  bar: String
   comment: String
   createdAt: DateTime
   description: String
@@ -443,7 +438,6 @@ input ItemUpdateManyWithWhereNestedInput {
 
 input ItemUpdateWithoutCollectionDataInput {
   author: String
-  bar: String
   comment: String
   createdAt: DateTime
   description: String
@@ -462,7 +456,6 @@ input ItemUpdateWithoutCollectionDataInput {
 
 input ItemUpdateWithoutInboxOwnerDataInput {
   author: String
-  bar: String
   collection: CollectionUpdateOneWithoutItemsInput
   comment: String
   createdAt: DateTime
@@ -504,7 +497,6 @@ input ItemUpsertWithWhereUniqueWithoutInboxOwnerInput {
 input ItemWhereInput {
   AND: [ItemWhereInput!]
   author: NullableStringFilter
-  bar: StringFilter
   collection: CollectionWhereInput
   comment: NullableStringFilter
   createdAt: DateTimeFilter
@@ -613,13 +605,18 @@ type SearchItem {
 }
 
 type Section {
-  collections(after: ID, before: ID, first: Int, last: Int, skip: Int, where: SectionCollectionsWhereInput): [Collection!]!
+  collections(after: ID, before: ID, first: Int, last: Int, orderBy: SectionCollectionsOrderByInput, skip: Int, where: SectionCollectionsWhereInput): [Collection!]!
   createdAt: DateTime!
   id: ID!
   index: Int!
   isExpanded: Boolean!
   name: String
   slug: String!
+}
+
+input SectionCollectionsOrderByInput {
+  createdAt: OrderByArg
+  updatedAt: OrderByArg
 }
 
 input SectionCollectionsWhereInput {

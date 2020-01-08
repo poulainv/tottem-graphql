@@ -167,15 +167,15 @@
     {
       "stepType": "CreateField",
       "model": "User",
-      "field": "inboxedItems",
-      "type": "Item",
+      "field": "collections",
+      "type": "Collection",
       "arity": "list"
     },
     {
       "stepType": "CreateField",
       "model": "User",
-      "field": "collections",
-      "type": "Collection",
+      "field": "inboxedItems",
+      "type": "Item",
       "arity": "list"
     },
     {
@@ -536,20 +536,20 @@
     {
       "stepType": "CreateField",
       "model": "Item",
-      "field": "isArchived",
+      "field": "isDeleted",
       "type": "Boolean",
       "arity": "required"
     },
     {
       "stepType": "CreateDirective",
       "model": "Item",
-      "field": "isArchived",
+      "field": "isDeleted",
       "directive": "default"
     },
     {
       "stepType": "CreateDirectiveArgument",
       "model": "Item",
-      "field": "isArchived",
+      "field": "isDeleted",
       "directive": "default",
       "argument": "",
       "value": "false"
@@ -658,6 +658,13 @@
       "directive": "default",
       "argument": "",
       "value": "\"{}\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Item",
+      "field": "inboxOwner",
+      "type": "User",
+      "arity": "optional"
     }
   ]
 }
