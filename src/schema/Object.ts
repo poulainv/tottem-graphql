@@ -48,7 +48,7 @@ export const Collection = objectType({
         t.model.detail()
         t.model.items({
             filtering: { isDeleted: true },
-            ordering: { position: true },
+            ordering: { createdAt: true, position: true },
         })
         t.model.owner()
         t.model.section()

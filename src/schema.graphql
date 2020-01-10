@@ -73,6 +73,7 @@ input CollectionFilter {
 }
 
 input CollectionItemsOrderByInput {
+  createdAt: OrderByArg
   position: OrderByArg
 }
 

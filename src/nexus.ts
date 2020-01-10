@@ -71,6 +71,7 @@ export interface NexusGenInputs {
     some?: NexusGenInputs['CollectionWhereInput'] | null; // CollectionWhereInput
   }
   CollectionItemsOrderByInput: { // input type
+    createdAt?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     position?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
   }
   CollectionItemsWhereInput: { // input type
