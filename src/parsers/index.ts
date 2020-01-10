@@ -101,7 +101,7 @@ export function MovieDBApiParser(url: string, body: string): IItem {
     return {
         title: json.title,
         author: '', // todo
-        productUrl: url,
+        productUrl: `https://www.themoviedb.org/movie/${json.id}`,
         description: json.overview,
         provider: 'moviedb',
         type: 'movie' as ItemType,

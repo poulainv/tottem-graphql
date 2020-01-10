@@ -12,7 +12,6 @@ interface Context {
 
 const createContext: (req: express.Request) => Context = req => {
     // The request is authenticated or not
-    logger.info('Call!')
     let user: Promise<AuthenticatedUser | undefined>
     if (req.headers !== undefined && req.headers.authorization) {
         const token = req.headers.authorization
