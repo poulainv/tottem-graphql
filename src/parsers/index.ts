@@ -162,6 +162,14 @@ function BabelioParser(url: string, body: string): IItem {
     }
 }
 
+const mapSCTypes: { [scType: string]: ItemType } = {
+    film: 'movie',
+    livre: 'book',
+    musique: 'album',
+    bd: 'book',
+    serie: 'movie',
+}
+
 function SCParser(url: string, body: string): IItem {
     const $ = cheerio.load(body)
     const kind = url.split('.com/')[1].split('/')[0]
@@ -174,7 +182,7 @@ function SCParser(url: string, body: string): IItem {
             $('span[itemprop="creator"]').text() ||
             $('span[itemprop="director"]').text(),
         productUrl: url,
-        type: kind as ItemType, // kind is not correctly typed
+        type: mapSCTypes[kind] as ItemType, // kind is not correctly typed
         description: $('.pvi-productDetails-resume').text(),
         imageUrl: $('.lightview ').attr('href'),
     }
