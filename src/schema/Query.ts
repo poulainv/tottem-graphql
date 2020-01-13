@@ -12,7 +12,7 @@ export const Query = queryType({
             ordering: { position: true },
         })
         t.crud.sections({
-            filtering: { owner: true, isDeleted: true },
+            filtering: { owner: true, isDeleted: true, index: true },
             ordering: { createdAt: true },
         })
         t.crud.collections({

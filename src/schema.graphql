@@ -536,6 +536,7 @@ type Mutation {
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
   updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
   updateOneSection(data: SectionUpdateInput!, where: SectionWhereUniqueInput!): Section
+  updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
 }
 
 input NullableStringFilter {
@@ -594,6 +595,7 @@ input QuerySectionsOrderByInput {
 }
 
 input QuerySectionsWhereInput {
+  index: IntFilter
   isDeleted: BooleanFilter
   owner: UserWhereInput
 }
@@ -896,6 +898,25 @@ input UserCreateWithoutSectionsInput {
   mail: String
   pictureUrl: String!
   slug: String!
+  website: String
+  youtube: String
+}
+
+input UserUpdateInput {
+  authUserId: String
+  biography: String
+  collections: CollectionUpdateManyWithoutOwnerInput
+  createdAt: DateTime
+  firstname: String
+  github: String
+  id: ID
+  inboxedItems: ItemUpdateManyWithoutInboxOwnerInput
+  label: String
+  linkedin: String
+  mail: String
+  pictureUrl: String
+  sections: SectionUpdateManyWithoutOwnerInput
+  slug: String
   website: String
   youtube: String
 }

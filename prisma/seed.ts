@@ -3,6 +3,7 @@ import { ICollection } from '../src/data/types'
 import { getSections } from '../src/data/utils'
 import logger from '../src/logging'
 import cuid = require('cuid')
+import slugify from 'slugify'
 
 const profiles = [
     'awesome-css-learning',
@@ -50,9 +51,11 @@ async function main() {
             logger.info(
                 `Create : ${profile.slug}' collection ${section.name} items`
             )
+            const sectionId = cuid()
             await photon.sections.create({
                 data: {
-                    slug: section.id,
+                    id: sectionId,
+                    slug: `${slugify(section.name)}-${sectionId}`,
                     name: section.name,
                     index: section.index,
                     owner: {
@@ -66,7 +69,7 @@ async function main() {
                                 const cid = cuid()
                                 return {
                                     id: cid,
-                                    slug: `${collection.name}-${cid}`,
+                                    slug: `${slugify(collection.name)}-${cid}`,
                                     name: collection.name,
                                     detail: collection.detail,
                                     createdAt: collection.date, // FIXME override does work
