@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import querystring from 'querystring'
 import URL from 'url'
 import logger from '../logging'
-import { MovieDBResult } from './types/moviedb'
+import { spotifyApi } from './searchers'
 
 const TINYYTREGEXP = /youtu\.be\/(?<youtubeId>[^\/:]{1,})(\/)?$/
 const GITHUBREGEXP = /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?github\.com(\/)(?<username>[^\/:]+)(\/)(?<repos>[^\/:]+).*?$/
@@ -81,6 +81,16 @@ export const getYoutubeId = (url: string) => {
             throw Error(`Can not find query parameter in YT url ${url}`)
         }
         return querystring.parse(query).v.toString()
+    }
+}
+
+export async function SpotifyAlbumApiFetch(albumId: string) {
+    try {
+        return (await spotifyApi.getAlbum(albumId)).body
+    } catch {
+        const accessToken = await spotifyApi.clientCredentialsGrant()
+        spotifyApi.setAccessToken(accessToken.body.access_token)
+        return (await spotifyApi.getAlbum(albumId)).body
     }
 }
 

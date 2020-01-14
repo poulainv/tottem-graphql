@@ -8,6 +8,7 @@ import {
     SimpleFetch,
     YoutubeApiFetch,
     JSONFetch,
+    SpotifyAlbumApiFetch,
 } from './fetchers'
 import logger from '../logging'
 import { MovieDBResult } from './types/moviedb'
@@ -188,6 +189,24 @@ function SCParser(url: string, body: string): IItem {
     }
 }
 
+// AlbumId because it's better so something is getting wrong in
+// the architecure!
+async function SpotifyAPIParser(albumId: string): Promise<IItem> {
+    const item = await SpotifyAlbumApiFetch(albumId)
+    return {
+        title: item.name,
+        author: item.artists.map(x => x.name).join(', '),
+        productUrl: item.external_urls.spotify,
+        type: 'album',
+        imageUrl: item.images[0].url,
+        meta: {
+            genres: item.genres,
+            popularity: item.popularity,
+        },
+        provider: 'spotify',
+    }
+}
+
 const FallbackParser = {
     regex: '*',
     name: 'Fallback',
@@ -354,6 +373,8 @@ export async function createNewItemFromSearch(
     } else if (kind === 'book') {
         const bookUrl = `https://www.googleapis.com/books/v1/volumes/${id}?key=${process.env.GOOGLEBOOKS_API_KEY}`
         return inferNewItemFromUrl(bookUrl)
+    } else if (kind === 'album') {
+        return SpotifyAPIParser(id)
     }
     return Promise.reject(`kind ${kind} unknown`)
 }

@@ -1,11 +1,10 @@
-import { ItemType } from '@prisma/photon'
 import querystring from 'querystring'
-import { IItem } from '../interfaces'
-import { SimpleFetch, JSONFetch } from './fetchers'
+import SpotifyWebApi from 'spotify-web-api-node'
 import logger from '../logging'
+import { JSONFetch, SimpleFetch } from './fetchers'
 import { GoogleBookResult } from './types/googlebook'
 
-const MOVIEDB_GENRES: { [i: number]: string } = {
+export const MOVIEDB_GENRES: { [i: number]: string } = {
     28: 'Action',
     12: 'Aventure',
     16: 'Animation',
@@ -35,6 +34,23 @@ interface IMovieDB {
     poster_path: string
     vote_average: number
     genre_ids: number[]
+}
+
+
+export const spotifyApi = new SpotifyWebApi({
+    clientId: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+})
+
+export async function SpotifySearch(query: string) {
+    try {
+        const res = await spotifyApi.searchAlbums(query)
+        return res.body
+    } catch {
+        const accessToken = await spotifyApi.clientCredentialsGrant()
+        spotifyApi.setAccessToken(accessToken.body.access_token)
+        return (await spotifyApi.searchAlbums(query)).body
+    }
 }
 
 export async function MovieDBSearch(
@@ -72,28 +88,4 @@ export async function GoogleBookSearch(
     return JSONFetch(
         `https://www.googleapis.com/books/v1/volumes?q=${query}&langRestrict=fr&maxResults=10&key=${process.env.GOOGLEBOOKS_API_KEY}`
     ).then(s => JSON.parse(s))
-}
-
-export async function MovieDBFind(
-    title: string,
-    year?: number,
-    lang?: string
-): Promise<IItem> {
-    const search = await MovieDBSearch(title, year, lang)
-    const best = search[0]
-    return {
-        title: best.title,
-        author: '',
-        description: best.overview,
-        productUrl: `https://www.themoviedb.org/movie/${best.id}`,
-        type: 'movie' as ItemType,
-        imageUrl:
-            best.poster_path &&
-            `https://image.tmdb.org/t/p/w500${best.poster_path}`,
-        meta: {
-            releaseDate: best.release_date,
-            voteAverage: best.vote_average,
-            genres: best.genre_ids.map((x: number) => MOVIEDB_GENRES[x]),
-        },
-    }
 }

@@ -1,6 +1,10 @@
 import { queryType, stringArg } from 'nexus'
 import { Context } from '../context'
-import { GoogleBookSearch, MovieDBSearch } from '../parsers/searchers'
+import {
+    GoogleBookSearch,
+    MovieDBSearch,
+    SpotifySearch,
+} from '../parsers/searchers'
 
 export const Query = queryType({
     definition(t) {
@@ -57,6 +61,20 @@ export const Query = queryType({
                             type: 'book',
                         }
                     })
+                } else if (kind === 'album') {
+                    const res = await SpotifySearch(q)
+                    return (
+                        res?.albums?.items?.map(x => {
+                            return {
+                                id: x.id,
+                                title: x.name,
+                                author: x.artists
+                                    .map(artist => artist.name)
+                                    .join(', '),
+                                type: 'album',
+                            }
+                        }) || []
+                    )
                 }
                 return Promise.reject(`Kind ${kind} not supported`)
             },

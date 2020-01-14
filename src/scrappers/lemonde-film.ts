@@ -3,8 +3,8 @@ import fs from 'fs'
 import pThrottle from 'p-throttle'
 import { IItem } from '../interfaces'
 import logger from '../logging'
-import { MovieDBFind } from '../parsers/searchers'
 import { ItemType } from '../data/types'
+import { MovieDBSearch, MOVIEDB_GENRES } from '../parsers/searchers'
 
 interface Movie {
     title: string
@@ -12,6 +12,32 @@ interface Movie {
     genre: string
     year: number
 }
+
+
+export async function MovieDBFind(
+    title: string,
+    year?: number,
+    lang?: string
+): Promise<IItem> {
+    const search = await MovieDBSearch(title, year, lang)
+    const best = search[0]
+    return {
+        title: best.title,
+        author: '',
+        description: best.overview,
+        productUrl: `https://www.themoviedb.org/movie/${best.id}`,
+        type: 'movie' as ItemType,
+        imageUrl:
+            best.poster_path &&
+            `https://image.tmdb.org/t/p/w500${best.poster_path}`,
+        meta: {
+            releaseDate: best.release_date,
+            voteAverage: best.vote_average,
+            genres: best.genre_ids.map((x: number) => MOVIEDB_GENRES[x]),
+        },
+    }
+}
+
 
 async function launchLemonde() {
     const movies: Movie[] = []
