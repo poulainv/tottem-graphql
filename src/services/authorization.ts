@@ -34,7 +34,7 @@ const canModifyCollection = rule({ cache: 'strict' })(
 
 const isSectionOwner = rule({ cache: 'strict' })(
     async (parent, args, ctx, info) => {
-        return isUserOwner(ctx, 'section', args.data.section.connect.id)
+        return isUserOwner(ctx, 'section', args.sectionId)
     }
 )
 

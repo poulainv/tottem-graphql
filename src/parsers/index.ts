@@ -13,6 +13,7 @@ import {
 import logger from '../logging'
 import { MovieDBResult } from './types/moviedb'
 import { Item as GoogleBookItem } from './types/googlebook'
+import fetch from 'node-fetch'
 
 /* -------- PARSERS DEFINITION --------  */
 function FnacParser(url: string, body: string): IItem {
@@ -93,26 +94,6 @@ export function GithubApiParser(url: string, body: string): IItem {
             watchersCount: json.watchers_count,
             issuesCount: json.open_issues,
             pushedAt: json.pushed_at,
-        },
-    }
-}
-
-export function MovieDBApiParser(url: string, body: string): IItem {
-    const json: MovieDBResult = JSON.parse(body)
-    return {
-        title: json.title,
-        author: '', // todo
-        productUrl: `https://www.themoviedb.org/movie/${json.id}`,
-        description: json.overview,
-        provider: 'moviedb',
-        type: 'movie' as ItemType,
-        imageUrl:
-            json.poster_path &&
-            `https://image.tmdb.org/t/p/w500${json.poster_path}`,
-        meta: {
-            releaseDate: json.release_date,
-            voteAverage: json.vote_average,
-            genres: json.genres.map(x => x.name),
         },
     }
 }
@@ -204,6 +185,36 @@ async function SpotifyAPIParser(albumId: string): Promise<IItem> {
             popularity: item.popularity,
         },
         provider: 'spotify',
+    }
+}
+
+async function MovieDBApiParser(
+    movieId: string,
+    lang?: string
+): Promise<IItem> {
+    const movieDBUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${
+        process.env.MOVIEDB_API_KEY
+    }${lang !== undefined ? `&language=${lang}` : ''}`
+    // const crewDBUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${
+    //     process.env.MOVIEDB_API_KEY
+    // }${lang !== undefined ? `&language=${lang}` : ''}`
+    const moviePromise = fetch(movieDBUrl).then(x => x.json())
+    const movie: MovieDBResult = await moviePromise
+    return {
+        title: movie.title,
+        author: '', // todo
+        productUrl: `https://www.themoviedb.org/movie/${movie.id}`,
+        description: movie.overview,
+        provider: 'moviedb',
+        type: 'movie' as ItemType,
+        imageUrl:
+            movie.poster_path &&
+            `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+        meta: {
+            releaseDate: movie.release_date,
+            voteAverage: movie.vote_average,
+            genres: movie.genres.map(x => x.name),
+        },
     }
 }
 
@@ -318,12 +329,6 @@ const Parsers: Array<{
         fetch: YoutubeApiFetch,
     },
     {
-        name: 'MovieDBApi',
-        regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?api.themoviedb\.org(\/.*)?$/,
-        parse: MovieDBApiParser,
-        fetch: JSONFetch,
-    },
-    {
         name: 'GoogleBooksApi',
         regex: /^(?:http(?:s)?:\/\/)?(?:[^\.]+\.)?googleapis\.com(\/.*)?$/,
         parse: GoogleBooksApiParser,
@@ -366,10 +371,7 @@ export async function createNewItemFromSearch(
     lang?: string
 ): Promise<IItem> {
     if (kind === 'movie') {
-        const movieDBUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${
-            process.env.MOVIEDB_API_KEY
-        }${lang !== undefined ? `&language=${lang}` : ''}`
-        return inferNewItemFromUrl(movieDBUrl)
+        return MovieDBApiParser(id)
     } else if (kind === 'book') {
         const bookUrl = `https://www.googleapis.com/books/v1/volumes/${id}?key=${process.env.GOOGLEBOOKS_API_KEY}`
         return inferNewItemFromUrl(bookUrl)
