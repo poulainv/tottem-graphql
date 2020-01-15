@@ -1,10 +1,8 @@
-import {
-    CollectionCreateOneWithoutCollectionInput,
-    UserCreateOneWithoutInboxOwnerInput,
-} from '@prisma/photon'
+import { CollectionCreateOneWithoutCollectionInput, UserCreateOneWithoutInboxOwnerInput } from '@prisma/photon'
 import cuid from 'cuid'
 import { booleanArg, idArg, intArg, mutationType, stringArg } from 'nexus'
 import { Context } from '../context'
+import { getInitialSections } from '../data/new-user'
 import { createNewItemFromSearch, inferNewItemFromUrl } from '../parsers'
 
 interface Positonnable {
@@ -38,6 +36,30 @@ export const Mutation = mutationType({
         t.crud.updateOneUser()
         t.crud.updateOneItem()
         t.crud.updateOneCollection()
+        t.field('createNewUser', {
+            type: 'User',
+            args: {
+                slug: stringArg({ required: true }),
+                authUserId: stringArg({ required: true }),
+                pictureUrl: stringArg({ required: true }),
+                firstname: stringArg({ required: true }),
+            },
+            async resolve(
+                _,
+                { slug, authUserId, pictureUrl, firstname },
+                ctx: Context
+            ) {
+                return ctx.photon.users.create({
+                    data: {
+                        firstname,
+                        pictureUrl,
+                        slug,
+                        authUserId,
+                        sections: getInitialSections(authUserId),
+                    },
+                })
+            },
+        })
         t.field('createEmptyCollection', {
             type: 'Collection',
             args: {

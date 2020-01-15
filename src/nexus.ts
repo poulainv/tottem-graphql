@@ -1021,6 +1021,7 @@ export interface NexusGenFieldTypes {
     createEmptySection: NexusGenRootTypes['Section']; // Section!
     createItemFromSearch: NexusGenRootTypes['Item']; // Item!
     createItemFromUrl: NexusGenRootTypes['Item']; // Item!
+    createNewUser: NexusGenRootTypes['User']; // User!
     createOneUser: NexusGenRootTypes['User']; // User!
     updateOneCollection: NexusGenRootTypes['Collection'] | null; // Collection
     updateOneItem: NexusGenRootTypes['Item'] | null; // Item
@@ -1100,6 +1101,12 @@ export interface NexusGenArgTypes {
       collectionId?: string | null; // String
       inbox?: boolean | null; // Boolean
       url: string; // String!
+    }
+    createNewUser: { // args
+      authUserId: string; // String!
+      firstname: string; // String!
+      pictureUrl: string; // String!
+      slug: string; // String!
     }
     createOneUser: { // args
       data: NexusGenInputs['UserCreateInput']; // UserCreateInput!

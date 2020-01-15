@@ -532,6 +532,7 @@ type Mutation {
   createEmptySection: Section!
   createItemFromSearch(collectionId: String, id: String!, inbox: Boolean, kind: String!): Item!
   createItemFromUrl(collectionId: String, inbox: Boolean, url: String!): Item!
+  createNewUser(authUserId: String!, firstname: String!, pictureUrl: String!, slug: String!): User!
   createOneUser(data: UserCreateInput!): User!
   updateOneCollection(data: CollectionUpdateInput!, where: CollectionWhereUniqueInput!): Collection
   updateOneItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
