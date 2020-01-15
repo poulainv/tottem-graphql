@@ -69,7 +69,6 @@ export async function MovieDBSearch(
             year !== undefined ? `&year=${year}` : ''
         }`
     )
-    logger.info(`Call done response!`)
     const response = JSON.parse(text)
     if (
         response === undefined ||

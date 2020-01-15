@@ -103,9 +103,15 @@ const getOwnerAuth0id: (
 const isUserOwner: (
     ctx: Context,
     type: Model,
-    id: string
+    id?: string
 ) => Promise<boolean> = async (ctx, type, id) => {
     const authUser = await ctx.user
+
+    // No id means that add item to inbox user
+    if (id === undefined) {
+        return Promise.resolve(true)
+    }
+
     const ownerAuth0id = await getOwnerAuth0id(ctx, type, id)
     if (ownerAuth0id !== authUser?.auth0Id) {
         logger.info(
