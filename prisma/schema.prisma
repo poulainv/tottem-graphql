@@ -12,9 +12,10 @@ model User {
   authUserId   String?      @unique
   slug         String       @unique
   createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
   firstname    String
   pictureUrl   String
-  biography    String
+  biography    String?
   linkedin     String?
   github       String?
   mail         String?
