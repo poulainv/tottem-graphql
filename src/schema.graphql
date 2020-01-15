@@ -805,7 +805,7 @@ input StringFilter {
 
 type User {
   authUserId: String
-  biography: String!
+  biography: String
   firstname: String!
   github: String
   id: ID!
@@ -821,7 +821,7 @@ type User {
 
 input UserCreateInput {
   authUserId: String
-  biography: String!
+  biography: String
   collections: CollectionCreateManyWithoutCollectionsInput
   createdAt: DateTime
   firstname: String!
@@ -834,6 +834,7 @@ input UserCreateInput {
   pictureUrl: String!
   sections: SectionCreateManyWithoutSectionsInput
   slug: String!
+  updatedAt: DateTime
   website: String
   youtube: String
 }
@@ -850,7 +851,7 @@ input UserCreateOneWithoutOwnerInput {
 
 input UserCreateWithoutCollectionsInput {
   authUserId: String
-  biography: String!
+  biography: String
   createdAt: DateTime
   firstname: String!
   github: String
@@ -862,13 +863,14 @@ input UserCreateWithoutCollectionsInput {
   pictureUrl: String!
   sections: SectionCreateManyWithoutSectionsInput
   slug: String!
+  updatedAt: DateTime
   website: String
   youtube: String
 }
 
 input UserCreateWithoutInboxedItemsInput {
   authUserId: String
-  biography: String!
+  biography: String
   collections: CollectionCreateManyWithoutCollectionsInput
   createdAt: DateTime
   firstname: String!
@@ -880,13 +882,14 @@ input UserCreateWithoutInboxedItemsInput {
   pictureUrl: String!
   sections: SectionCreateManyWithoutSectionsInput
   slug: String!
+  updatedAt: DateTime
   website: String
   youtube: String
 }
 
 input UserCreateWithoutSectionsInput {
   authUserId: String
-  biography: String!
+  biography: String
   collections: CollectionCreateManyWithoutCollectionsInput
   createdAt: DateTime
   firstname: String!
@@ -898,6 +901,7 @@ input UserCreateWithoutSectionsInput {
   mail: String
   pictureUrl: String!
   slug: String!
+  updatedAt: DateTime
   website: String
   youtube: String
 }
@@ -917,6 +921,7 @@ input UserUpdateInput {
   pictureUrl: String
   sections: SectionUpdateManyWithoutOwnerInput
   slug: String
+  updatedAt: DateTime
   website: String
   youtube: String
 }
@@ -958,6 +963,7 @@ input UserUpdateWithoutCollectionsDataInput {
   pictureUrl: String
   sections: SectionUpdateManyWithoutOwnerInput
   slug: String
+  updatedAt: DateTime
   website: String
   youtube: String
 }
@@ -976,6 +982,7 @@ input UserUpdateWithoutInboxedItemsDataInput {
   pictureUrl: String
   sections: SectionUpdateManyWithoutOwnerInput
   slug: String
+  updatedAt: DateTime
   website: String
   youtube: String
 }
@@ -994,6 +1001,7 @@ input UserUpdateWithoutSectionsDataInput {
   mail: String
   pictureUrl: String
   slug: String
+  updatedAt: DateTime
   website: String
   youtube: String
 }
@@ -1016,7 +1024,7 @@ input UserUpsertWithoutSectionsInput {
 input UserWhereInput {
   AND: [UserWhereInput!]
   authUserId: NullableStringFilter
-  biography: StringFilter
+  biography: NullableStringFilter
   collections: CollectionFilter
   createdAt: DateTimeFilter
   firstname: StringFilter
@@ -1031,6 +1039,7 @@ input UserWhereInput {
   pictureUrl: StringFilter
   sections: SectionFilter
   slug: StringFilter
+  updatedAt: DateTimeFilter
   website: NullableStringFilter
   youtube: NullableStringFilter
 }

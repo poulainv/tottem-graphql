@@ -644,7 +644,7 @@ export interface NexusGenInputs {
   }
   UserCreateInput: { // input type
     authUserId?: string | null; // String
-    biography: string; // String!
+    biography?: string | null; // String
     collections?: NexusGenInputs['CollectionCreateManyWithoutCollectionsInput'] | null; // CollectionCreateManyWithoutCollectionsInput
     createdAt?: any | null; // DateTime
     firstname: string; // String!
@@ -657,6 +657,7 @@ export interface NexusGenInputs {
     pictureUrl: string; // String!
     sections?: NexusGenInputs['SectionCreateManyWithoutSectionsInput'] | null; // SectionCreateManyWithoutSectionsInput
     slug: string; // String!
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
@@ -670,7 +671,7 @@ export interface NexusGenInputs {
   }
   UserCreateWithoutCollectionsInput: { // input type
     authUserId?: string | null; // String
-    biography: string; // String!
+    biography?: string | null; // String
     createdAt?: any | null; // DateTime
     firstname: string; // String!
     github?: string | null; // String
@@ -682,12 +683,13 @@ export interface NexusGenInputs {
     pictureUrl: string; // String!
     sections?: NexusGenInputs['SectionCreateManyWithoutSectionsInput'] | null; // SectionCreateManyWithoutSectionsInput
     slug: string; // String!
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
   UserCreateWithoutInboxedItemsInput: { // input type
     authUserId?: string | null; // String
-    biography: string; // String!
+    biography?: string | null; // String
     collections?: NexusGenInputs['CollectionCreateManyWithoutCollectionsInput'] | null; // CollectionCreateManyWithoutCollectionsInput
     createdAt?: any | null; // DateTime
     firstname: string; // String!
@@ -699,12 +701,13 @@ export interface NexusGenInputs {
     pictureUrl: string; // String!
     sections?: NexusGenInputs['SectionCreateManyWithoutSectionsInput'] | null; // SectionCreateManyWithoutSectionsInput
     slug: string; // String!
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
   UserCreateWithoutSectionsInput: { // input type
     authUserId?: string | null; // String
-    biography: string; // String!
+    biography?: string | null; // String
     collections?: NexusGenInputs['CollectionCreateManyWithoutCollectionsInput'] | null; // CollectionCreateManyWithoutCollectionsInput
     createdAt?: any | null; // DateTime
     firstname: string; // String!
@@ -716,6 +719,7 @@ export interface NexusGenInputs {
     mail?: string | null; // String
     pictureUrl: string; // String!
     slug: string; // String!
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
@@ -734,6 +738,7 @@ export interface NexusGenInputs {
     pictureUrl?: string | null; // String
     sections?: NexusGenInputs['SectionUpdateManyWithoutOwnerInput'] | null; // SectionUpdateManyWithoutOwnerInput
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
@@ -771,6 +776,7 @@ export interface NexusGenInputs {
     pictureUrl?: string | null; // String
     sections?: NexusGenInputs['SectionUpdateManyWithoutOwnerInput'] | null; // SectionUpdateManyWithoutOwnerInput
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
@@ -788,6 +794,7 @@ export interface NexusGenInputs {
     pictureUrl?: string | null; // String
     sections?: NexusGenInputs['SectionUpdateManyWithoutOwnerInput'] | null; // SectionUpdateManyWithoutOwnerInput
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
@@ -805,6 +812,7 @@ export interface NexusGenInputs {
     mail?: string | null; // String
     pictureUrl?: string | null; // String
     slug?: string | null; // String
+    updatedAt?: any | null; // DateTime
     website?: string | null; // String
     youtube?: string | null; // String
   }
@@ -823,7 +831,7 @@ export interface NexusGenInputs {
   UserWhereInput: { // input type
     AND?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     authUserId?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
-    biography?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    biography?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     collections?: NexusGenInputs['CollectionFilter'] | null; // CollectionFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     firstname?: NexusGenInputs['StringFilter'] | null; // StringFilter
@@ -838,6 +846,7 @@ export interface NexusGenInputs {
     pictureUrl?: NexusGenInputs['StringFilter'] | null; // StringFilter
     sections?: NexusGenInputs['SectionFilter'] | null; // SectionFilter
     slug?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
     website?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     youtube?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
   }
@@ -1045,7 +1054,7 @@ export interface NexusGenFieldTypes {
   }
   User: { // field return type
     authUserId: string | null; // String
-    biography: string; // String!
+    biography: string | null; // String
     firstname: string; // String!
     github: string | null; // String
     id: string; // ID!
