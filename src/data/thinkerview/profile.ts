@@ -4,8 +4,8 @@ import sections from './sections'
 const profile: UserProfile = {
     firstname: 'Thinkerview',
     pictureUrl: '/images/profiles/thinkerview.jpg',
-    biography: `ThinkerView est un laboratoire d'idées français indépendant. Il diffuse de longues entrevues sans montage, 
-    avec des personnalités d'horizons différents. 
+    biography: `Non officiel. ThinkerView est un laboratoire d'idées français indépendant. Il diffuse de longues entrevues sans montage, 
+    avec des personnalités d'horizons différents. https://thinkerview.com 
     Chaque invité est convié à recommander une série de livres, les voici.`,
     label: 'non officiel',
     social: {
