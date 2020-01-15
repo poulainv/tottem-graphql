@@ -5,6 +5,7 @@ import slugify from 'slugify'
 const initialSections = [
     {
         name: 'Reading',
+        index: 0,
         collections: [
             {
                 name: '😍 Must read content',
@@ -16,6 +17,7 @@ const initialSections = [
     },
     {
         name: 'Music',
+        index: 1,
         collections: [
             {
                 name: '🎷 Album on repeat',
