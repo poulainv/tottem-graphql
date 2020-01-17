@@ -73,6 +73,7 @@ async function main() {
                                     name: collection.name,
                                     detail: collection.detail,
                                     createdAt: collection.date, // FIXME override does work
+                                    updatedAt: collection.date, // FIXME override does work
                                     owner: {
                                         connect: {
                                             id: user.id,
