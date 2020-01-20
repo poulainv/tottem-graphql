@@ -46,7 +46,7 @@ export const Query = queryType({
                         return {
                             id: x.id,
                             title: x.title,
-                            author: '',
+                            author: x.release_date,
                             type: 'movie',
                         }
                     })
