@@ -86,6 +86,7 @@ export const getInitialSections: (
                 id: cuidSection,
                 slug: `${slugify(x.name)}-${cuidSection}`,
                 name: x.name,
+                index: x.index,
                 collections: {
                     create: x.collections.map(y => {
                         const cuidCollection = cuid()
